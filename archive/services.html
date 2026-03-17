@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Synq Automation</title>
+  <meta name="description" content="Cloud automation services: architecture, Terraform IaC, FinOps, security, managed retainers, and training." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁</text></svg>" />
+  <style>
+    .page-hero { padding: 10rem 0 5rem; position: relative; overflow: hidden; }
+    .page-hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px; opacity: 0.25;
+    }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-title { font-family: var(--font-head); font-size: clamp(2.5rem,5vw,4rem); font-weight: 800; color: var(--white); line-height: 1.1; margin-bottom: 1rem; }
+    .page-title span { color: var(--accent); }
+
+    /* Service category sections */
+    .svc-section { padding: 5rem 0; }
+    .svc-section:nth-child(even) { background: var(--bg2); }
+    .svc-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    .svc-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .svc-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .svc-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,212,255,0.07); }
+    .svc-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .svc-card-title { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .svc-card-desc { font-size: 0.85rem; color: var(--muted2); line-height: 1.85; margin-bottom: 1.5rem; flex: 1; }
+    .svc-card-list { margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .svc-card-list li { font-size: 0.8rem; color: var(--muted2); display: flex; align-items: flex-start; gap: 0.5rem; }
+    .svc-card-list li::before { content: '›'; color: var(--accent); flex-shrink: 0; }
+    .svc-card-price {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+    .svc-card-price strong { font-size: 1.1rem; }
+
+    /* Productized packages */
+    .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .pkg-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .pkg-card:hover { border-color: var(--accent); }
+    .pkg-card.highlight { border-color: var(--accent); background: linear-gradient(135deg, rgba(0,212,255,0.05), var(--bg3)); }
+    .pkg-badge {
+      position: absolute;
+      top: -1px; right: 1.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0 0 4px 4px;
+    }
+    .pkg-name { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+    .pkg-price { font-family: var(--font-mono); font-size: 1.5rem; color: var(--accent); font-weight: 700; margin-bottom: 0.25rem; }
+    .pkg-delivery { font-size: 0.75rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .pkg-desc { font-size: 0.82rem; color: var(--muted2); line-height: 1.8; margin-bottom: 1.25rem; }
+    .pkg-list { display: flex; flex-direction: column; gap: 0.4rem; }
+    .pkg-list li { font-size: 0.78rem; color: var(--muted2); display: flex; align-items: flex-start; gap: 0.5rem; }
+    .pkg-list li::before { content: '✓'; color: var(--green); flex-shrink: 0; font-size: 0.7rem; margin-top: 2px; }
+
+    /* Process */
+    .process-section { padding: 6rem 0; }
+    .process-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 3rem; position: relative; }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      z-index: 0;
+    }
+    .process-step { text-align: center; position: relative; z-index: 1; }
+    .step-num {
+      width: 4rem; height: 4rem;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 0 auto 1rem;
+    }
+    .step-title { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+    .step-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.6; }
+
+    /* FAQ */
+    .faq-section { padding: 6rem 0; background: var(--bg2); }
+    .faq-list { max-width: 720px; margin: 3rem auto 0; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-q {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .faq-q::after { content: '+'; color: var(--accent); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 1.5rem 1.25rem; font-size: 0.85rem; color: var(--muted2); line-height: 1.9; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .faq-item.open .faq-a { display: block; }
+
+    @media (max-width: 900px) {
+      .svc-grid-2, .svc-grid-3, .pkg-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+    }
+    @media (max-width: 640px) {
+      .process-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">Synq<span>Automation</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="index.html#contact" class="btn btn-outline nav-cta">Get in Touch</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="container page-hero-content">
+    <p class="section-label">Services</p>
+    <h1 class="page-title">Cloud automation<br><span>that actually ships.</span></h1>
+    <p style="color:var(--muted2); max-width:520px; line-height:1.8; font-size:0.95rem;">Four service models to suit where you are: one-off projects, productized packages, ongoing retainers, and training. All delivered IaC-first by senior engineers.</p>
+  </div>
+</section>
+
+<!-- Projects -->
+<section class="svc-section">
+  <div class="container">
+    <p class="section-label">Project Work</p>
+    <h2 class="section-title">One-off <span>engagements</span></h2>
+    <p class="section-desc">Fixed-scope, fixed-price projects with a defined brief, timeline, and acceptance criteria. 50% upfront, 50% on delivery.</p>
+    <div class="svc-grid-2">
+      <div class="svc-card">
+        <div class="svc-card-icon">🏗</div>
+        <div class="svc-card-title">Cloud Architecture & Network Design</div>
+        <div class="svc-card-desc">Full network stack design and Terraform deployment. Hub-spoke architectures, transit gateways, VPC peering, shared services — designed to your requirements and documented for your team.</div>
+        <ul class="svc-card-list">
+          <li>Architecture diagram + design document</li>
+          <li>Full Terraform codebase (modular, documented)</li>
+          <li>Security group and IAM baseline</li>
+          <li>Handover runbook and 30-day check-in</li>
+        </ul>
+        <div class="svc-card-price">From <strong>$8,000</strong> &mdash; typical engagement 4&ndash;8 weeks</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-icon">⚙️</div>
+        <div class="svc-card-title">Infrastructure Automation Build</div>
+        <div class="svc-card-desc">End-to-end Terraform module library and CI/CD pipeline for your team. GitHub Actions or Azure DevOps. Includes Python automation scripts for repetitive operational tasks.</div>
+        <ul class="svc-card-list">
+          <li>Terraform module library for your cloud platform</li>
+          <li>CI/CD pipeline with plan/apply workflow</li>
+          <li>Remote state backend configuration</li>
+          <li>Python scripts for operational automation</li>
+        </ul>
+        <div class="svc-card-price">From <strong>$5,000</strong> &mdash; typical engagement 2&ndash;6 weeks</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-icon">📊</div>
+        <div class="svc-card-title">FinOps & Cloud Cost Optimisation</div>
+        <div class="svc-card-desc">Deep dive into your cloud spend. Rightsizing analysis, reserved instance strategy, tagging framework, and budget alerts. We guarantee minimum 15% savings or we refund our fee.</div>
+        <ul class="svc-card-list">
+          <li>Full spend audit with savings opportunities ranked</li>
+          <li>Reserved instance / savings plan recommendations</li>
+          <li>Tagging strategy + enforcement policy</li>
+          <li>Budget alerts and anomaly detection setup</li>
+        </ul>
+        <div class="svc-card-price">From <strong>$3,000</strong> &mdash; typical engagement 1&ndash;3 weeks</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-icon">🛡</div>
+        <div class="svc-card-title">Cloud Security Baseline</div>
+        <div class="svc-card-desc">IAM hardening, security group review, CSPM integration, and compliance controls mapped to CIS Benchmarks or your regulatory framework (SOC 2, ISO 27001, HIPAA).</div>
+        <ul class="svc-card-list">
+          <li>IAM roles and permissions audit + remediation</li>
+          <li>Security group / firewall rule review</li>
+          <li>CSPM tool integration and policy configuration</li>
+          <li>CIS Benchmark remediation scripts</li>
+        </ul>
+        <div class="svc-card-price">From <strong>$6,000</strong> &mdash; typical engagement 2&ndash;4 weeks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Productized packages -->
+<section class="svc-section">
+  <div class="container">
+    <p class="section-label">Productized Packages</p>
+    <h2 class="section-title">Fixed scope.<br><span>Fixed price. Fast delivery.</span></h2>
+    <p class="section-desc">Pre-packaged deliverables with defined scope and 5&ndash;10 business day turnaround. No discovery call needed — just purchase and we start.</p>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <div class="pkg-name">CloudScan Report</div>
+        <div class="pkg-price">$1,500</div>
+        <div class="pkg-delivery">Delivered in 5 business days</div>
+        <div class="pkg-desc">Automated cloud health and security audit for one cloud account. Findings prioritised by severity with remediation steps.</div>
+        <ul class="pkg-list">
+          <li>Security posture scan (CIS Benchmark)</li>
+          <li>Cost waste identification</li>
+          <li>IAM over-permission analysis</li>
+          <li>PDF report with prioritised findings</li>
+        </ul>
+      </div>
+      <div class="pkg-card highlight">
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-name">TerraStarter Kit</div>
+        <div class="pkg-price">$2,500</div>
+        <div class="pkg-delivery">Delivered in 7 business days</div>
+        <div class="pkg-desc">Complete Terraform module library for one cloud platform (AWS, Azure, GCP, or OCI) — ready to use in your pipelines.</div>
+        <ul class="pkg-list">
+          <li>VPC/VNet, compute, IAM, and storage modules</li>
+          <li>Remote state backend configuration</li>
+          <li>CI/CD workflow templates (GitHub Actions)</li>
+          <li>Full documentation and usage examples</li>
+        </ul>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Network Blueprint</div>
+        <div class="pkg-price">$3,500</div>
+        <div class="pkg-delivery">Delivered in 10 business days</div>
+        <div class="pkg-desc">Cloud network architecture design document and Terraform code for a defined topology (hub-spoke or flat) on your chosen platform.</div>
+        <ul class="pkg-list">
+          <li>Architecture diagram (draw.io format)</li>
+          <li>Design document with decisions and rationale</li>
+          <li>Terraform code for the full network stack</li>
+          <li>Security baseline included</li>
+        </ul>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Cost Optimiser Sprint</div>
+        <div class="pkg-price">$4,000</div>
+        <div class="pkg-delivery">2-week engagement</div>
+        <div class="pkg-desc">Intensive 2-week cost reduction sprint. Rightsizing, reserved capacity strategy, and waste elimination. 15%+ savings guaranteed.</div>
+        <ul class="pkg-list">
+          <li>Full spend analysis and savings roadmap</li>
+          <li>Rightsizing recommendations + execution</li>
+          <li>Reserved instance purchase plan</li>
+          <li>15% minimum savings — or full refund</li>
+        </ul>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Compliance Quickstart</div>
+        <div class="pkg-price">$3,000</div>
+        <div class="pkg-delivery">Delivered in 7 business days</div>
+        <div class="pkg-desc">CIS Benchmark or Well-Architected review for one cloud account, including remediation scripts to close critical gaps.</div>
+        <ul class="pkg-list">
+          <li>CIS Benchmark or WAF assessment</li>
+          <li>Gap analysis report</li>
+          <li>Terraform/Python remediation scripts</li>
+          <li>Re-assessment after remediation</li>
+        </ul>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Landing Zone Setup</div>
+        <div class="pkg-price">$5,000</div>
+        <div class="pkg-delivery">Delivered in 10 business days</div>
+        <div class="pkg-desc">Secure, compliant baseline multi-account or subscription structure for AWS, Azure, GCP, or OCI — ready to deploy workloads into.</div>
+        <ul class="pkg-list">
+          <li>Account/subscription structure and hierarchy</li>
+          <li>IAM baseline and guardrails</li>
+          <li>Network foundation (transit, DNS, shared services)</li>
+          <li>Full Terraform codebase included</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Retainers -->
+<section class="svc-section">
+  <div class="container">
+    <p class="section-label">Managed Services</p>
+    <h2 class="section-title">Ongoing cloud<br><span>operations partnership</span></h2>
+    <p class="section-desc">Monthly retainers for teams that want a senior cloud partner on-call — without the overhead of a full-time hire.</p>
+    <div class="svc-grid-3">
+      <div class="svc-card">
+        <div class="svc-card-icon">📡</div>
+        <div class="svc-card-title">Cloud Watch</div>
+        <div class="svc-card-desc">Essential monthly health monitoring. Ideal for small teams with a stable cloud setup who need expert eyes on their environment.</div>
+        <ul class="svc-card-list">
+          <li>Monthly health check report</li>
+          <li>Cost review and alerts</li>
+          <li>Security scan summary</li>
+          <li>Email support (2-business-day response)</li>
+          <li>~4 hours/month included</li>
+        </ul>
+        <div class="svc-card-price"><strong>$1,000–$1,500</strong> / month &mdash; 30-day notice to cancel</div>
+      </div>
+      <div class="svc-card" style="border-color: var(--accent);">
+        <div class="svc-card-icon">🤝</div>
+        <div class="svc-card-title">Cloud Ops Partner</div>
+        <div class="svc-card-desc">Full managed cloud partnership. Ongoing IaC management, architecture reviews, and priority Slack support. The most popular choice for growing teams.</div>
+        <ul class="svc-card-list">
+          <li>Monthly architecture review call</li>
+          <li>IaC management and updates</li>
+          <li>Cost governance and optimisation</li>
+          <li>Priority Slack support (same-day response)</li>
+          <li>~8–10 hours/month included</li>
+        </ul>
+        <div class="svc-card-price"><strong>$2,500–$3,500</strong> / month &mdash; 30-day notice to cancel</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-icon">🚀</div>
+        <div class="svc-card-title">Cloud Automation Partner</div>
+        <div class="svc-card-desc">Full managed automation partner. Everything in Cloud Ops plus pipeline ownership, Terraform state management, and incident response.</div>
+        <ul class="svc-card-list">
+          <li>Everything in Cloud Ops Partner</li>
+          <li>CI/CD pipeline ownership</li>
+          <li>Terraform state management</li>
+          <li>Incident response (4-hour SLA)</li>
+          <li>~15–20 hours/month included</li>
+        </ul>
+        <div class="svc-card-price"><strong>$4,500–$6,000</strong> / month &mdash; 30-day notice to cancel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Training -->
+<section class="svc-section">
+  <div class="container">
+    <p class="section-label">Training</p>
+    <h2 class="section-title">Upskill your<br><span>engineering team</span></h2>
+    <p class="section-desc">Virtual workshops and advisory sessions. Clients who attend workshops convert to better, faster project clients — it's worth the investment.</p>
+    <div class="svc-grid-3">
+      <div class="svc-card">
+        <div class="svc-card-icon">🎓</div>
+        <div class="svc-card-title">Terraform Fundamentals Workshop</div>
+        <div class="svc-card-desc">Half-day virtual workshop for dev/ops teams. State management, modules, remote backends, CI/CD integration. Hands-on labs included.</div>
+        <div class="svc-card-price"><strong>$2,500</strong> per session (up to 12 people)</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-icon">🔭</div>
+        <div class="svc-card-title">Architecture Advisory Call</div>
+        <div class="svc-card-desc">2-hour deep dive on a specific architecture challenge. Bring your diagrams, your constraints, and your questions. Walk away with a clear direction.</div>
+        <div class="svc-card-price"><strong>$500</strong> per session</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-icon">📚</div>
+        <div class="svc-card-title">Custom Training Programme</div>
+        <div class="svc-card-desc">Multi-day bespoke curriculum designed around your team's skill gaps and your cloud stack. Includes exercises, labs, and reference materials.</div>
+        <div class="svc-card-price"><strong>$5,000–$15,000</strong> — scoped per engagement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="process-section">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:1rem;">
+      <p class="section-label" style="justify-content:center;">How It Works</p>
+      <h2 class="section-title">From first call to<br><span>final handover</span></h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">01</div><div class="step-title">Discovery</div><div class="step-desc">Free 30-min call. We listen, assess, and tell you honestly what we can help with.</div></div>
+      <div class="process-step"><div class="step-num">02</div><div class="step-title">Proposal</div><div class="step-desc">Scoped proposal within 48 hours with fixed price, timeline, and clear deliverables.</div></div>
+      <div class="process-step"><div class="step-num">03</div><div class="step-title">Design</div><div class="step-desc">Architecture diagram and design sign-off before any build begins. No surprises.</div></div>
+      <div class="process-step"><div class="step-num">04</div><div class="step-title">Build</div><div class="step-desc">IaC-first build with regular async updates via Loom. Test before deploying to prod.</div></div>
+      <div class="process-step"><div class="step-num">05</div><div class="step-title">Handover</div><div class="step-desc">Full documentation, walkthrough call, and 30-day check-in included in every project.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:1rem;">
+      <p class="section-label" style="justify-content:center;">FAQ</p>
+      <h2 class="section-title">Common <span>questions</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do you work with a single cloud or all four?</div>
+        <div class="faq-a">We work across all four: AWS, Azure, GCP, and OCI. Most of our clients are on AWS or Azure, but we have production experience on all platforms. If you're multi-cloud, we can span them — that's genuinely rare in the market.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How does the 50% upfront payment work?</div>
+        <div class="faq-a">For project work, we invoice 50% at contract signing and 50% upon delivery and acceptance. Retainers are invoiced monthly in advance. Productized packages are paid in full before we start — they're pre-scoped so there's no ambiguity.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What if the scope changes mid-project?</div>
+        <div class="faq-a">Any scope change requires a signed change request before we do any additional work. We define this clearly in our SOW upfront. It protects both sides — you get a clear price before we proceed, and we don't do unpaid work.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Who actually does the work — are there junior staff involved?</div>
+        <div class="faq-a">No. Every engagement is led and delivered by one of our senior engineers. We are a small, specialist team by design. You will never be handed off to someone more junior after signing — that's one of the reasons we exist.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do we need to give you access to our cloud accounts?</div>
+        <div class="faq-a">For most engagements, yes. We follow least-privilege access principles and only request the permissions needed for the specific task. We use role-based access (IAM roles, service principals) — never root/admin credentials. We sign an NDA before any access is granted.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-strip" id="contact">
+  <div class="container">
+    <h2>Not sure which service fits?</h2>
+    <p>Book a free 30-minute call and we'll tell you honestly what makes sense for your situation — even if that's not us.</p>
+    <div class="contact-links">
+      <a href="mailto:hello@synqautomation.io" class="btn btn-primary">Book a Discovery Call</a>
+      <a href="about.html" class="btn btn-outline">About the Team &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-left">© 2025 Synq Automation Ltd. All rights reserved.</div>
+    <div class="footer-right">
+      <a href="about.html">About</a><a href="services.html">Services</a><a href="blog.html">Blog</a><a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+</script>
+</body>
+</html>

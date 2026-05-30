@@ -142,8 +142,100 @@
     .nav-link.active {
       color: var(--accent);
     }
+    /* ── BURGER BUTTON ── */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      transition: border-color .2s, background .2s;
+    }
+    .nav-burger:hover {
+      border-color: var(--accent-bdr);
+      background: var(--accent-bg);
+    }
+    .burger-line {
+      display: block;
+      width: 16px; height: 1.5px;
+      background: var(--text-mid);
+      border-radius: 2px;
+      transition: transform .3s var(--ease), opacity .2s, background .2s;
+      transform-origin: center;
+    }
+    .nav-burger:hover .burger-line { background: var(--accent); }
+    nav.menu-open .burger-line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    nav.menu-open .burger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    nav.menu-open .burger-line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    nav.menu-open {
+      background: rgba(9,11,15,.96);
+      border-color: var(--border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    /* ── MOBILE MENU ── */
+    .nav-mobile {
+      display: none;
+      overflow: hidden;
+      max-height: 0;
+      background: rgba(9,11,15,.96);
+      border-top: 1px solid transparent;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: max-height .42s var(--ease), border-color .3s;
+    }
+    .nav-mobile.open {
+      max-height: 340px;
+      border-color: var(--border);
+    }
+    .nav-mobile-inner {
+      padding: 12px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .nav-mobile-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: .06em;
+      color: var(--text-mid);
+      padding: 14px 12px;
+      border-radius: var(--r);
+      display: block;
+      transition: color .2s, background .2s;
+    }
+    .nav-mobile-link:hover { color: var(--text); background: var(--surface2); }
+    .nav-mobile-link.active { color: var(--accent); }
+    .nav-mobile-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 12px;
+    }
+    .nav-mobile-email {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: var(--accent);
+      padding: 14px 12px;
+      display: block;
+      opacity: .85;
+      transition: opacity .2s;
+    }
+    .nav-mobile-email:hover { opacity: 1; }
+
     @media (max-width: 680px) {
-      .nav-links { display: none; }
+      .nav-links  { display: none; }
+      .nav-contact { display: none; }
+      .nav-burger  { display: flex; }
+      .nav-mobile  { display: block; }
     }
 
     /* ── HERO ── */
@@ -237,32 +329,6 @@
       font-size: 12px;
       color: var(--text-dim);
       letter-spacing: .04em;
-    }
-    .scroll-hint {
-      position: absolute;
-      bottom: 44px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      animation: bob 2.2s ease-in-out infinite;
-    }
-    .scroll-shaft {
-      width: 1px; height: 44px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-    }
-    .scroll-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-    @keyframes bob {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(7px); }
     }
 
     /* ── TICKER ── */
@@ -453,6 +519,123 @@
       .svc-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── AUDIT CARDS ── */
+    #services {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .audit-intro {
+      font-size: 17px;
+      color: var(--text-mid);
+      max-width: 600px;
+      margin-top: 16px;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 56px;
+    }
+    .audit-card {
+      background: var(--bg);
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background .3s;
+    }
+    .audit-card:hover { background: var(--surface2); }
+    .audit-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-bdr);
+      padding: 7px 14px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+    .audit-tag-dot {
+      width: 5px; height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .audit-card h3 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 23px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    .cloud-em {
+      color: var(--accent);
+    }
+    .audit-card p { font-size: 15px; color: var(--text-mid); line-height: 1.8; }
+    .audit-n {
+      position: absolute;
+      bottom: -10px; right: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 80px;
+      font-weight: 500;
+      color: var(--surface);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+      transition: color .3s;
+    }
+    .audit-card:hover .audit-n { color: var(--border); }
+    @media (max-width: 900px) {
+      .audit-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CTA STEPS ── */
+    .cta-steps {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto 52px;
+    }
+    .cta-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+      text-align: left;
+    }
+    .cta-step:last-child { border-bottom: none; }
+    .cta-step-n {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      color: var(--accent);
+      min-width: 24px;
+      padding-top: 4px;
+    }
+    .cta-step-text {
+      font-size: 15px;
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
     /* ── WHY ── */
     #why {
       background: var(--surface);
@@ -611,7 +794,21 @@
         <a href="#what-we-do" class="nav-link" data-section="what-we-do">What we do</a>
         <a href="#services" class="nav-link" data-section="services">Services</a>
       </div>
-      <a href="mailto:hello@synqmatic.com" class="nav-contact">hello@synqmatic.com</a>
+      <a href="#cta" class="nav-contact">hello@synqmatic.com</a>
+      <button class="nav-burger" id="nav-burger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-mobile">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+      <div class="nav-mobile-inner">
+        <a href="#hero" class="nav-mobile-link" data-section="hero">Home</a>
+        <a href="#what-we-do" class="nav-mobile-link" data-section="what-we-do">What we do</a>
+        <a href="#services" class="nav-mobile-link" data-section="services">Services</a>
+        <div class="nav-mobile-divider" aria-hidden="true"></div>
+        <a href="#cta" class="nav-mobile-email">hello@synqmatic.com</a>
+      </div>
     </div>
   </nav>
 
@@ -633,16 +830,12 @@
           Multi-cloud architecture expertise — the kind usually reserved for enterprise — built for mid-market companies that need it now.
         </p>
         <div class="hero-ctas">
-          <a href="mailto:hello@synqmatic.com" class="btn btn-teal">
+          <a href="#cta" class="btn btn-teal">
             Get in touch <span class="arr" aria-hidden="true">→</span>
           </a>
           <span class="hero-note">hello@synqmatic.com</span>
         </div>
       </div>
-    </div>
-    <div class="scroll-hint" aria-hidden="true">
-      <span class="scroll-shaft"></span>
-      <span class="scroll-label">scroll</span>
     </div>
   </section>
 
@@ -768,8 +961,28 @@
       <div class="sec-head fi">
         <div class="sec-rule" aria-hidden="true"></div>
         <span class="label">Services</span>
-        <h2 id="svcs-heading">One domain. One cloud. Done exceptionally well.</h2>
-        <p>Synqmatic launches with the <strong style="color:var(--text);font-weight:500;">AWS Networking Audit</strong> — a structured assessment of networking architecture, security posture, and cost waste within your AWS environment. The output is a detailed findings report your team can act on directly, with every finding mapped to a severity level, a clear recommendation, and a natural next step. This is the starting point — every subsequent service and cloud platform expands from here.</p>
+        <h2 id="svcs-heading">Cloud networking audits built for how you're deployed.</h2>
+        <p class="audit-intro">Structured assessments of your networking architecture, security posture, and cost waste — across the cloud platforms you run. Every audit delivers a detailed findings report your team can act on directly, with each finding mapped to a severity level, a clear recommendation, and a concrete next step.</p>
+      </div>
+      <div class="audit-grid">
+        <div class="audit-card fi">
+          <div class="audit-tag"><span class="audit-tag-dot" aria-hidden="true"></span>AWS</div>
+          <h3><span class="cloud-em">AWS</span> Networking Audit</h3>
+          <p>A deep assessment of your AWS network topology, VPC design, transit architecture, DNS, ingress and egress paths, traffic flow, and cost-driving architectural patterns across all accounts and regions in scope.</p>
+          <div class="audit-n" aria-hidden="true">01</div>
+        </div>
+        <div class="audit-card fi d1">
+          <div class="audit-tag"><span class="audit-tag-dot" aria-hidden="true"></span>Azure</div>
+          <h3><span class="cloud-em">Azure</span> Networking Audit</h3>
+          <p>A structured review of your Azure network architecture — VNets, Virtual WAN, ExpressRoute, private endpoints, DNS, and cross-account connectivity — surfacing topology-driven risk, segmentation gaps, and cost inefficiencies.</p>
+          <div class="audit-n" aria-hidden="true">02</div>
+        </div>
+        <div class="audit-card fi d2">
+          <div class="audit-tag"><span class="audit-tag-dot" aria-hidden="true"></span>GCP</div>
+          <h3><span class="cloud-em">GCP</span> Networking Audit</h3>
+          <p>A comprehensive assessment of your GCP network design — VPC architecture, Cloud Interconnect, Network Connectivity Center, Private Service Connect, Cloud DNS, and traffic path analysis across your projects and regions.</p>
+          <div class="audit-n" aria-hidden="true">03</div>
+        </div>
       </div>
     </div>
   </section>
@@ -808,11 +1021,20 @@
     <div class="wrap fi">
       <span class="label" style="display:block;margin-bottom:14px;">Let's talk</span>
       <h2 id="cta-heading">Ready to <em>take back control</em>?</h2>
-      <p>Tell us what you're dealing with. A 30-minute call is enough to know whether Synqmatic is the right fit.</p>
+      <p style="font-size:17px;color:var(--text-mid);max-width:430px;margin:0 auto 40px;font-weight:300;line-height:1.7;">Here's how it works.</p>
+      <div class="cta-steps">
+        <div class="cta-step">
+          <span class="cta-step-n">01 /</span>
+          <span class="cta-step-text">Send us an email describing your challenge.</span>
+        </div>
+        <div class="cta-step">
+          <span class="cta-step-n">02 /</span>
+          <span class="cta-step-text">We'll schedule a free, no-obligations 30-minute call to review how we can help.</span>
+        </div>
+      </div>
       <a href="mailto:hello@synqmatic.com" class="btn btn-teal" style="font-size:16px;padding:17px 38px;">
         hello@synqmatic.com <span class="arr" aria-hidden="true">→</span>
       </a>
-      <p class="cta-meta">hello@synqmatic.com</p>
     </div>
   </section>
 
@@ -832,6 +1054,7 @@
       /* NAV scroll state + active link tracking */
       const nav = document.getElementById('nav');
       const navLinks = document.querySelectorAll('.nav-link[data-section]');
+      const mobileLinks = document.querySelectorAll('.nav-mobile-link[data-section]');
       const sections = ['hero', 'what-we-do', 'services'];
 
       function updateNav() {
@@ -842,9 +1065,43 @@
           if (el && window.scrollY >= el.offsetTop - 120) current = id;
         }
         navLinks.forEach(l => l.classList.toggle('active', l.dataset.section === current));
+        mobileLinks.forEach(l => l.classList.toggle('active', l.dataset.section === current));
       }
       window.addEventListener('scroll', updateNav, { passive: true });
       updateNav();
+
+      /* Burger menu toggle */
+      const burger   = document.getElementById('nav-burger');
+      const mobileMenu = document.getElementById('nav-mobile');
+
+      function openMenu() {
+        nav.classList.add('menu-open');
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        burger.setAttribute('aria-expanded', 'true');
+        burger.setAttribute('aria-label', 'Close navigation menu');
+      }
+      function closeMenu() {
+        nav.classList.remove('menu-open');
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Open navigation menu');
+      }
+      function toggleMenu() {
+        mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+      }
+
+      burger.addEventListener('click', toggleMenu);
+
+      /* Close menu when a mobile link is tapped */
+      mobileLinks.forEach(l => l.addEventListener('click', closeMenu));
+      document.querySelector('.nav-mobile-email').addEventListener('click', closeMenu);
+
+      /* Close menu on scroll */
+      window.addEventListener('scroll', () => {
+        if (mobileMenu.classList.contains('open')) closeMenu();
+      }, { passive: true });
 
       /* Scroll-triggered fade-ins */
       const io = new IntersectionObserver(entries => {

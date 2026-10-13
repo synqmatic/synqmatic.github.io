@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
 <title>Post template | Judgment Points</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
 <link rel="stylesheet" href="styles.css">
 <script src="site.js"></script>
 </head>
@@ -16,7 +18,7 @@
     <a href="index.html">Home</a>
     <a href="blog.html" aria-current="page">Notes</a>
     <a href="index.html#work">Work with me</a>
-    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark mode</button>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
   </nav>
 </header>
 </div>
@@ -31,7 +33,7 @@
     <div><dt>Status</dt><dd><span class="ph">[Prototype / Shadow / Deployed]</span></dd></div>
     <div><dt>Reading time</dt><dd><span class="ph">[8 min]</span></dd></div>
   </dl>
-  <details class="author" open>
+  <details class="author" data-collapse-mobile open>
     <summary>How to use this template</summary>
     <p>Orange brackets are placeholders. Dashed boxes are prompts for you and come out before publishing. Copy the page, fill each section, and delete any section the post does not need. A post about only the audit can skip evidence and numbers. Dated baselines and predictions are what make the later posts credible, so write them early.</p>
   </details>
@@ -54,13 +56,13 @@
     <p><span class="ph">[One paragraph written as the workflow owner would say it.]</span></p>
     <h3>Every way the work starts</h3>
     <p class="prompt"><b>Prompt</b>An email arrives is never the whole story. List each channel. A workflow with seven live channels is usually two workflows.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Channel</th><th>Format variants</th><th>Share of arrivals</th><th>Detectable without a person?</th></tr></thead>
-      <tbody>
-        <tr><td>Email</td><td><span class="ph">[PDF, screenshot, forwarded thread]</span></td><td><span class="ph">[%]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
-        <tr><td>Chat message</td><td><span class="ph">[variants]</span></td><td><span class="ph">[%]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
-        <tr><td>Support ticket</td><td><span class="ph">[variants]</span></td><td><span class="ph">[%]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
-        <tr><td>Live call</td><td><span class="ph">[variants]</span></td><td><span class="ph">[%]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Channel</th><th role="columnheader">Format variants</th><th role="columnheader">Share of arrivals</th><th role="columnheader">Detectable without a person?</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Channel">Email</td><td role="cell" data-label="Format variants"><span class="ph">[PDF, screenshot, forwarded thread]</span></td><td role="cell" data-label="Share of arrivals"><span class="ph">[%]</span></td><td role="cell" data-label="Detectable without a person?"><span class="ph">[Yes / No]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Channel">Chat message</td><td role="cell" data-label="Format variants"><span class="ph">[variants]</span></td><td role="cell" data-label="Share of arrivals"><span class="ph">[%]</span></td><td role="cell" data-label="Detectable without a person?"><span class="ph">[Yes / No]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Channel">Support ticket</td><td role="cell" data-label="Format variants"><span class="ph">[variants]</span></td><td role="cell" data-label="Share of arrivals"><span class="ph">[%]</span></td><td role="cell" data-label="Detectable without a person?"><span class="ph">[Yes / No]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Channel">Live call</td><td role="cell" data-label="Format variants"><span class="ph">[variants]</span></td><td role="cell" data-label="Share of arrivals"><span class="ph">[%]</span></td><td role="cell" data-label="Detectable without a person?"><span class="ph">[Yes / No]</span></td></tr>
       </tbody>
     </table></div>
   </section>
@@ -71,12 +73,12 @@
     <p><span class="ph">[Sources used, and the single most surprising finding.]</span></p>
     <h3>Exception table</h3>
     <p class="prompt"><b>Prompt</b>Every failure mode, how it is handled today, and where it routes. Mark the rows where people disagree. Those are policy questions to settle, not rules to encode.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>What goes wrong</th><th>Handled today by</th><th>Routes to</th><th>Everyone does it the same way?</th></tr></thead>
-      <tbody>
-        <tr><td><span class="ph">[Source missing]</span></td><td><span class="ph">[The undocumented judgment call]</span></td><td><span class="ph">[Retry / escalate / refuse and flag]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
-        <tr><td><span class="ph">[Ambiguous customer match]</span></td><td><span class="ph">[how it is handled]</span></td><td><span class="ph">[route]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
-        <tr><td><span class="ph">[Write fails or record exists]</span></td><td><span class="ph">[how it is handled]</span></td><td><span class="ph">[route]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">What goes wrong</th><th role="columnheader">Handled today by</th><th role="columnheader">Routes to</th><th role="columnheader">Everyone does it the same way?</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="What goes wrong"><span class="ph">[Source missing]</span></td><td role="cell" data-label="Handled today by"><span class="ph">[The undocumented judgment call]</span></td><td role="cell" data-label="Routes to"><span class="ph">[Retry / escalate / refuse and flag]</span></td><td role="cell" data-label="Everyone does it the same way?"><span class="ph">[Yes / No]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="What goes wrong"><span class="ph">[Ambiguous customer match]</span></td><td role="cell" data-label="Handled today by"><span class="ph">[how it is handled]</span></td><td role="cell" data-label="Routes to"><span class="ph">[route]</span></td><td role="cell" data-label="Everyone does it the same way?"><span class="ph">[Yes / No]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="What goes wrong"><span class="ph">[Write fails or record exists]</span></td><td role="cell" data-label="Handled today by"><span class="ph">[how it is handled]</span></td><td role="cell" data-label="Routes to"><span class="ph">[route]</span></td><td role="cell" data-label="Everyone does it the same way?"><span class="ph">[Yes / No]</span></td></tr>
       </tbody>
     </table></div>
   </section>
@@ -84,13 +86,13 @@
   <section id="judgment">
     <h2>The judgment map</h2>
     <p class="prompt"><b>Prompt</b>One row per step as it really happens. Four categories: code, model, a person does it, a person approves it. A ten-step workflow usually ends with one or two model calls. If a model shows up at every step, redo the table.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>#</th><th>Step as it really happens</th><th>Category</th><th>Reason</th><th>Exception route</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td><span class="ph">[step]</span></td><td><span class="tag">Code</span></td><td><span class="ph">[one-line reason]</span></td><td><span class="ph">[route]</span></td></tr>
-        <tr><td>2</td><td><span class="ph">[step]</span></td><td><span class="tag agent">Model</span></td><td><span class="ph">[one-line reason]</span></td><td><span class="ph">[route]</span></td></tr>
-        <tr><td>3</td><td><span class="ph">[step]</span></td><td><span class="tag perform">Person does it</span></td><td><span class="ph">[one-line reason]</span></td><td><span class="ph">[route]</span></td></tr>
-        <tr><td>4</td><td><span class="ph">[step]</span></td><td><span class="tag approve">Person approves</span></td><td><span class="ph">[one-line reason]</span></td><td><span class="ph">[route]</span></td></tr>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">#</th><th role="columnheader">Step as it really happens</th><th role="columnheader">Category</th><th role="columnheader">Reason</th><th role="columnheader">Exception route</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="#">1</td><td role="cell" data-label="Step as it really happens"><span class="ph">[step]</span></td><td role="cell" data-label="Category"><span class="tag">Code</span></td><td role="cell" data-label="Reason"><span class="ph">[one-line reason]</span></td><td role="cell" data-label="Exception route"><span class="ph">[route]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="#">2</td><td role="cell" data-label="Step as it really happens"><span class="ph">[step]</span></td><td role="cell" data-label="Category"><span class="tag agent">Model</span></td><td role="cell" data-label="Reason"><span class="ph">[one-line reason]</span></td><td role="cell" data-label="Exception route"><span class="ph">[route]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="#">3</td><td role="cell" data-label="Step as it really happens"><span class="ph">[step]</span></td><td role="cell" data-label="Category"><span class="tag perform">Person does it</span></td><td role="cell" data-label="Reason"><span class="ph">[one-line reason]</span></td><td role="cell" data-label="Exception route"><span class="ph">[route]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="#">4</td><td role="cell" data-label="Step as it really happens"><span class="ph">[step]</span></td><td role="cell" data-label="Category"><span class="tag approve">Person approves</span></td><td role="cell" data-label="Reason"><span class="ph">[one-line reason]</span></td><td role="cell" data-label="Exception route"><span class="ph">[route]</span></td></tr>
       </tbody>
     </table></div>
     <p><span class="ph">[What you left as plain code on purpose, and why.]</span></p>
@@ -100,12 +102,12 @@
     <h2>The evidence</h2>
     <p class="prompt"><b>Prompt</b>Give a count with reasons, not a percentage. Use 30 to 50 real past cases with known-correct outcomes, including edge cases, incomplete inputs, ambiguous requests and high-risk actions. Escalating to a person on incomplete information is a pass.</p>
     <p class="passrate"><span class="ph">[41]</span> of <span class="ph">[50]</span> graded runs passed</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Failure category</th><th>Count</th><th>Evidence kept</th></tr></thead>
-      <tbody>
-        <tr><td><span class="ph">[Missing data]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[short quote or case ID]</span></td></tr>
-        <tr><td><span class="ph">[Wrong record pulled]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[short quote or case ID]</span></td></tr>
-        <tr><td><span class="ph">[Correctly escalated]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[counted as a pass]</span></td></tr>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Failure category</th><th role="columnheader">Count</th><th role="columnheader">Evidence kept</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Failure category"><span class="ph">[Missing data]</span></td><td role="cell" data-label="Count"><span class="ph">[n]</span></td><td role="cell" data-label="Evidence kept"><span class="ph">[short quote or case ID]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Failure category"><span class="ph">[Wrong record pulled]</span></td><td role="cell" data-label="Count"><span class="ph">[n]</span></td><td role="cell" data-label="Evidence kept"><span class="ph">[short quote or case ID]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Failure category"><span class="ph">[Correctly escalated]</span></td><td role="cell" data-label="Count"><span class="ph">[n]</span></td><td role="cell" data-label="Evidence kept"><span class="ph">[counted as a pass]</span></td></tr>
       </tbody>
     </table></div>
     <p><span class="ph">[How accuracy moved: where it started, what changed it, where it is now.]</span></p>
@@ -114,12 +116,12 @@
   <section id="numbers">
     <h2>The numbers</h2>
     <p class="prompt"><b>Prompt</b>Write the prediction before building, and the date you captured the baseline. Include model cost. Count all five cost layers where they apply: labor, error correction, speed penalty, opportunity cost and scaling ceiling. Claim revenue effects softly.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Measure</th><th>Baseline (captured <span class="ph">[date]</span>)</th><th>Predicted</th><th>Actual</th></tr></thead>
-      <tbody>
-        <tr><td>Hours per account per month</td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td></tr>
-        <tr><td>Misses caught or avoided</td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td></tr>
-        <tr><td>Accounts per person</td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td></tr>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Measure</th><th role="columnheader">Baseline (captured <span class="ph">[date]</span>)</th><th role="columnheader">Predicted</th><th role="columnheader">Actual</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Measure">Hours per account per month</td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Measure">Misses caught or avoided</td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Measure">Accounts per person</td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
       </tbody>
     </table></div>
     <p><span class="ph">[Where did the freed time go? And which step downstream did the queue move to?]</span></p>

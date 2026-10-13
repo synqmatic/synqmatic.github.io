@@ -5,7 +5,7 @@
   function cur(){var t=root.getAttribute('data-theme');if(t)return t;return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
   function init(){
     var b=document.getElementById('themebtn');if(!b)return;
-    function label(){b.textContent=cur()==='dark'?'Light mode':'Dark mode';}
+    function label(){b.textContent=cur()==='dark'?'Light':'Dark';}
     label();
     b.addEventListener('click',function(){
       var n=cur()==='dark'?'light':'dark';
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded',function(){
       tag.className='tag '+(b.dataset.cat==='det'?'':b.dataset.cat);
       tag.textContent=b.dataset.kind;
       nm.textContent=b.dataset.name;why.textContent=b.dataset.why;fail.textContent=b.dataset.fail;
+      try{b.scrollIntoView({block:'nearest',inline:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}catch(e){}
     });
   });
 })();
@@ -44,5 +45,10 @@ document.addEventListener('DOMContentLoaded',function(){
       empty.hidden=shown>0;
     });
   });
+})();
+
+(function(){
+  var d=document.querySelector('details[data-collapse-mobile]');
+  if(d&&matchMedia('(max-width:640px)').matches)d.removeAttribute('open');
 })();
 });

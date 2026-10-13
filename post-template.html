@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post template | Judgment Points</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="index.html">Judgment Points<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="blog.html" aria-current="page">Notes</a>
+    <a href="index.html#work">Work with me</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark mode</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="blog.html">Notes</a> / <span class="ph">[Post title]</span></p>
+  <h1><span class="ph">[A plain statement of what I learned, in one sentence]</span></h1>
+  <dl class="meta">
+    <div><dt>Published</dt><dd><span class="ph">[YYYY-MM-DD]</span></dd></div>
+    <div><dt>Loop stage</dt><dd><span class="ph">[Audit]</span></dd></div>
+    <div><dt>Workflow area</dt><dd><span class="ph">[One workflow]</span></dd></div>
+    <div><dt>Status</dt><dd><span class="ph">[Prototype / Shadow / Deployed]</span></dd></div>
+    <div><dt>Reading time</dt><dd><span class="ph">[8 min]</span></dd></div>
+  </dl>
+  <details class="author" open>
+    <summary>How to use this template</summary>
+    <p>Orange brackets are placeholders. Dashed boxes are prompts for you and come out before publishing. Copy the page, fill each section, and delete any section the post does not need. A post about only the audit can skip evidence and numbers. Dated baselines and predictions are what make the later posts credible, so write them early.</p>
+  </details>
+</div>
+
+<article class="article">
+  <section id="short">
+    <h2>The short version</h2>
+    <p class="prompt"><b>Prompt</b>Three lines. What the workflow was, what you built or learned, and which number moved or did not.</p>
+    <ul>
+      <li>What I tried: <span class="ph">[one sentence]</span></li>
+      <li>What happened: <span class="ph">[one sentence with a number]</span></li>
+      <li>What I would do next: <span class="ph">[one sentence]</span></li>
+    </ul>
+  </section>
+
+  <section id="workflow">
+    <h2>The workflow, in the owner's terms</h2>
+    <p class="prompt"><b>Prompt</b>Describe the pain the way the person doing the work would say it. Who does it, how often it runs, and what goes wrong when it is late. Leave AI terms out. If the owner would not recognise the sentence, rewrite it.</p>
+    <p><span class="ph">[One paragraph written as the workflow owner would say it.]</span></p>
+    <h3>Every way the work starts</h3>
+    <p class="prompt"><b>Prompt</b>An email arrives is never the whole story. List each channel. A workflow with seven live channels is usually two workflows.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Channel</th><th>Format variants</th><th>Share of arrivals</th><th>Detectable without a person?</th></tr></thead>
+      <tbody>
+        <tr><td>Email</td><td><span class="ph">[PDF, screenshot, forwarded thread]</span></td><td><span class="ph">[%]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+        <tr><td>Chat message</td><td><span class="ph">[variants]</span></td><td><span class="ph">[%]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+        <tr><td>Support ticket</td><td><span class="ph">[variants]</span></td><td><span class="ph">[%]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+        <tr><td>Live call</td><td><span class="ph">[variants]</span></td><td><span class="ph">[%]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="audit">
+    <h2>What the audit found</h2>
+    <p class="prompt"><b>Prompt</b>Say which sources you used and what surprised you. Where the written process and the exception paths disagree, the exception paths are the truth. Mention anywhere people were already using AI on their own.</p>
+    <p><span class="ph">[Sources used, and the single most surprising finding.]</span></p>
+    <h3>Exception table</h3>
+    <p class="prompt"><b>Prompt</b>Every failure mode, how it is handled today, and where it routes. Mark the rows where people disagree. Those are policy questions to settle, not rules to encode.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>What goes wrong</th><th>Handled today by</th><th>Routes to</th><th>Everyone does it the same way?</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ph">[Source missing]</span></td><td><span class="ph">[The undocumented judgment call]</span></td><td><span class="ph">[Retry / escalate / refuse and flag]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+        <tr><td><span class="ph">[Ambiguous customer match]</span></td><td><span class="ph">[how it is handled]</span></td><td><span class="ph">[route]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+        <tr><td><span class="ph">[Write fails or record exists]</span></td><td><span class="ph">[how it is handled]</span></td><td><span class="ph">[route]</span></td><td><span class="ph">[Yes / No]</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="judgment">
+    <h2>The judgment map</h2>
+    <p class="prompt"><b>Prompt</b>One row per step as it really happens. Four categories: code, model, a person does it, a person approves it. A ten-step workflow usually ends with one or two model calls. If a model shows up at every step, redo the table.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Step as it really happens</th><th>Category</th><th>Reason</th><th>Exception route</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><span class="ph">[step]</span></td><td><span class="tag">Code</span></td><td><span class="ph">[one-line reason]</span></td><td><span class="ph">[route]</span></td></tr>
+        <tr><td>2</td><td><span class="ph">[step]</span></td><td><span class="tag agent">Model</span></td><td><span class="ph">[one-line reason]</span></td><td><span class="ph">[route]</span></td></tr>
+        <tr><td>3</td><td><span class="ph">[step]</span></td><td><span class="tag perform">Person does it</span></td><td><span class="ph">[one-line reason]</span></td><td><span class="ph">[route]</span></td></tr>
+        <tr><td>4</td><td><span class="ph">[step]</span></td><td><span class="tag approve">Person approves</span></td><td><span class="ph">[one-line reason]</span></td><td><span class="ph">[route]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p><span class="ph">[What you left as plain code on purpose, and why.]</span></p>
+  </section>
+
+  <section id="evidence">
+    <h2>The evidence</h2>
+    <p class="prompt"><b>Prompt</b>Give a count with reasons, not a percentage. Use 30 to 50 real past cases with known-correct outcomes, including edge cases, incomplete inputs, ambiguous requests and high-risk actions. Escalating to a person on incomplete information is a pass.</p>
+    <p class="passrate"><span class="ph">[41]</span> of <span class="ph">[50]</span> graded runs passed</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Failure category</th><th>Count</th><th>Evidence kept</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ph">[Missing data]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[short quote or case ID]</span></td></tr>
+        <tr><td><span class="ph">[Wrong record pulled]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[short quote or case ID]</span></td></tr>
+        <tr><td><span class="ph">[Correctly escalated]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[counted as a pass]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p><span class="ph">[How accuracy moved: where it started, what changed it, where it is now.]</span></p>
+  </section>
+
+  <section id="numbers">
+    <h2>The numbers</h2>
+    <p class="prompt"><b>Prompt</b>Write the prediction before building, and the date you captured the baseline. Include model cost. Count all five cost layers where they apply: labor, error correction, speed penalty, opportunity cost and scaling ceiling. Claim revenue effects softly.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Measure</th><th>Baseline (captured <span class="ph">[date]</span>)</th><th>Predicted</th><th>Actual</th></tr></thead>
+      <tbody>
+        <tr><td>Hours per account per month</td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td></tr>
+        <tr><td>Misses caught or avoided</td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td></tr>
+        <tr><td>Accounts per person</td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td><td><span class="ph">[n]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p><span class="ph">[Where did the freed time go? And which step downstream did the queue move to?]</span></p>
+  </section>
+
+  <section id="wrong">
+    <h2>What it still gets wrong</h2>
+    <p class="prompt"><b>Prompt</b>A plain list. Stating the failures buys credibility.</p>
+    <ul><li><span class="ph">[known failure mode]</span></li><li><span class="ph">[known failure mode]</span></li></ul>
+  </section>
+
+  <section id="change">
+    <h2>What I would change</h2>
+    <p class="prompt"><b>Prompt</b>What changed because of what you found. Include any objection from a reviewer that you did not act on, and why.</p>
+    <p><span class="ph">[Two or three sentences.]</span></p>
+  </section>
+
+  <section id="open">
+    <h2>Open questions</h2>
+    <ul><li><span class="ph">[a question you are still holding]</span></li><li><span class="ph">[a question you are still holding]</span></li></ul>
+  </section>
+
+  <section id="sources">
+    <h2>Sources and further reading</h2>
+    <ul><li><span class="ph">[Title and link]</span></li><li><span class="ph">[Title and link]</span></li></ul>
+  </section>
+
+  <details class="author" open>
+    <summary>Before you publish (delete this box)</summary>
+    <ul class="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">Customer names, account details, ticket numbers and internal system names are removed or generalised.</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Numbers are relative or rounded where exact figures would identify a customer or a company.</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">I have checked that I am allowed to publish about this work.</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">The workflow owner and design partner have seen the post, and their objections are noted.</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">Every baseline and prediction carries the date it was captured.</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">Someone who was not in the room could say what was built, what it will not do, and which number shows it worked.</label></li>
+    </ul>
+  </details>
+  <a class="back" href="blog.html">Back to all notes</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Judgment Points. Notes on applied AI.</span>
+  <span>Examples are generalised and contain no customer data.</span>
+</footer>
+</div>
+</body>
+</html>

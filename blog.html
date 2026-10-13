@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes | Judgment Points</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="index.html">Judgment Points<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="blog.html" aria-current="page">Notes</a>
+    <a href="index.html#work">Work with me</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark mode</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="page-head">
+  <p class="eyebrow">Notes</p>
+  <h1>Field notes from learning the method.</h1>
+  <p>Every post follows the same shape: the workflow in the owner's words, what the audit found, how the work was split between code, model and person, the evidence, and what is still wrong. The filters match the six stages of the loop.</p>
+</div>
+<!-- <div class="starter">
+  <div><h2>Writing the next post?</h2><p>The template has a prompt for every section, the tables already set up, and a checklist for what to remove before anything goes public.</p></div>
+  <a class="btn primary" href="post-template.html">Open the post template</a>
+</div> -->
+<div class="filters" role="group" aria-label="Filter by stage"><button class="chip" type="button" data-filter="All" aria-pressed="true">All</button><button class="chip" type="button" data-filter="Audit" aria-pressed="false">Audit</button><button class="chip" type="button" data-filter="Judgment" aria-pressed="false">Judgment</button><button class="chip" type="button" data-filter="Build" aria-pressed="false">Build</button><button class="chip" type="button" data-filter="Eval" aria-pressed="false">Eval</button><button class="chip" type="button" data-filter="Deploy" aria-pressed="false">Deploy</button><button class="chip" type="button" data-filter="Observe" aria-pressed="false">Observe</button></div>
+<ul class="entries" id="entries">
+  <li class="entry" data-stage="Audit"><span class="stage">Audit</span><div><h3>Auditing a workflow before building anything</h3><p>Why two weeks of audit comes before any code, and what to collect: interviews, exception paths, the spreadsheets people built to get around the system, and where colleagues already use AI on their own.</p></div><span class="status">Planned</span></li><li class="entry" data-stage="Audit"><span class="stage">Audit</span><div><h3>Writing the exception table</h3><p>There is one way work goes right and a thousand ways it goes wrong. How to list the failure modes, and why a disagreement between people is a policy question and not an exception.</p></div><span class="status">Planned</span></li><li class="entry" data-stage="Judgment"><span class="stage">Judgment</span><div><h3>Why a ten-step workflow gets two model calls</h3><p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p></div><span class("status">Planned</span></li><li class("entry", data-stage("Build")):
+  <span class("stage")>Build</span>
+  <div>
+    <h3>Scripts, then an API, then a front end</h3>
+    <p>Proving one workflow as a standalone script before building shared infrastructure, and what to leave undecided until a second workflow exists.</p>
+  </div>
+  <span class("status")>Planned</span>
+</li>
+<li class("entry", data-stage("Eval")):
+  <span class("stage")>Eval</span>
+  <div>
+    <h3>Grading a system that never answers the same way twice</h3>
+    <p>Five case types, four criteria, and why escalating to a person counts as a pass. Includes how to break a subjective judgment into parts you can check.</p>
+  </div>
+  <span class("status")>Planned</span>
+</li>
+<li class("entry", data-stage("Deploy")):
+  <span class("stage")>Deploy</span>
+  <div>
+    <h3>Shadow mode: running beside the old process</h3>
+    <p>How to compare a new system&#x27;s output with the real one before it is allowed to act, and what every run needs to log.</p>
+  </div>
+  <span class("status")>Planned</span>
+</li>
+<li class("entry", data-stage("Observe")):
+  <span class("stage")>Observe</span>
+  <div>
+    <h3>Edit rate, bypass rate and other signs nobody trusts it</h3>
+    <p>Four layers of observability, and the two numbers that show early whether the time saving is real.</p>
+  </div>
+  <span class("status")>Planned</span>
+</li>
+</ul>
+<p class("empty", id("empty"), hidden(true))>Nothing in this stage yet.</p>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Judgment Points. Notes on applied AI.</span>
+  <span>Examples are generalised and contain no customer data.</span>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="All posts on forward deployed engineering. Putting AI inside a real workflow.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Forward deployed engineering | Practical AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="index.html">Practical AI<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="blog.html" aria-current="page">Notes</a>
+    <!-- <a href="index.html#work">Work with me</a> -->
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="page-head">
+  <p class="crumbs"><a href="blog.html">Notes</a> / Forward deployed engineering</p>
+  <h1>Forward deployed engineering</h1>
+  <p>Putting AI inside a real workflow. Audit how the work really runs, decide which steps need a model, build it, prove it with evals, deploy it in shadow mode, then watch it.</p>
+  <ul class="topics"><li>Workflow audit</li><li>Judgment calls</li><li>Build</li><li>Evals</li><li>Deployment</li><li>Observability</li></ul>
+  <nav class="tracknav" aria-label="Tracks"><a href="foundations.html">Foundations</a><a href="ai-sdlc.html">AI SDLC</a><a href="fde.html" aria-current="page">FDE</a><a href="programming.html">Programming</a></nav>
+</div>
+<section class="block" id="posts">
+  <p class="eyebrow">Posts</p>
+  <h2>All posts</h2>
+  <div class="filters" role="group" aria-label="Filter by topic"><button class="chip" type="button" data-filter="All" data-slug="" aria-pressed="true">All</button><button class="chip" type="button" data-filter="Audit" data-slug="audit" aria-pressed="false">Audit</button><button class="chip" type="button" data-filter="Judgment" data-slug="judgment" aria-pressed="false">Judgment</button><button class="chip" type="button" data-filter="Evals" data-slug="evals" aria-pressed="false">Evals</button><button class="chip" type="button" data-filter="Deployment" data-slug="deployment" aria-pressed="false">Deployment</button></div>
+  <ul class="entries" id="entries"><li class="entry" data-group="Audit"><span class="stage">Audit</span><div><h3>Auditing a workflow before building anything</h3><p>Why two weeks of audit comes before any code, and what to collect: interviews, exception paths, the spreadsheets people built to get around the system, and where colleagues already use AI on their own.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Judgment"><span class="stage">Judgment</span><div><h3>Why a ten-step workflow gets two model calls</h3><p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Evals"><span class="stage">Evals</span><div><h3>Grading a system that never answers the same way twice</h3><p>Five case types, four criteria, and why escalating to a person counts as a pass. Includes how to break a subjective judgment into parts you can check.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Deployment"><span class="stage">Deployment</span><div><h3>Shadow mode: running beside the old process</h3><p>How to compare a new system&#x27;s output with the real one before it is allowed to act, and what every run needs to log.</p></div><span class="status">Planned</span></li></ul>
+  <p class="empty" id="empty" hidden>Nothing under this topic yet.</p>
+</section>
+<section class="block" id="practice">
+  <p class="eyebrow">This track in practice</p>
+  <h2>A ten-step workflow ends up with two model calls.</h2>
+  <figure class="alloc" aria-label="A ten step workflow allocated between code, model and person">
+  <div class="alloc-head">
+    <span class="eyebrow">Allocation by step</span>
+    <span class="eyebrow">Illustrative: meeting transcript to approved follow-up tasks</span>
+  </div>
+  <p class="swipe-hint" aria-hidden="true">Swipe for all ten steps</p>
+  <ul class="alloc-grid">
+    <li>
+      <button class="step" type="button" data-cat="det" data-name="Detect new transcript" data-why="A file landing in a folder is an event. Nothing to judge." data-fail="Missing or empty transcript: stop and flag it." data-kind="Code" aria-pressed="false">
+        <span class="n">Step 1</span>
+        <span class="t">Detect new transcript</span>
+        <span class="k">Code</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="det" data-name="Match to account" data-why="A lookup against the account list using the meeting invite, not a guess." data-fail="Ambiguous customer match: ask a person." data-kind="Code" aria-pressed="false">
+        <span class="n">Step 2</span>
+        <span class="t">Match to account</span>
+        <span class="k">Code</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="det" data-name="Load account context" data-why="Reading the per-customer file is a join, not a prompt." data-fail="Context older than its last-verified date: escalate." data-kind="Code" aria-pressed="false">
+        <span class="n">Step 3</span>
+        <span class="t">Load account context</span>
+        <span class="k">Code</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="agent" data-name="Extract action items" data-why="Pulling commitments out of spoken language is the fuzzy step that earns a model call." data-fail="Item with no clear owner: flag it, never assign it." data-kind="Model" aria-pressed="true">
+        <span class="n">Step 4</span>
+        <span class="t">Extract action items</span>
+        <span class="k">Model</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="det" data-name="Resolve owners" data-why="Names map to people through the account file. Plain matching does it." data-fail="Owner does not exist: route to a person." data-kind="Code" aria-pressed="false">
+        <span class="n">Step 5</span>
+        <span class="t">Resolve owners</span>
+        <span class="k">Code</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="det" data-name="Check for duplicates" data-why="Compare against open tasks with ordinary string and ID matching." data-fail="Task already exists: link to it, do not create another." data-kind="Code" aria-pressed="false">
+        <span class="n">Step 6</span>
+        <span class="t">Check for duplicates</span>
+        <span class="k">Code</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="agent" data-name="Classify fuzzy items" data-why="Bug, feature request or question? The boundaries are blurry, so this takes a model." data-fail="Low confidence: escalate and say what is missing." data-kind="Model" aria-pressed]="false">
+        <span class="n">Step 7</span>
+        <span class="t">Classify fuzzy items</span>
+        <span class="k">Model</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="det" data-name="Build task payload" data-why="A fixed schema, validated before anything moves downstream." data-fail="Malformed output: reject it and retry once." data-kind="Code" aria-pressed="false">
+        <span class="n">Step 8</span>
+        <span class="t">Build task payload</span>
+        <span class="k">Code</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="approve" data-name="Person approves" data-why="A machine drafted it. A person gates it before anything commits." data-fail="Rejected: the edit is saved as a future test case." data-kind="Person approves" aria-pressed="false">
+        <span class="n">Step 9</span>
+        <span class="t">Person approves</span>
+        <span class="k">Person approves</span>
+      </button>
+    </li>
+    <li>
+      <button class="step" type="button" data-cat="det" data-name="Write to tracker" data-why="An API call, and it only runs after approval." data-fail="Write fails: retry with backoff, then flag." data-kind="Code" aria-pressed="false">
+        <span class="n">Step 10</span>
+        <span class="t">Write to tracker</span>
+        <span class="k">Code</span>
+      </button>
+    </li>
+  </dl>
+  </div>
+  <figcaption>7 steps are plain code, 2 are model calls and 1 is a person approving. If a map shows a model at every step, the map is wrong. Select any step to see why it sits where it does.</figcaption>
+</figure>
+  <h3 class="subhead eyebrow">The forward deployed engineering loop</h3>
+  <ol class="loop">
+    <li>
+      <span class="n">1</span>
+      <h3>Audit</h3>
+      <p>Map the workflow as it really runs, exceptions included, and measure real time.</p>
+    </li>
+    <li class="jp">
+      <span class="n">2</span>
+      <h3>Judgment</h3>
+      <p>Decide whether it needs changing at all, then which steps need a model.</p>
+    </li>
+    <li>
+      <span class="n">3</span>
+      <h3>Build</h3>
+      <p>Scripts first, then an API, then a front end. Prove one workflow before building shared parts.</p>
+    </li>
+    <li>
+      <span class="n">4</span>
+      <h3>Eval</h3>
+      <p>Grade against real past cases. Escalating to a person counts as a pass.</p>
+    </li>
+    <li>
+      <span class="n">5</span>
+      <h3>Deploy</h3>
+      <p>Shadow mode before autonomy. Every run leaves a trace.</p>
+    </li>
+    <li>
+      <span class="n">6</span>
+      <h3>Observe</h3>
+      <p>Watch edit rate and bypass rate. Whatever breaks next names the next workflow.</p>
+    </li>
+  </ol>
+  <p class="loop-note">Each pass reveals the next workflow, because bottlenecks are connected.</p>
+</section>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Practical AI. Notes on applied AI.</span>
+  <!-- <span>Examples are generalised and contain no customer data.</span> -->
+</footer>
+</div>
+</body>
+</html>

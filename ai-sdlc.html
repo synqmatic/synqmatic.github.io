@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="All posts on ai in the software lifecycle. Building software with AI at every stage.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>AI in the software lifecycle | Practical AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="index.html">Practical AI<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="blog.html" aria-current="page">Notes</a>
+    <!-- <a href="index.html#work">Work with me</a> -->
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="page-head">
+  <p class="crumbs"><a href="blog.html">Notes</a> / AI in the software lifecycle</p>
+  <h1>AI in the software lifecycle</h1>
+  <p>Building software with AI at every stage. From requirements to operations: where coding agents help, where they add risk, and which human checks stay in place.</p>
+  <ul class="topics"><li>Requirements</li><li>Design</li><li>Coding agents</li><li>Code review</li><li>Testing</li><li>CI/CD</li><li>Docs</li><li>Governance</li></ul>
+  <nav class="tracknav" aria-label="Tracks"><a href="foundations.html">Foundations</a><a href="ai-sdlc.html" aria-current="page">AI SDLC</a><a href="fde.html">FDE</a><a href="programming.html">Programming</a></nav>
+</div>
+<section class="block" id="posts">
+  <p class="eyebrow">Posts</p>
+  <h2>All posts</h2>
+  <div class="filters" role="group" aria-label="Filter by topic">
+    <button class="chip" type="button" data-filter="All" data-slug="" aria-pressed="true">All</button>
+    <button class="chip" type="button" data-filter="Requirements" data-slug="requirements" aria-pressed="false">Requirements</button>
+    <button class="chip" type="button" data-filter="Code review" data-slug="code-review" aria-pressed="false">Code review</button>
+    <button class="chip" type="button" data-filter="Testing" data-slug="testing" aria-pressed="false">Testing</button>
+    <button class="chip" type="button" data-filter="CI/CD" data-slug="ci-cd" aria-pressed="false">CI/CD</button>
+  </div>
+  <ul class="entries" id="entries">
+    <li class="entry" data-group="Requirements">
+      <span class="stage">Requirements</span>
+      <div>
+        <h3>Writing requirements an AI coding agent can build from</h3>
+        <p>What a specification needs so the first draft lands close: scope, constraints, examples and the checks that decide when it is done.</p>
+      </div>
+      <span class="status">Planned</span>
+    </li>
+    <li class="entry" data-group="Code review">
+      <span class="stage">Code review</span>
+      <div>
+        <h3>Reviewing AI-written code</h3>
+        <p>What to read first, which failure patterns to look for, and why a clean-looking diff still needs a person who understands the system.</p>
+      </div>
+      <span class="status">Planned</span>
+    </li>
+    <li class="entry" data-group="Testing">
+      <span class="stage">Testing</span>
+      <div>
+        <h3>Tests as the contract</h3>
+        <p>Letting an agent work against a failing test suite, and what to do when it makes the tests pass the wrong way.</p>
+      </div>
+      <span class="status">Planned</span>
+    </li>
+    <li class="entry" data-group="CI/CD">
+      <span class="stage">CI/CD</span>
+      <div>
+        <h3>Where AI belongs in CI/CD</h3>
+        <p>Which pipeline steps gain from a model, which must stay deterministic, and which approval gates to keep before anything ships.</p>
+      </div>
+      <span class="status">Planned</span>
+    </li>
+  </ul>
+  <p class="empty" id="empty" hidden>Nothing under this topic yet.</p>
+</section>
+<section class="block" id="practice">
+  <p class="eyebrow">This track in practice</p>
+  <h2>Six lifecycle stages, with AI in a defined role at each.</h2>
+  <ol class="loop">
+    <li>
+      <span class="n">1</span>
+      <h3>Plan</h3>
+      <p>Turn a vague request into requirements specific enough that an agent could build from them.</p>
+    </li>
+    <li>
+      <span class="n">2</span>
+      <h3>Design</h3>
+      <p>Use AI to explore options and write down the trade-offs. A person chooses.</p>
+    </li>
+    <li>
+      <span class="n">3</span>
+      <h3>Build</h3>
+      <p>Coding agents draft. Small changes, a clear scope and tests in place first.</p>
+    </li>
+    <li class="jp">
+      <span class="n">4</span>
+      <h3>Verify</h3>
+      <p>Review and testing carry the risk. Generated code is read like any other code.</p>
+    </li>
+    <li>
+      <span class="n">5</span>
+      <h3>Release</h3>
+      <p>Pipelines, approvals and rollbacks stay deterministic and logged.</p>
+    </li>
+    <li>
+      <span class="n">6</span>
+      <h3>Operate</h3>
+      <p>Monitor, triage and document. Incidents feed the next plan.</p>
+    </li>
+  </ol>
+  <p class="loop-note">At every stage the questions are the same: who does the work, what checks it, and who signs off.</p>
+</section>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Practical AI. Notes on applied AI.</span>
+  <!-- <span>Examples are generalised and contain no customer data.</span> -->
+</footer>
+</div>
+</body>
+</html>

@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Practical notes on AI foundations, AI in the software lifecycle, forward deployed engineering and programming.">
 <meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
-<title>Judgment Points</title>
+<title>Practical AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
 <link rel="stylesheet" href="styles.css">
 <script src="site.js"></script>
@@ -13,7 +14,7 @@
 <body>
 <div class="wrap">
 <header class="site">
-  <a class="wordmark" href="index.html">Judgment Points<i aria-hidden="true"></i></a>
+  <a class="wordmark" href="index.html">Practical AI<i aria-hidden="true"></i></a>
   <nav class="main" aria-label="Main">
     <a href="index.html" aria-current="page">Home</a>
     <a href="blog.html">Notes</a>
@@ -24,66 +25,146 @@
 </div>
 <div class="wrap">
 <section class="hero">
-  <p class="eyebrow">Notes on applied AI, written while learning it</p>
-  <h1>Most workflows need one or two model calls. The rest should be code and a person who signs off.</h1>
-  <p class="lede">I'm learning the forward-deployed engineering craft in public. This site is my notebook: how to audit a real workflow, decide which steps deserve a model, and prove the result is safe to ship.</p>
+  <p class="eyebrow">Notes on using AI where it works</p>
+  <h1>What works when you build with AI, ship it, and put it inside real work.</h1>
+  <p class="lede">Practical AI is a notebook written while learning. It covers four tracks: how AI tools behave, how software gets built with them, how they get deployed inside a company's real workflows, and the code around the model. Each note shows the evidence, including what failed.</p>
   <div class="actions">
-    <a class="btn primary" href="blog.html">Read the notes</a>
-    <!-- <a class="btn" href="#work">Work with me</a> -->
+    <!-- <a class="btn primary" href="blog.html">Read the notes</a> -->
+    <a class="btn" href="#tracks">Browse the tracks</a>
   </div>
-  <figure class="alloc" aria-label="A ten step workflow allocated between code, model and person">
-  <div class="alloc-head">
-    <span class="eyebrow">One workflow, allocated step by step</span>
-    <span class="eyebrow">Illustrative: meeting transcript to approved follow-up tasks</span>
-  </div>
-  <p class="swipe-hint" aria-hidden="true">Swipe for all ten steps</p>
-  <ul class="alloc-grid"><li><button class="step" type="button" data-cat="det" data-name="Detect new transcript" data-why="A file landing in a folder is an event. Nothing to judge." data-fail="Missing or empty transcript: stop and flag it." data-kind="Code" aria-pressed="false"><span class="n">Step 1</span><span class="t">Detect new transcript</span><span class="k">Code</span></button></li><li><button class="step" type="button" data-cat="det" data-name="Match to account" data-why="A lookup against the account list using the meeting invite, not a guess." data-fail="Ambiguous customer match: ask a person." data-kind="Code" aria-pressed="false"><span class="n">Step 2</span><span class="t">Match to account</span><span class="k">Code</span></button></li><li><button class="step" type="button" data-cat="det" data-name="Load account context" data-why="Reading the per-customer file is a join, not a prompt." data-fail="Context older than its last-verified date: escalate." data-kind="Code" aria-pressed="false"><span class="n">Step 3</span><span class="t">Load account context</span><span class="k">Code</span></button></li><li><button class="step" type="button" data-cat="agent" data-name="Extract action items" data-why="Pulling commitments out of spoken language is the fuzzy step that earns a model call." data-fail="Item with no clear owner: flag it, never assign it." data-kind="Model" aria-pressed="true"><span class="n">Step 4</span><span class="t">Extract action items</span><span class="k">Model</span></button></li><li><button class="step" type="button" data-cat="det" data-name="Resolve owners" data-why="Names map to people through the account file. Plain matching does it." data-fail="Owner does not exist: route to a person." data-kind="Code" aria-pressed="false"><span class="n">Step 5</span><span class="t">Resolve owners</span><span class="k">Code</span></button></li><li><button class="step" type="button" data-cat="det" data-name="Check for duplicates" data-why="Compare against open tasks with ordinary string and ID matching." data-fail="Task already exists: link to it, do not create another." data-kind="Code" aria-pressed="false"><span class="n">Step 6</span><span class="t">Check for duplicates</span><span class="k">Code</span></button></li><li><button class="step" type="button" data-cat="agent" data-name="Classify fuzzy items" data-why="Bug, feature request or question? The boundaries are blurry, so this takes a model." data-fail="Low confidence: escalate and say what is missing." data-kind="Model" aria-pressed="false"><span class="n">Step 7</span><span class="t">Classify fuzzy items</span><span class="k">Model</span></button></li><li><button class="step" type="button" data-cat="det" data-name="Build task payload" data-why="A fixed schema, validated before anything moves downstream." data-fail="Malformed output: reject it and retry once." data-kind="Code" aria-pressed="false"><span class="n">Step 8</span><span class="t">Build task payload</span><span class="k">Code</span></button></li><li><button class="step" type="button" data-cat="approve" data-name="Person approves" data-why="A machine drafted it. A person gates it before anything commits." data-fail="Rejected: the edit is saved as a future test case." data-kind="Person approves" aria-pressed="false"><span class="n">Step 9</span><span class="t">Person approves</span><span class="k">Person approves</span></button></li><li><button class="step" type="button" data-cat="det" data-name="Write to tracker" data-why="An API call, and it only runs after approval." data-fail="Write fails: retry with backoff, then flag." data-kind="Code" aria-pressed="false"><span class="n">Step 10</span><span class="t">Write to tracker</span><span class="k">Code</span></button></li></ul>
-  <div class="detail" id="detail" aria-live="polite">
-    <div><span class="tag agent" id="d-tag">Model</span><h3 id="d-name">Extract action items</h3></div>
-    <dl>
-      <div><dt>Why it sits here</dt><dd id="d-why">Pulling commitments out of spoken language is the fuzzy step that earns a model call.</dd></div>
-      <div><dt>When it goes wrong</dt><dd id="d-fail">Item with no clear owner: flag it, never assign it.</dd></div>
-    </dl>
-  </div>
-  <figcaption>7 steps are plain code, 2 are model calls and 1 is a person approving. If a map shows a model at every step, the map is wrong. Select any step to see why it sits where it does.</figcaption>
-</figure>
 </section>
 </div>
 
 <div class="wrap">
-<section class="block" id="why">
-  <p class="eyebrow">Why I work this way</p>
-  <h2>The models are the same for everyone. The context is not.</h2>
+<section class="block" id="tracks">
+  <p class="eyebrow">Four tracks</p>
+  <h2>Every note sits under one of four headings.</h2>
+  <nav class="tracknav" aria-label="Tracks"><a href="foundations.html">Foundations</a><a href="ai-sdlc.html">AI SDLC</a><a href="fde.html">FDE</a><a href="programming.html">Programming</a></nav>
+</section>
+</div>
+
+<div class="wrap">
+<section class="block" id="foundations">
+  <div class="trackrow">
+    <div class="trackinfo">
+      <p class="eyebrow">Foundations</p>
+      <h2>AI foundations</h2>
+      <p class="tagline">How the tools actually behave.</p>
+      <p class="body">Models, prompting, context, retrieval, agents and evaluation. The working knowledge the other tracks depend on.</p>
+      <ul class="topics"><li>Prompting</li><li>Context</li><li>Retrieval</li><li>Agents</li><li>Evals</li><li>Cost and latency</li><li>Safety</li></ul>
+    </div>
+    <div class="toplist">
+      <p class="eyebrow">Top posts</p>
+      <ul class="entries compact"><li class="entry" data-group="Prompting"><span class="stage">Prompting</span><div><h3>Prompts are specifications</h3><p>Writing a prompt the way you would write a requirements document, so it keeps working when the model underneath changes. Includes how to test a prompt before and after an upgrade.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Context"><span class="stage">Context</span><div><h3>Context is the real interface</h3><p>What to put in the context window, what to leave out, and how to tell when more information makes the answer worse.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Agents"><span class="stage">Agents</span><div><h3>Workflow or agent: choosing the simpler one</h3><p>A fixed sequence of steps and an agent that picks its own steps solve different problems. A way to choose without defaulting to the more exciting one.</p></div><span class="status">Planned</span></li></ul>
+      <a class="more" href="foundations.html">All posts<span class="sr"> in AI foundations</span></a>
+    </div>
+  </div>
+</section>
+</div><div class="wrap">
+<section class="block" id="ai-sdlc">
+  <div class="trackrow">
+    <div class="trackinfo">
+      <p class="eyebrow">AI SDLC</p>
+      <h2>AI in the software lifecycle</h2>
+      <p class="tagline">Building software with AI at every stage.</p>
+      <p class="body">From requirements to operations: where coding agents help, where they add risk, and which human checks stay in place.</p>
+      <ul class="topics"><li>Requirements</li><li>Design</li><li>Coding agents</li><li>Code review</li><li>Testing</li><li>CI/CD</li><li>Docs</li><li>Governance</li></ul>
+    </div>
+    <div class="toplist">
+      <p class="eyebrow">Top posts</p>
+      <ul class="entries compact"><li class="entry" data-group="Requirements"><span class="stage">Requirements</span><div><h3>Writing requirements an AI coding agent can build from</h3><p>What a specification needs so the first draft lands close: scope, constraints, examples and the checks that decide when it is done.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Code review"><span class="stage">Code review</span><div><h3>Reviewing AI-written code</h3><p>What to read first, which failure patterns to look for, and why a clean-looking diff still needs a person who understands the system.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Testing"><span class="stage">Testing</span><div><h3>Tests as the contract</h3><p>Letting an agent work against a failing test suite, and what to do when it makes the tests pass the wrong way.</p></div><span class="status">Planned</span></li></ul>
+      <a class="more" href="ai-sdlc.html">All posts<span class="sr"> in AI in the software lifecycle</span></a>
+    </div>
+  </div>
+</section>
+</div><div class="wrap">
+<section class="block" id="fde">
+  <div class="trackrow">
+    <div class="trackinfo">
+      <p class="eyebrow">FDE</p>
+      <h2>Forward deployed engineering</h2>
+      <p class="tagline">Putting AI inside a real workflow.</p>
+      <p class="body">Audit how the work really runs, decide which steps need a model, build it, prove it with evals, deploy it in shadow mode, then watch it.</p>
+      <ul class="topics"><li>Workflow audit</li><li>Judgment calls</li><li>Build</li><li>Evals</li><li>Deployment</li><li>Observability</li></ul>
+    </div>
+    <div class="toplist">
+      <p class="eyebrow">Top posts</p>
+      <ul class="entries compact">
+        <li class="entry" data-group="Audit">
+          <span class="stage">Audit</span>
+          <div>
+            <h3>Auditing a workflow before building anything</h3>
+            <p>Why two weeks of audit comes before any code, and what to collect: interviews, exception paths, the spreadsheets people built to get around the system, and where colleagues already use AI on their own.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li>
+        <li class="entry" data-group="Judgment"><span class="stage">Judgment</span><div><h3>Why a ten-step workflow gets two model calls</h3><p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Evals"><span class="stage">Evals</span><div><h3>Grading a system that never answers the same way twice</h3><p>Five case types, four criteria, and why escalating to a person counts as a pass. Includes how to break a subjective judgment into parts you can check.</p></div><span class="status">Planned</span></li></ul>
+      <a class="more" href="fde.html">All posts<span class="sr"> in Forward deployed engineering</span></a>
+    </div>
+  </div>
+</section>
+</div><div class="wrap">
+<section class="block" id="programming">
+  <div class="trackrow">
+    <div class="trackinfo">
+      <p class="eyebrow">Programming</p>
+      <h2>Programming</h2>
+      <p class="tagline">The code around the model.</p>
+      <p class="body">Python first, TypeScript where it fits. Calling models from code, handling their output safely, and testing code whose results vary.</p>
+      <ul class="topics"><li>Python</li><li>TypeScript</li><li>Structured output</li><li>Async</li><li>Testing</li><li>Tooling</li></ul>
+    </div>
+    <div class="toplist">
+      <p class="eyebrow">Top posts</p>
+      <ul class="entries compact">
+        <li class="entry" data-group="Python">
+          <span class="stage">Python</span>
+          <div>
+            <h3>Validating model output with Pydantic</h3>
+            <p>Turning a model&#x27;s reply into typed data, and what to do when it does not fit the schema.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li>
+        <!-- <li class="entry" data-group="Python">
+          <span class="stage">Python</span>
+          <div>
+            <h3>Calling models in parallel with asyncio</h3>
+            <p>Running many requests at once without hitting rate limits: concurrency limits, retries and timeouts.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li>
+        <li class="entry" data-group="TypeScript">
+          <span class="stage">TypeScript</span>
+          <div>
+            <h3>Typed tool definitions in TypeScript</h3>
+            <p>Describing the tools an agent can call as typed functions, so mistakes show up at compile time instead of in production.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li> -->
+      </ul>
+      <a class="more" href="programming.html">All posts<span class="sr"> in Programming</span></a>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="wrap">
+<section class="block" id="approach">
+  <p class="eyebrow">How I work</p>
+  <h2>Three habits apply to every track.</h2>
   <div class="cols3">
-    <div><h3>Everyone can buy the same models.</h3><p>Frontier intelligence is sold on the same terms to every company. Prompting it a little better than the next team is not a lasting advantage.</p></div>
-    <div><h3>Few have written down how the work runs.</h3><p>The real process lives in people's heads, in spreadsheets built to get around the system, and in exceptions nobody documented. That context is what makes a model useful on one specific account.</p></div>
-    <div><h3>The edge is where it gets applied.</h3><p>Put intelligence only at the steps that need judgment. Keep everything around those steps deterministic, logged, and approved by a person before it commits.</p></div>
+    <div>
+      <h3>Evidence beats demos.</h3>
+      <p>A demo shows one good run. A note here shows how many cases were tried, how many passed, and what the failures had in common.</p>
+    </div>
+    <div>
+      <h3>Use a model where judgment is needed.</h3>
+      <p>Plain code does most of the work in most systems. A model earns a place at the steps that are truly fuzzy, and nowhere else.</p>
+    </div>
+    <div>
+      <h3>A person stays accountable.</h3>
+      <p>People set the goals, approve what commits, and own the outcome. Systems are built to hand back to them when they are unsure.</p>
+    </div>
   </div>
-</section>
-</div>
-
-<div class="wrap">
-<section class="block" id="method">
-  <p class="eyebrow">The method</p>
-  <h2>Six stages, run as a loop.</h2>
-  <ol class="loop">
-    <li><span class="n">1</span><h3>Audit</h3><p>Map the workflow as it really runs, exceptions included, and measure real time.</p></li>
-    <li><span class="n">2</span><h3>Judgment</h3><p>Decide whether it needs changing at all, then which steps need a model.</p></li>
-    <li><span class="n">3</span><h3>Build</h3><p>Scripts first, then an API, then a front end. Prove one workflow before building shared parts.</p></li>
-    <li><span class="n">4</span><h3>Eval</h3><p>Grade against real past cases. Escalating to a person counts as a pass.</p></li>
-    <li><span class="n">5</span><h3>Deploy</h3><p>Shadow mode before autonomy. Every run leaves a trace.</p></li>
-    <li><span class="n">6</span><h3>Observe</h3><p>Watch edit rate and bypass rate. Whatever breaks next names the next workflow.</p></li>
-  </ol>
-  <p class="loop-note">Each pass reveals the next workflow, because bottlenecks are connected.</p>
-</section>
-</div>
-
-<div class="wrap">
-<section class="block" id="notes">
-  <p class="eyebrow">From the notebook</p>
-  <h2>What I'm writing up first.</h2>
-  <ul class="entries"><li class="entry" data-stage="Audit"><span class="stage">Audit</span><div><h3>Auditing a workflow before building anything</h3><p>Why two weeks of audit comes before any code, and what to collect: interviews, exception paths, the spreadsheets people built to get around the system, and where colleagues already use AI on their own.</p></div><span class="status">Planned</span></li><li class="entry" data-stage="Audit"><span class="stage">Audit</span><div><h3>Writing the exception table</h3><p>There is one way work goes right and a thousand ways it goes wrong. How to list the failure modes, and why a disagreement between people is a policy question and not an exception.</p></div><span class="status">Planned</span></li><li class="entry" data-stage="Judgment"><span class="stage">Judgment</span><div><h3>Why a ten-step workflow gets two model calls</h3><p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p></div><span class="status">Planned</span></li></ul>
-  <a class="more" href="blog.html">All notes</a>
 </section>
 </div>
 
@@ -91,11 +172,11 @@
 <section class="block" id="work">
   <p class="eyebrow">Working together</p>
   <h2>Consulting is not open yet.</h2>
-  <p class="work-note">The notes come first, because a record of written, evidenced workflows is the portfolio. When engagements open, the offer comes straight from the method above.</p>
+  <p class="work-note">The notes come first, because written, evidenced work is the portfolio. When engagements open, the offers follow the tracks above.</p>
   <dl class="offers">
     <div class="offer"><dt>Workflow audit</dt><dd>Two weeks on one workflow area. You get an operating map: how the work really runs, what to automate and what to leave alone, the boundaries, and a predicted business value written before anything is built.</dd></div>
-    <div class="offer"><dt>Judgment map</dt><dd>A step-by-step allocation across code, model and people, with a reason for every step, written so a peer can challenge it.</dd></div>
-    <div class="offer"><dt>Evaluation pack</dt><dd>A test set built from your own past cases, graded on five case types, with a report that shows counts and reasons instead of one percentage.</dd></div>
+    <div class="offer"><dt>AI delivery review</dt><dd>A look at where your team already uses AI across the software lifecycle, which checks are missing, and where to expand or stop. You get a short written plan.</dd></div>
+    <div class="offer"><dt>Evaluation pack</dt><dd>A test set built from your own past cases, with a report that shows counts and reasons instead of one percentage. Works for a workflow, a coding assistant rollout or a prompt change.</dd></div>
   </dl>
   <p class="contact">Contact: <code>add your email here</code></p>
 </section>
@@ -103,8 +184,8 @@
 
 <div class="wrap">
 <footer class="site-f">
-  <span>Judgment Points. Notes on applied AI.</span>
-  <span>Examples are generalised and contain no customer data.</span>
+  <span>Practical AI. Notes on applied AI.</span>
+  <!-- <span>Examples are generalised and contain no customer data.</span> -->
 </footer>
 </div>
 </body>

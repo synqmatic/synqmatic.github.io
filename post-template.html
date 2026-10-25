@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A reusable template for documenting what was learned.">
 <meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
-<title>Post template | Judgment Points</title>
+<title>Post template | Practical AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
 <link rel="stylesheet" href="styles.css">
 <script src="site.js"></script>
@@ -13,7 +14,7 @@
 <body>
 <div class="wrap">
 <header class="site">
-  <a class="wordmark" href="index.html">Judgment Points<i aria-hidden="true"></i></a>
+  <a class="wordmark" href="index.html">Practical AI<i aria-hidden="true"></i></a>
   <nav class="main" aria-label="Main">
     <a href="index.html">Home</a>
     <a href="blog.html" aria-current="page">Notes</a>
@@ -28,21 +29,21 @@
   <h1><span class="ph">[A plain statement of what I learned, in one sentence]</span></h1>
   <dl class="meta">
     <div><dt>Published</dt><dd><span class="ph">[YYYY-MM-DD]</span></dd></div>
-    <div><dt>Loop stage</dt><dd><span class="ph">[Audit]</span></dd></div>
-    <div><dt>Workflow area</dt><dd><span class="ph">[One workflow]</span></dd></div>
-    <div><dt>Status</dt><dd><span class="ph">[Prototype / Shadow / Deployed]</span></dd></div>
+    <div><dt>Track</dt><dd><span class="ph">[Foundations / AI SDLC / FDE / Programming]</span></dd></div>
+    <div><dt>Topic</dt><dd><span class="ph">[e.g. Evals]</span></dd></div>
+    <div><dt>Status</dt><dd><span class="ph">[Draft / Tested / In use]</span></dd></div>
     <div><dt>Reading time</dt><dd><span class="ph">[8 min]</span></dd></div>
   </dl>
   <details class="author" data-collapse-mobile open>
     <summary>How to use this template</summary>
-    <p>Orange brackets are placeholders. Dashed boxes are prompts for you and come out before publishing. Copy the page, fill each section, and delete any section the post does not need. A post about only the audit can skip evidence and numbers. Dated baselines and predictions are what make the later posts credible, so write them early.</p>
+    <p>Orange brackets are placeholders. Dashed boxes are prompts for you and come out before publishing. Copy the page and fill each section. The core sections suit every post. Optional sections are marked by track: keep the set that matches your post and delete the rest. A short post can use only the core sections.</p>
   </details>
 </div>
 
 <article class="article">
   <section id="short">
     <h2>The short version</h2>
-    <p class="prompt"><b>Prompt</b>Three lines. What the workflow was, what you built or learned, and which number moved or did not.</p>
+    <p class="prompt"><b>Prompt</b>Three lines. What you set out to do, what you found, and which number moved or did not.</p>
     <ul>
       <li>What I tried: <span class="ph">[one sentence]</span></li>
       <li>What happened: <span class="ph">[one sentence with a number]</span></li>
@@ -50,7 +51,61 @@
     </ul>
   </section>
 
-  <section id="workflow">
+  <section id="context">
+    <h2>The problem and the context</h2>
+    <p class="prompt"><b>Prompt</b>Say what you were trying to do and for whom, in the words of the person who has the problem. Include the constraints: time, risk, data and budget. Leave tool names for the next section.</p>
+    <p><span class="ph">[One or two paragraphs.]</span></p>
+  </section>
+
+  <section id="setup">
+    <h2>What I tried</h2>
+    <p class="prompt"><b>Prompt</b>Name the models, tools and versions, and the date you used them. Models change quickly, so a result without a date is hard to trust. Describe the setup well enough that someone else could repeat it.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Item</th><th role="columnheader">Detail</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Item">Model and version</td><td role="cell" data-label="Detail"><span class="ph">[name, version]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Tools and settings</td><td role="cell" data-label="Detail"><span class="ph">[tools, key settings]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Inputs used</td><td role="cell" data-label="Detail"><span class="ph">[what, how many, where from]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Date run</td><td role="cell" data-label="Detail"><span class="ph">[YYYY-MM-DD]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="prompt"><b>Choose your track</b>The next four groups of sections are optional. Keep the group that matches this post and delete the others. A post that spans tracks can keep more than one.</p>
+  </section>
+
+  <section id="t-foundations">
+    <p class="eyebrow">Optional section: Foundations track</p>
+    <h2>The experiment</h2>
+    <p class="prompt"><b>Prompt</b>Compare at least two variants against the same inputs. Say how you will score the results before you run them.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Variant</th><th role="columnheader">What changed</th><th role="columnheader">Inputs tried</th><th role="columnheader">Result</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Variant">A (baseline)</td><td role="cell" data-label="What changed"><span class="ph">[setup]</span></td><td role="cell" data-label="Inputs tried"><span class="ph">[n]</span></td><td role="cell" data-label="Result"><span class="ph">[score and notes]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Variant">B</td><td role="cell" data-label="What changed"><span class="ph">[one change]</span></td><td role="cell" data-label="Inputs tried"><span class="ph">[n]</span></td><td role="cell" data-label="Result"><span class="ph">[score and notes]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p><span class="ph">[Where the difference came from, and how sure you are.]</span></p>
+  </section>
+
+  <section id="t-sdlc">
+    <p class="eyebrow">Optional section: AI SDLC track</p>
+    <h2>Where AI sat in the lifecycle</h2>
+    <p class="prompt"><b>Prompt</b>One row per stage you touched. Say what the AI did, which human check stayed in place, and what happened. A stage with no human check needs a reason.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Stage</th><th role="columnheader">What AI did</th><th role="columnheader">Human check</th><th role="columnheader">Outcome</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Stage">Plan</td><td role="cell" data-label="What AI did"><span class="ph">[role]</span></td><td role="cell" data-label="Human check"><span class="ph">[check]</span></td><td role="cell" data-label="Outcome"><span class="ph">[result]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Stage">Build</td><td role="cell" data-label="What AI did"><span class="ph">[role]</span></td><td role="cell" data-label="Human check"><span class="ph">[check]</span></td><td role="cell" data-label="Outcome"><span class="ph">[result]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Stage">Verify</td><td role="cell" data-label="What AI did"><span class="ph">[role]</span></td><td role="cell" data-label="Human check"><span class="ph">[check]</span></td><td role="cell" data-label="Outcome"><span class="ph">[result]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Stage">Release</td><td role="cell" data-label="What AI did"><span class="ph">[role]</span></td><td role="cell" data-label="Human check"><span class="ph">[check]</span></td><td role="cell" data-label="Outcome"><span class="ph">[result]</span></td></tr>
+      </tbody>
+    </table></div>
+    <h3>What I checked in the AI's output</h3>
+    <p class="prompt"><b>Prompt</b>List the defects you looked for and how many you found. Note any that a reviewer would have missed.</p>
+    <ul><li><span class="ph">[defect type and count]</span></li><li><span class="ph">[defect type and count]</span></li></ul>
+  </section>
+
+  <section id="t-fde-workflow">
+    <p class="eyebrow">Optional section: FDE track</p>
     <h2>The workflow, in the owner's terms</h2>
     <p class="prompt"><b>Prompt</b>Describe the pain the way the person doing the work would say it. Who does it, how often it runs, and what goes wrong when it is late. Leave AI terms out. If the owner would not recognise the sentence, rewrite it.</p>
     <p><span class="ph">[One paragraph written as the workflow owner would say it.]</span></p>
@@ -62,12 +117,12 @@
         <tr role="row"><td role="cell" data-label="Channel">Email</td><td role="cell" data-label="Format variants"><span class="ph">[PDF, screenshot, forwarded thread]</span></td><td role="cell" data-label="Share of arrivals"><span class="ph">[%]</span></td><td role="cell" data-label="Detectable without a person?"><span class="ph">[Yes / No]</span></td></tr>
         <tr role="row"><td role="cell" data-label="Channel">Chat message</td><td role="cell" data-label="Format variants"><span class="ph">[variants]</span></td><td role="cell" data-label="Share of arrivals"><span class="ph">[%]</span></td><td role="cell" data-label="Detectable without a person?"><span class="ph">[Yes / No]</span></td></tr>
         <tr role="row"><td role="cell" data-label="Channel">Support ticket</td><td role="cell" data-label="Format variants"><span class="ph">[variants]</span></td><td role="cell" data-label="Share of arrivals"><span class="ph">[%]</span></td><td role="cell" data-label="Detectable without a person?"><span class="ph">[Yes / No]</span></td></tr>
-        <tr role="row"><td role="cell" data-label="Channel">Live call</td><td role="cell" data-label="Format variants"><span class="ph">[variants]</span></td><td role="cell" data-label="Share of arrivals"><span class="ph">[%]</span></td><td role="cell" data-label="Detectable without a person?"><span class="ph">[Yes / No]</span></td></tr>
       </tbody>
     </table></div>
   </section>
 
-  <section id="audit">
+  <section id="t-fde-audit">
+    <p class="eyebrow">Optional section: FDE track</p>
     <h2>What the audit found</h2>
     <p class="prompt"><b>Prompt</b>Say which sources you used and what surprised you. Where the written process and the exception paths disagree, the exception paths are the truth. Mention anywhere people were already using AI on their own.</p>
     <p><span class="ph">[Sources used, and the single most surprising finding.]</span></p>
@@ -77,13 +132,14 @@
       <thead role="rowgroup"><tr role="row"><th role="columnheader">What goes wrong</th><th role="columnheader">Handled today by</th><th role="columnheader">Routes to</th><th role="columnheader">Everyone does it the same way?</th></tr></thead>
       <tbody role="rowgroup">
         <tr role="row"><td role="cell" data-label="What goes wrong"><span class="ph">[Source missing]</span></td><td role="cell" data-label="Handled today by"><span class="ph">[The undocumented judgment call]</span></td><td role="cell" data-label="Routes to"><span class="ph">[Retry / escalate / refuse and flag]</span></td><td role="cell" data-label="Everyone does it the same way?"><span class="ph">[Yes / No]</span></td></tr>
-        <tr role="row"><td role="cell" data-label="What goes wrong"><span class="ph">[Ambiguous customer match]</span></td><td role="cell" data-label="Handled today by"><span class="ph">[how it is handled]</span></td><td role="cell" data-label="Routes to"><span class="ph">[route]</span></td><td role="cell" data-label="Everyone does it the same way?"><span class="ph">[Yes / No]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="What goes wrong"><span class="ph">[Ambiguous match]</span></td><td role="cell" data-label="Handled today by"><span class="ph">[how it is handled]</span></td><td role="cell" data-label="Routes to"><span class="ph">[route]</span></td><td role="cell" data-label="Everyone does it the same way?"><span class="ph">[Yes / No]</span></td></tr>
         <tr role="row"><td role="cell" data-label="What goes wrong"><span class="ph">[Write fails or record exists]</span></td><td role="cell" data-label="Handled today by"><span class="ph">[how it is handled]</span></td><td role="cell" data-label="Routes to"><span class="ph">[route]</span></td><td role="cell" data-label="Everyone does it the same way?"><span class="ph">[Yes / No]</span></td></tr>
       </tbody>
     </table></div>
   </section>
 
-  <section id="judgment">
+  <section id="t-fde-judgment">
+    <p class="eyebrow">Optional section: FDE track</p>
     <h2>The judgment map</h2>
     <p class="prompt"><b>Prompt</b>One row per step as it really happens. Four categories: code, model, a person does it, a person approves it. A ten-step workflow usually ends with one or two model calls. If a model shows up at every step, redo the table.</p>
     <div class="tablewrap"><table role="table">
@@ -98,33 +154,52 @@
     <p><span class="ph">[What you left as plain code on purpose, and why.]</span></p>
   </section>
 
+  <section id="t-programming">
+    <p class="eyebrow">Optional section: Programming track</p>
+    <h2>The code</h2>
+    <p class="prompt"><b>Prompt</b>State the language and version, the packages and their versions, and how to run it. Keep the snippet to the part that matters, and say where the full code lives.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Item</th><th role="columnheader">Detail</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Item">Language and version</td><td role="cell" data-label="Detail"><span class="ph">[Python 3.x / TypeScript 5.x]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Packages and versions</td><td role="cell" data-label="Detail"><span class="ph">[name, version]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Item">How to run it</td><td role="cell" data-label="Detail"><span class="ph">[one command]</span></td></tr>
+      </tbody>
+    </table></div>
+    <pre><code># the smallest snippet that shows the idea
+[your code here]</code></pre>
+    <h3>Tests and edge cases</h3>
+    <p class="prompt"><b>Prompt</b>List the cases you ran, including bad input and an empty reply from the model. Say which ones failed.</p>
+    <ul><li><span class="ph">[case and result]</span></li><li><span class="ph">[case and result]</span></li></ul>
+  </section>
+
   <section id="evidence">
     <h2>The evidence</h2>
-    <p class="prompt"><b>Prompt</b>Give a count with reasons, not a percentage. Use 30 to 50 real past cases with known-correct outcomes, including edge cases, incomplete inputs, ambiguous requests and high-risk actions. Escalating to a person on incomplete information is a pass.</p>
-    <p class="passrate"><span class="ph">[41]</span> of <span class="ph">[50]</span> graded runs passed</p>
+    <p class="prompt"><b>Prompt</b>Give a count with reasons, not only a percentage. Use real cases with known-correct outcomes, including edge cases and incomplete inputs. If the system correctly hands a doubtful case to a person, count that as a pass.</p>
+    <p class="passrate"><span class="ph">[41]</span> of <span class="ph">[50]</span> cases passed</p>
     <div class="tablewrap"><table role="table">
       <thead role="rowgroup"><tr role="row"><th role="columnheader">Failure category</th><th role="columnheader">Count</th><th role="columnheader">Evidence kept</th></tr></thead>
       <tbody role="rowgroup">
         <tr role="row"><td role="cell" data-label="Failure category"><span class="ph">[Missing data]</span></td><td role="cell" data-label="Count"><span class="ph">[n]</span></td><td role="cell" data-label="Evidence kept"><span class="ph">[short quote or case ID]</span></td></tr>
-        <tr role="row"><td role="cell" data-label="Failure category"><span class="ph">[Wrong record pulled]</span></td><td role="cell" data-label="Count"><span class="ph">[n]</span></td><td role="cell" data-label="Evidence kept"><span class="ph">[short quote or case ID]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Failure category"><span class="ph">[Wrong answer, confidently]</span></td><td role="cell" data-label="Count"><span class="ph">[n]</span></td><td role="cell" data-label="Evidence kept"><span class="ph">[short quote or case ID]</span></td></tr>
         <tr role="row"><td role="cell" data-label="Failure category"><span class="ph">[Correctly escalated]</span></td><td role="cell" data-label="Count"><span class="ph">[n]</span></td><td role="cell" data-label="Evidence kept"><span class="ph">[counted as a pass]</span></td></tr>
       </tbody>
     </table></div>
-    <p><span class="ph">[How accuracy moved: where it started, what changed it, where it is now.]</span></p>
+    <p><span class="ph">[How the score moved: where it started, what changed it, where it is now.]</span></p>
   </section>
 
   <section id="numbers">
     <h2>The numbers</h2>
-    <p class="prompt"><b>Prompt</b>Write the prediction before building, and the date you captured the baseline. Include model cost. Count all five cost layers where they apply: labor, error correction, speed penalty, opportunity cost and scaling ceiling. Claim revenue effects softly.</p>
+    <p class="prompt"><b>Prompt</b>Write the prediction before you build, and date the baseline. Include what the AI itself costs to run. Claim revenue effects softly.</p>
     <div class="tablewrap"><table role="table">
       <thead role="rowgroup"><tr role="row"><th role="columnheader">Measure</th><th role="columnheader">Baseline (captured <span class="ph">[date]</span>)</th><th role="columnheader">Predicted</th><th role="columnheader">Actual</th></tr></thead>
       <tbody role="rowgroup">
-        <tr role="row"><td role="cell" data-label="Measure">Hours per account per month</td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
-        <tr role="row"><td role="cell" data-label="Measure">Misses caught or avoided</td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
-        <tr role="row"><td role="cell" data-label="Measure">Accounts per person</td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Measure"><span class="ph">[Time per task]</span></td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Measure"><span class="ph">[Errors or rework]</span></td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
+        <tr role="row"><td role="cell" data-label="Measure"><span class="ph">[Cost per run]</span></td><td role="cell" data-label="Baseline (captured [date])"><span class="ph">[n]</span></td><td role="cell" data-label="Predicted"><span class="ph">[n]</span></td><td role="cell" data-label="Actual"><span class="ph">[n]</span></td></tr>
       </tbody>
     </table></div>
-    <p><span class="ph">[Where did the freed time go? And which step downstream did the queue move to?]</span></p>
+    <p><span class="ph">[Where did the freed time go, and which step downstream did the queue move to?]</span></p>
   </section>
 
   <section id="wrong">
@@ -152,12 +227,14 @@
   <details class="author" open>
     <summary>Before you publish (delete this box)</summary>
     <ul class="checklist">
-      <li><input type="checkbox" id="c1"><label for="c1">Customer names, account details, ticket numbers and internal system names are removed or generalised.</label></li>
-      <li><input type="checkbox" id="c2"><label for="c2">Numbers are relative or rounded where exact figures would identify a customer or a company.</label></li>
+      <li><input type="checkbox" id="c1"><label for="c1">Company names, customer details, ticket numbers and internal system names are removed or generalised.</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Numbers are relative or rounded where exact figures could identify a company.</label></li>
       <li><input type="checkbox" id="c3"><label for="c3">I have checked that I am allowed to publish about this work.</label></li>
-      <li><input type="checkbox" id="c4"><label for="c4">The workflow owner and design partner have seen the post, and their objections are noted.</label></li>
-      <li><input type="checkbox" id="c5"><label for="c5">Every baseline and prediction carries the date it was captured.</label></li>
-      <li><input type="checkbox" id="c6"><label for="c6">Someone who was not in the room could say what was built, what it will not do, and which number shows it worked.</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">Prompts, logs and screenshots contain no keys, secrets or private data.</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">Models, versions and dates are stated.</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">Every baseline and prediction carries the date it was captured.</label></li>
+      <li><input type="checkbox" id="c7"><label for="c7">Someone who was not in the room could say what was tried, what it will not do, and which number shows it worked.</label></li>
+      <li><input type="checkbox" id="c8"><label for="c8">Code, repository links and screenshots do not reveal who I am.</label></li>
     </ul>
   </details>
   <a class="back" href="blog.html">Back to all notes</a>
@@ -166,8 +243,8 @@
 
 <div class="wrap">
 <footer class="site-f">
-  <span>Judgment Points. Notes on applied AI.</span>
-  <span>Examples are generalised and contain no customer data.</span>
+  <span>Practical AI. Notes on applied AI.</span>
+  <!-- <span>Examples are generalised and contain no customer data.</span> -->
 </footer>
 </div>
 </body>

@@ -1,6 +1,6 @@
 
 (function(){
-  var root=document.documentElement,key='jp-theme';
+  var root=document.documentElement,key='pai-theme';
   try{var s=localStorage.getItem(key);if(s==='dark'||s==='light')root.setAttribute('data-theme',s);}catch(e){}
   function cur(){var t=root.getAttribute('data-theme');if(t)return t;return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
   function init(){
@@ -20,6 +20,7 @@
 document.addEventListener('DOMContentLoaded',function(){
 (function(){
   var btns=[].slice.call(document.querySelectorAll('.step'));
+  if(!btns.length)return;
   var tag=document.getElementById('d-tag'),nm=document.getElementById('d-name'),
       why=document.getElementById('d-why'),fail=document.getElementById('d-fail');
   btns.forEach(function(b){
@@ -35,16 +36,28 @@ document.addEventListener('DOMContentLoaded',function(){
 
 (function(){
   var chips=[].slice.call(document.querySelectorAll('.chip'));
+  if(!chips.length)return;
   var rows=[].slice.call(document.querySelectorAll('#entries .entry'));
   var empty=document.getElementById('empty');
+  function apply(f){
+    var shown=0;
+    chips.forEach(function(x){x.setAttribute('aria-pressed',x.dataset.filter===f?'true':'false');});
+    rows.forEach(function(r){var ok=f==='All'||r.dataset.group===f;r.hidden=!ok;if(ok)shown++;});
+    if(empty)empty.hidden=shown>0;
+  }
   chips.forEach(function(c){
     c.addEventListener('click',function(){
-      var f=c.dataset.filter,shown=0;
-      chips.forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false');});
-      rows.forEach(function(r){var ok=f==='All'||r.dataset.stage===f;r.hidden=!ok;if(ok)shown++;});
-      empty.hidden=shown>0;
+      apply(c.dataset.filter);
+      try{history.replaceState(null,'',c.dataset.slug?'#'+c.dataset.slug:location.pathname);}catch(e){}
     });
   });
+  function fromHash(){
+    var h=location.hash.replace('#',''),f='All';
+    chips.forEach(function(c){if(c.dataset.slug&&c.dataset.slug===h)f=c.dataset.filter;});
+    apply(f);
+  }
+  if(location.hash)fromHash();
+  window.addEventListener('hashchange',fromHash);
 })();
 
 (function(){

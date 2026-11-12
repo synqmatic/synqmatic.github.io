@@ -17,7 +17,6 @@
 <div class="wrap">
 <header class="site">
   <a class="wordmark" href="index.html">Practical AI<i aria-hidden="true"></i></a>
-  <a class="wordmark" href="index.html">Practical AI<i aria-hidden="true"></i></a>
   <nav class="main" aria-label="Main">
     <a href="index.html" aria-current="page">Home</a>
     <a href="blog.html">Notes</a>
@@ -31,12 +30,7 @@
   <p class="eyebrow">Notes on using AI where it works</p>
   <h1>What works when you build with AI, ship it, and put it inside real work.</h1>
   <p class="lede">Practical AI is a notebook written while learning. It covers four tracks: how AI tools behave, how software gets built with them, how they get deployed inside a company's real workflows, and the code around the model. Each note shows the evidence, including what failed.</p>
-  <p class="eyebrow">Notes on using AI where it works</p>
-  <h1>What works when you build with AI, ship it, and put it inside real work.</h1>
-  <p class="lede">Practical AI is a notebook written while learning. It covers four tracks: how AI tools behave, how software gets built with them, how they get deployed inside a company's real workflows, and the code around the model. Each note shows the evidence, including what failed.</p>
   <div class="actions">
-    <!-- <a class="btn primary" href="blog.html">Read the notes</a> -->
-    <a class="btn" href="#tracks">Browse the tracks</a>
     <!-- <a class="btn primary" href="blog.html">Read the notes</a> -->
     <a class="btn" href="#tracks">Browse the tracks</a>
   </div>
@@ -63,7 +57,32 @@
     </div>
     <div class="toplist">
       <p class="eyebrow">Top posts</p>
-      <ul class="entries compact"><li class="entry" data-group="Prompting"><span class="stage">Prompting</span><div><h3>Prompts are specifications</h3><p>Writing a prompt the way you would write a requirements document, so it keeps working when the model underneath changes. Includes how to test a prompt before and after an upgrade.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Context"><span class="stage">Context</span><div><h3>Context is the real interface</h3><p>What to put in the context window, what to leave out, and how to tell when more information makes the answer worse.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Agents"><span class="stage">Agents</span><div><h3>Workflow or agent: choosing the simpler one</h3><p>A fixed sequence of steps and an agent that picks its own steps solve different problems. A way to choose without defaulting to the more exciting one.</p></div><span class="status">Planned</span></li></ul>
+      <ul class="entries compact">
+        <li class="entry" data-group="Prompting">
+          <span class="stage">Prompting</span>
+          <div>
+            <h3>Prompts are specifications</h3>
+            <p>Writing a prompt the way you would write a requirements document, so it keeps working when the model underneath changes. Includes how to test a prompt before and after an upgrade.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li>
+        <!-- <li class="entry" data-group="Context">
+          <span class="stage">Context</span>
+          <div>
+            <h3>Context is the real interface</h3>
+            <p>What to put in the context window, what to leave out, and how to tell when more information makes the answer worse.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li>
+        <li class="entry" data-group="Agents">
+          <span class="stage">Agents</span>
+          <div>
+            <h3>Workflow or agent: choosing the simpler one</h3>
+            <p>A fixed sequence of steps and an agent that picks its own steps solve different problems. A way to choose without defaulting to the more exciting one.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li> -->
+      </ul>
       <a class="more" href="foundations/index.html">All posts<span class="sr"> in AI foundations</span></a>
     </div>
   </div>
@@ -76,11 +95,45 @@
       <h2>AI in the software lifecycle</h2>
       <p class="tagline">Building software with AI at every stage.</p>
       <p class="body">From requirements to operations: where coding agents help, where they add risk, and which human checks stay in place.</p>
-      <ul class="topics"><li>Requirements</li><li>Design</li><li>Coding agents</li><li>Code review</li><li>Testing</li><li>CI/CD</li><li>Docs</li><li>Governance</li></ul>
+      <ul class="topics">
+        <li>Requirements</li>
+        <li>Design</li>
+        <li>Coding agents</li>
+        <li>Code review</li>
+        <li>Testing</li>
+        <li>CI/CD</li>
+        <li>Docs</li>
+        <li>Governance</li>
+      </ul>
     </div>
     <div class="toplist">
       <p class="eyebrow">Top posts</p>
-      <ul class="entries compact"><li class="entry" data-group="Requirements"><span class="stage">Requirements</span><div><h3>Writing requirements an AI coding agent can build from</h3><p>What a specification needs so the first draft lands close: scope, constraints, examples and the checks that decide when it is done.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Code review"><span class="stage">Code review</span><div><h3>Reviewing AI-written code</h3><p>What to read first, which failure patterns to look for, and why a clean-looking diff still needs a person who understands the system.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Testing"><span class="stage">Testing</span><div><h3>Tests as the contract</h3><p>Letting an agent work against a failing test suite, and what to do when it makes the tests pass the wrong way.</p></div><span class="status">Planned</span></li></ul>
+      <ul class="entries compact">
+        <li class="entry" data-group="Requirements">
+          <span class="stage">Requirements</span>
+          <div>
+            <h3>Writing requirements an AI coding agent can build from</h3>
+            <p>What a specification needs so the first draft lands close: scope, constraints, examples and the checks that decide when it is done.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li>
+        <!-- <li class="entry" data-group="Code review">
+          <span class="stage">Code review</span>
+          <div>
+            <h3>Reviewing AI-written code</h3>
+            <p>What to read first, which failure patterns to look for, and why a clean-looking diff still needs a person who understands the system.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li>
+        <li class="entry" data-group="Testing">
+          <span class="stage">Testing</span>
+          <div>
+            <h3>Tests as the contract</h3>
+            <p>Letting an agent work against a failing test suite, and what to do when it makes the tests pass the wrong way.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li> -->
+      </ul>
       <a class="more" href="ai-sdlc/index.html">All posts<span class="sr"> in AI in the software lifecycle</span></a>
     </div>
   </div>
@@ -93,7 +146,14 @@
       <h2>Forward deployed engineering</h2>
       <p class="tagline">Putting AI inside a real workflow.</p>
       <p class="body">Audit how the work really runs, decide which steps need a model, build it, prove it with evals, deploy it in shadow mode, then watch it.</p>
-      <ul class="topics"><li>Workflow audit</li><li>Judgment calls</li><li>Build</li><li>Evals</li><li>Deployment</li><li>Observability</li></ul>
+      <ul class="topics">
+        <li>Workflow audit</li>
+        <li>Judgment calls</li>
+        <li>Build</li>
+        <li>Evals</li>
+        <li>Deployment</li>
+        <li>Observability</li>
+      </ul>
     </div>
     <div class="toplist">
       <p class="eyebrow">Top posts</p>
@@ -106,7 +166,23 @@
           </div>
           <span class="status">Planned</span>
         </li>
-        <li class="entry" data-group="Judgment"><span class="stage">Judgment</span><div><h3>Why a ten-step workflow gets two model calls</h3><p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Evals"><span class="stage">Evals</span><div><h3>Grading a system that never answers the same way twice</h3><p>Five case types, four criteria, and why escalating to a person counts as a pass. Includes how to break a subjective judgment into parts you can check.</p></div><span class="status">Planned</span></li></ul>
+        <!-- <li class="entry" data-group="Judgment">
+          <span class="stage">Judgment</span>
+          <div>
+            <h3>Why a ten-step workflow gets two model calls</h3>
+            <p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li>
+        <li class="entry" data-group="Evals">
+          <span class="stage">Evals</span>
+          <div>
+            <h3>Grading a system that never answers the same way twice</h3>
+            <p>Five case types, four criteria, and why escalating to a person counts as a pass. Includes how to break a subjective judgment into parts you can check.</p>
+          </div>
+          <span class="status">Planned</span>
+        </li> -->
+      </ul>
       <a class="more" href="fde/index.html">All posts<span class="sr"> in Forward deployed engineering</span></a>
     </div>
   </div>
@@ -119,7 +195,14 @@
       <h2>Programming</h2>
       <p class="tagline">The code around the model.</p>
       <p class="body">Python first, TypeScript where it fits. Calling models from code, handling their output safely, and testing code whose results vary.</p>
-      <ul class="topics"><li>Python</li><li>TypeScript</li><li>Structured output</li><li>Async</li><li>Testing</li><li>Tooling</li></ul>
+      <ul class="topics">
+        <li>Python</li>
+        <li>TypeScript</li>
+        <li>Structured output</li>
+        <li>Async</li>
+        <li>Testing</li>
+        <li>Tooling</li>
+      </ul>
     </div>
     <div class="toplist">
       <p class="eyebrow">Top posts</p>
@@ -155,7 +238,7 @@
 </section>
 </div>
 
-<div class="wrap">
+<!-- <div class="wrap">
 <section class="block" id="approach">
   <p class="eyebrow">How I work</p>
   <h2>Three habits apply to every track.</h2>
@@ -174,7 +257,7 @@
     </div>
   </div>
 </section>
-</div>
+</div> -->
 
 <!-- <div class="wrap">
 <section class="block" id="work">

@@ -28,20 +28,65 @@
   <p class="crumbs"><a href="../blog.html">Notes</a> / Forward deployed engineering</p>
   <h1>Forward deployed engineering</h1>
   <p>Putting AI inside a real workflow. Audit how the work really runs, decide which steps need a model, build it, prove it with evals, deploy it in shadow mode, then watch it.</p>
-  <ul class="topics"><li>Workflow audit</li><li>Judgment calls</li><li>Build</li><li>Evals</li><li>Deployment</li><li>Observability</li></ul>
-  <nav class="tracknav" aria-label="Tracks"><a href="../foundations/index.html">Foundations</a><a href="../ai-sdlc/index.html">AI SDLC</a><a href="../fde/index.html" aria-current="page">FDE</a><a href="../programming/index.html">Programming</a></nav>
+  <ul class="topics">
+    <li>Workflow audit</li>
+    <li>Judgment calls</li>
+    <li>Build</li>
+    <li>Evals</li>
+    <li>Deployment</li>
+    <li>Observability</li>
+  </ul>
+  <nav class="tracknav" aria-label="Tracks">
+    <a href="../foundations/index.html">Foundations</a>
+    <a href="../ai-sdlc/index.html">AI SDLC</a>
+    <a href="../fde/index.html" aria-current="page">FDE</a>
+    <a href="../programming/index.html">Programming</a>
+  </nav>
 </div>
 <section class="block" id="posts">
   <p class="eyebrow">Posts</p>
   <h2>All posts</h2>
   <div class="filters" role="group" aria-label="Filter by topic"><button class="chip" type="button" data-filter="All" data-slug="" aria-pressed="true">All</button><button class="chip" type="button" data-filter="Audit" data-slug="audit" aria-pressed="false">Audit</button><button class="chip" type="button" data-filter="Judgment" data-slug="judgment" aria-pressed="false">Judgment</button><button class="chip" type="button" data-filter="Evals" data-slug="evals" aria-pressed="false">Evals</button><button class="chip" type="button" data-filter="Deployment" data-slug="deployment" aria-pressed="false">Deployment</button></div>
-  <ul class="entries" id="entries"><li class="entry" data-group="Audit"><span class="stage">Audit</span><div><h3>Auditing a workflow before building anything</h3><p>Why two weeks of audit comes before any code, and what to collect: interviews, exception paths, the spreadsheets people built to get around the system, and where colleagues already use AI on their own.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Judgment"><span class="stage">Judgment</span><div><h3>Why a ten-step workflow gets two model calls</h3><p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Evals"><span class="stage">Evals</span><div><h3>Grading a system that never answers the same way twice</h3><p>Five case types, four criteria, and why escalating to a person counts as a pass. Includes how to break a subjective judgment into parts you can check.</p></div><span class="status">Planned</span></li><li class="entry" data-group="Deployment"><span class="stage">Deployment</span><div><h3>Shadow mode: running beside the old process</h3><p>How to compare a new system&#x27;s output with the real one before it is allowed to act, and what every run needs to log.</p></div><span class="status">Planned</span></li></ul>
+  <ul class="entries" id="entries">
+    <li class="entry" data-group="Audit">
+      <span class="stage">Audit</span>
+      <div>
+        <h3>Auditing a workflow before building anything</h3>
+        <p>Why two weeks of audit comes before any code, and what to collect: interviews, exception paths, the spreadsheets people built to get around the system, and where colleagues already use AI on their own.</p>
+      </div>
+      <span class="status">Planned</span>
+    </li>
+    <!-- <li class="entry" data-group="Judgment">
+      <span class="stage">Judgment</span>
+      <div>
+        <h3>Why a ten-step workflow gets two model calls</h3>
+        <p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p>
+      </div>
+      <span class="status">Planned</span>
+    </li>
+    <li class="entry" data-group="Evals">
+      <span class="stage">Evals</span>
+      <div>
+        <h3>Grading a system that never answers the same way twice</h3>
+        <p>Five case types, four criteria, and why escalating to a person counts as a pass. Includes how to break a subjective judgment into parts you can check.</p>
+      </div>
+      <span class="status">Planned</span>
+    </li>
+    <li class="entry" data-group="Deployment">
+      <span class="stage">Deployment</span>
+      <div>
+        <h3>Shadow mode: running beside the old process</h3>
+        <p>How to compare a new system&#x27;s output with the real one before it is allowed to act, and what every run needs to log.</p>
+      </div>
+      <span class="status">Planned</span>
+    </li> -->
+  </ul>
   <p class="empty" id="empty" hidden>Nothing under this topic yet.</p>
 </section>
 <section class="block" id="practice">
-  <p class="eyebrow">This track in practice</p>
-  <h2>A ten-step workflow ends up with two model calls.</h2>
-  <figure class="alloc" aria-label="A ten step workflow allocated between code, model and person">
+  <!-- <p class="eyebrow">This track in practice</p> -->
+  <!-- <h2>A ten-step workflow ends up with two model calls.</h2> -->
+  <!-- <figure class="alloc" aria-label="A ten step workflow allocated between code, model and person">
   <div class="alloc-head">
     <span class="eyebrow">Allocation by step</span>
     <span class="eyebrow">Illustrative: meeting transcript to approved follow-up tasks</span>
@@ -129,8 +174,7 @@
       <div><dt>When it fails</dt><dd id="d-fail">Item with no clear owner: flag it, never assign it.</dd></div>
     </dl>
   </div>
-  <figcaption>7 steps are plain code, 2 are model calls and 1 is a person approving. If a map shows a model at every step, the map is wrong. Select any step to see why it sits where it does.</figcaption>
-</figure>
+  <figcaption>7 steps are plain code, 2 are model calls and 1 is a person approving. If a map shows a model at every step, the map is wrong. Select any step to see why it sits where it does.</figcaption></figure> -->
   <h3 class="subhead eyebrow">The forward deployed engineering loop</h3>
   <ol class="loop">
     <li>
@@ -164,7 +208,7 @@
       <p>Watch edit rate and bypass rate. Whatever breaks next names the next workflow.</p>
     </li>
   </ol>
-  <p class="loop-note">Each pass reveals the next workflow, because bottlenecks are connected.</p>
+  <!-- <p class="loop-note">Each pass reveals the next workflow, because bottlenecks are connected.</p> -->
 </section>
 </div>
 

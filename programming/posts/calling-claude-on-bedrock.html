@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A walk through a small Python script that calls Claude on Amazon Bedrock: passing context, managing tokens, and choosing between the API options.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Calling Claude on Bedrock from Python | Practical AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../css/styles.css">
+<script src="../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../index.html">Practical AI<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../index.html">Home</a>
+    <a href="../../blog.html" aria-current="page">Notes</a>
+    <!-- <a href="../../index.html#work">Work with me</a> -->
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../blog.html">Notes</a> / <a href="../index.html">Programming</a> / Calling Claude on Bedrock from Python</p>
+  <h1>One Python file covers a basic Claude call, context, token limits and the three ways to call it.</h1>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-12</dd></div>
+    <div><dt>Track</dt><dd>Programming</dd></div>
+    <div><dt>Topic</dt><dd>Python</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>6 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="short">
+    <h2>The short version</h2>
+    <ul>
+      <li>What I tried: a single Python script that calls Claude on Amazon Bedrock with a Bedrock API key, using the Converse API, streaming and the raw InvokeModel API.</li>
+      <li>What happened: the request shapes pass botocore's validation against the real Bedrock service model, and the helper functions pass stubbed tests. I have not yet run it against Bedrock itself.</li>
+      <li>What I would do next: run it live with a real key, then compare the token counts it predicts with the usage Bedrock reports.</li>
+    </ul>
+  </section>
+
+  <section id="context">
+    <h2>The problem and the context</h2>
+    <p>Most Claude examples call Anthropic's own API. I wanted the same thing on Bedrock, where the account, billing and access controls already exist. The aim was a small file I can read in one sitting and reuse: one call that works, and clear places where I can change what the model sees and how many tokens a call may use.</p>
+    <p>The API key is a stub. The script reads it from an environment variable, or from one constant at the top of the file.</p>
+  </section>
+
+  <section id="setup">
+    <h2>What I tried</h2>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Item</th><th role="columnheader">Detail</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Item">Model and version</td><td role="cell" data-label="Detail">Claude Sonnet through the <code>us.anthropic.claude-sonnet-4-6</code> inference profile, the ID used in AWS's own example. Change it with <code>BEDROCK_MODEL_ID</code>.</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Tools and settings</td><td role="cell" data-label="Detail">Bedrock API key, Converse API, Region <code>us-east-1</code> by default</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Inputs used</td><td role="cell" data-label="Detail">Stubbed responses only so far. No live calls.</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Date run</td><td role="cell" data-label="Detail">2026-11-12</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="t-programming">
+    <h2>The code</h2>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Item</th><th role="columnheader">Detail</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Item">Language and version</td><td role="cell" data-label="Detail">Python 3.9 or later</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Packages and versions</td><td role="cell" data-label="Detail"><code>boto3</code> 1.39.0 or later. AWS says earlier versions ignore the API key variable.</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">How to run it</td><td role="cell" data-label="Detail"><code>python claude_bedrock.py "your prompt"</code></td></tr>
+      </tbody>
+    </table></div>
+    <p>The full script is <a href="../examples/claude_bedrock.py">claude_bedrock.py</a>. The core of it is one Converse call:</p>
+    <pre><code>client = boto3.client("bedrock-runtime", region_name="us-east-1")
+
+response = client.converse(
+    modelId="us.anthropic.claude-sonnet-4-6",
+    system=[{"text": "You are a concise, accurate assistant."}],
+    messages=[{"role": "user", "content": [{"text": "Hello"}]}],
+    inferenceConfig={"maxTokens": 512, "temperature": 0.2},
+)
+text = response["output"]["message"]["content"][0]["text"]</code></pre>
+    <h3>Authentication</h3>
+    <p>Bedrock recognises an API key in the <code>AWS_BEARER_TOKEN_BEDROCK</code> environment variable, and boto3 picks it up when you create the client. The script checks the variable first, then the constant at the top of the file, and exits with a message if both are empty. Bedrock API keys cover Bedrock and Bedrock Runtime actions only.</p>
+  </section>
+
+  <section id="context-passing">
+    <h2>Passing context</h2>
+    <p>There are three places to put what the model should know, and they behave differently.</p>
+    <ul>
+      <li><b>System prompt.</b> Standing instructions: role, tone, rules. It is sent on every call.</li>
+      <li><b>A pinned document.</b> <code>--context-file</code> reads a text file and adds it to the system blocks inside <code>&lt;document&gt;</code> tags. Because it lives in the system prompt, trimming the conversation never removes it.</li>
+      <li><b>Conversation history.</b> The model keeps nothing between calls, so a chat resends every earlier user and assistant message each turn. <code>--chat</code> shows this: it appends each reply to a list and sends the whole list again.</li>
+    </ul>
+    <p>The trade-off is cost. Everything in all three places counts as input tokens on every call, so a long document or a long chat gets more expensive each turn.</p>
+  </section>
+
+  <section id="tokens">
+    <h2>Managing tokens</h2>
+    <ul>
+      <li><b>Count before sending.</b> Bedrock has a CountTokens operation that returns the input tokens a Converse or InvokeModel request would use. The script calls it first and refuses to send anything over <code>--budget</code>. Not every model supports it, so the script falls back to a rough estimate of four characters per token.</li>
+      <li><b>Cap the output.</b> <code>maxTokens</code> limits how long the reply can be. If the model hits it, the stop reason is <code>max_tokens</code> and the script prints a warning, because the answer was cut off.</li>
+      <li><b>Trim the history.</b> In chat mode, when the input is over budget, the script drops the oldest user and assistant pair and counts again. The newest message is always kept.</li>
+      <li><b>Read the usage.</b> Every response includes input and output token counts, and Converse adds latency. The script prints them after each call. If you fill in the two price constants, it also prints a cost estimate. They are blank on purpose, so it never guesses a price.</li>
+      <li><b>Retries.</b> The client is set to retry throttled requests with adaptive backoff, which matters once you send many calls.</li>
+    </ul>
+  </section>
+
+  <section id="options">
+    <h2>The API options</h2>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Option</th><th role="columnheader">What it does</th><th role="columnheader">Use it when</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Option"><code>converse</code></td><td role="cell" data-label="What it does">One request format across models. Returns the full reply.</td><td role="cell" data-label="Use it when">Default choice. Easiest to switch models.</td></tr>
+        <tr role="row"><td role="cell" data-label="Option"><code>converse_stream</code></td><td role="cell" data-label="What it does">Same request, but text arrives in pieces. Usage comes in a final metadata event.</td><td role="cell" data-label="Use it when">A person is watching the output.</td></tr>
+        <tr role="row"><td role="cell" data-label="Option"><code>invoke_model</code></td><td role="cell" data-label="What it does">The model's own request format. For Claude, Anthropic's Messages shape with <code>anthropic_version</code>.</td><td role="cell" data-label="Use it when">You need something Converse does not expose.</td></tr>
+        <tr role="row"><td role="cell" data-label="Option"><code>count_tokens</code></td><td role="cell" data-label="What it does">Returns the input token count for a request without running the model.</td><td role="cell" data-label="Use it when">Checking a budget before you send.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Beyond the call type, these settings change the result:</p>
+    <ul>
+      <li><code>temperature</code> or <code>topP</code>: how random the output is. The script sets one, not both.</li>
+      <li><code>stopSequences</code>: strings that end generation early.</li>
+      <li>Model ID or inference profile ID: a profile prefix such as <code>us.</code> or <code>global.</code> lets Bedrock route across Regions.</li>
+      <li><code>additionalModelRequestFields</code>: model-specific extras. It is left as a commented example.</li>
+    </ul>
+    <p>AWS's getting-started page also lists two other routes: Anthropic's own Messages API pointed at a Bedrock endpoint, and OpenAI-style Responses and Chat Completions endpoints. The script does not use them. Converse can also take tool definitions and guardrails, which this script leaves out.</p>
+  </section>
+
+  <section id="tests">
+    <h3>Tests and edge cases</h3>
+    <ul>
+      <li>Converse, CountTokens and InvokeModel requests passed botocore's Stubber, which checks parameters against the real service model. A wrong field name would fail here. Passed.</li>
+      <li>ConverseStream request parameters validated against the service model. Passed. The streaming loop ran against a fake event stream, including a <code>max_tokens</code> stop. Passed.</li>
+      <li>History trimming dropped one pair and kept the newest message when over budget. Passed.</li>
+      <li>CountTokens returning an error fell back to the estimate. Passed.</li>
+      <li>No key set: the script exits with a clear message. Passed.</li>
+      <li>Live calls to Bedrock, real token counts, throttling behaviour. Not run yet.</li>
+    </ul>
+  </section>
+
+  <section id="wrong">
+    <h2>What it still gets wrong</h2>
+    <ul>
+      <li>It has only been tested against stubs, so a live difference in response shape would only show up on the first real call.</li>
+      <li>The model ID is the one in AWS's example. A newer model, or one not enabled for your account and Region, needs a different ID.</li>
+      <li>Trimming drops whole old turns. It does not summarise them, so early facts in a long chat are lost.</li>
+      <li>The fallback estimate of four characters per token is rough, and worse for code and non-English text.</li>
+      <li>AWS recommends short-term API keys for production use, and the script does not refresh keys.</li>
+    </ul>
+  </section>
+
+  <section id="change">
+    <h2>What I would change</h2>
+    <p>I would add prompt caching for the pinned document, so a long reference file is not billed in full on every turn, and summarise old history instead of dropping it. Both come after I have a live run to measure against.</p>
+  </section>
+
+  <section id="open">
+    <h2>Open questions</h2>
+    <ul>
+      <li>How closely does the CountTokens number match the usage Bedrock reports for the same request?</li>
+      <li>Which Claude models support CountTokens, and under which ID form (plain model or inference profile)?</li>
+      <li>What does the same prompt cost and how long does it take through Converse compared with InvokeModel?</li>
+    </ul>
+  </section>
+
+  <section id="sources">
+    <h2>Sources and further reading</h2>
+    <ul>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/api-keys-use.html">Use an Amazon Bedrock API key (AWS)</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/getting-started.html">Getting started with Amazon Bedrock (AWS)</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_CountTokens.html">CountTokens (Amazon Bedrock API reference)</a></li>
+      <li><a href="https://docs.aws.amazon.com/botocore/latest/reference/services/bedrock-runtime/client/count_tokens.html">BedrockRuntime client count_tokens (boto3 docs)</a></li>
+      <li><a href="https://aws.amazon.com/blogs/machine-learning/getting-started-with-cross-region-inference-in-amazon-bedrock">Getting started with cross-Region inference in Amazon Bedrock (AWS blog)</a></li>
+    </ul>
+  </section>
+  <a class="back" href="../../blog.html">Back to all notes</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Practical AI. Notes on applied AI.</span>
+  <!-- <span>Examples are generalised and contain no customer data.</span> -->
+</footer>
+</div>
+</body>
+</html>

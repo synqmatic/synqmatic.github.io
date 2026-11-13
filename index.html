@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Practical notes on AI foundations, AI in the software lifecycle, forward deployed engineering and programming.">
-<meta name="description" content="Practical notes on AI foundations, AI in the software lifecycle, forward deployed engineering and programming.">
 <meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
 <title>Practical AI</title>
@@ -58,13 +57,21 @@
     <div class="toplist">
       <p class="eyebrow">Top posts</p>
       <ul class="entries compact">
-        <li class="entry" data-group="Prompting">
+        <!-- <li class="entry" data-group="Prompting">
           <span class="stage">Prompting</span>
           <div>
             <h3>Prompts are specifications</h3>
             <p>Writing a prompt the way you would write a requirements document, so it keeps working when the model underneath changes. Includes how to test a prompt before and after an upgrade.</p>
           </div>
           <span class="status">Planned</span>
+        </li> -->
+        <li class="entry" data-group="Hosting">
+          <span class="stage">Hosting</span>
+          <div>
+            <h3><a href="posts/how-clouds-host-claude.html">Who actually runs Claude on a cloud?</a></h3>
+            <p>How Bedrock, Vertex AI and Foundry host Claude, why AWS runs the model in accounts Anthropic cannot see, and where the clouds differ.</p>
+          </div>
+          <span class="status">Draft</span>
         </li>
         <!-- <li class="entry" data-group="Context">
           <span class="stage">Context</span>
@@ -210,12 +217,20 @@
         <li class="entry" data-group="Python">
           <span class="stage">Python</span>
           <div>
+            <h3><a href="posts/calling-claude-on-bedrock.html">Calling Claude on Bedrock from Python</a></h3>
+            <p>A small script that makes a basic Claude call on Bedrock, passes context, manages tokens, and shows the Converse, streaming and InvokeModel options.</p>
+          </div>
+          <span class="status">Draft</span>
+        </li>
+        <!-- <li class="entry" data-group="Python">
+          <span class="stage">Python</span>
+          <div>
             <h3>Validating model output with Pydantic</h3>
             <p>Turning a model&#x27;s reply into typed data, and what to do when it does not fit the schema.</p>
           </div>
           <span class="status">Planned</span>
         </li>
-        <!-- <li class="entry" data-group="Python">
+        <li class="entry" data-group="Python">
           <span class="stage">Python</span>
           <div>
             <h3>Calling models in parallel with asyncio</h3>

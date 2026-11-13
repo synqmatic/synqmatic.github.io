@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="How Amazon Bedrock, Google Cloud and Microsoft Foundry host Claude, and why the answer to who runs the model depends on which product you pick.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Who actually runs Claude on a cloud? | Practical AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../css/styles.css">
+<script src="../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../index.html">Practical AI<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../index.html">Home</a>
+    <a href="../../blog.html" aria-current="page">Notes</a>
+    <!-- <a href="../../index.html#work">Work with me</a> -->
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../blog.html">Notes</a> / <a href="../index.html">AI foundations</a> / Who actually runs Claude on a cloud?</p>
+  <h1>Whether the cloud or Anthropic runs Claude depends on which cloud product you pick.</h1>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-12</dd></div>
+    <div><dt>Track</dt><dd>Foundations</dd></div>
+    <div><dt>Topic</dt><dd>Hosting</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>5 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="short">
+    <h2>The short version</h2>
+    <ul>
+      <li>What I tried: reading the AWS, Google, Microsoft and Anthropic documentation to trace how a Claude request is actually served on each platform.</li>
+      <li>What happened: on Bedrock, AWS runs the model in accounts it owns and Anthropic cannot see inside them. On Foundry there are two versions of Claude, and one runs on Anthropic's own infrastructure. That makes at least four hosting arrangements across three clouds.</li>
+      <li>What I would do next: send one prompt through two platforms and compare features, latency and logging.</li>
+    </ul>
+  </section>
+
+  <section id="context">
+    <h2>The problem and the context</h2>
+    <p>When a team says "we use Claude on Bedrock", it sounds like a proxy: Bedrock forwards the request to Anthropic. That is not how it works, and the difference matters for security reviews, data residency and which features you get. I wanted a plain account of what hosting a frontier model on someone else's cloud involves.</p>
+    <p>This is desk research. Nothing was deployed, and the vendors do not publish everything, so the last section lists what I could not confirm.</p>
+  </section>
+
+  <section id="setup">
+    <h2>What I checked</h2>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Item</th><th role="columnheader">Detail</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Item">Method</td><td role="cell" data-label="Detail">Reading vendor documentation and announcements. No requests were sent.</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Sources</td><td role="cell" data-label="Detail">Amazon Bedrock user guide and AWS blogs, Anthropic's platform docs and announcements, Microsoft Learn, Google Cloud blog</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Models in the docs</td><td role="cell" data-label="Detail">Claude Sonnet and Opus generations 4.x to 5.x. Availability lists change often.</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Date read</td><td role="cell" data-label="Detail">2026-11-12</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="bedrock">
+    <h2>How Bedrock hosts a Claude model</h2>
+    <p>AWS documents the mechanism in its data protection guide. The steps, as far as they are public:</p>
+    <ol>
+      <li><b>The provider delivers the model to AWS.</b> Anthropic hands over the model it wants served.</li>
+      <li><b>AWS copies it into a deployment account.</b> Each AWS Region where Bedrock runs has one model deployment account per model provider. The Bedrock service team owns and operates these accounts. AWS says it makes a deep copy of the provider's inference software into them.</li>
+      <li><b>The provider is locked out.</b> Providers have no access to those accounts, so they cannot see Bedrock logs, prompts or completions. This is the main difference from calling a provider's own API.</li>
+      <li><b>Your call stays inside AWS.</b> You call the <code>bedrock-runtime</code> endpoint with a model ID, usually through the Converse API, which gives one request format across providers. Invocation traffic stays on the AWS network. Bedrock runs automated abuse detection, and AWS says no human reads your inputs or outputs.</li>
+      <li><b>Routing can cross Regions.</b> If you use an inference profile instead of a plain model ID, Bedrock picks a destination Region. Geographic profiles stay within a region group and global profiles can go to supported Regions worldwide. Profile IDs carry a prefix, such as <code>global.anthropic.claude-sonnet-4-5-20250929-v1:0</code>. Inference profiles do not work with Provisioned Throughput.</li>
+    </ol>
+    <p>AWS also describes a newer serving layer, Mantle, which exposes OpenAI-compatible endpoints. AWS says it is built so that no operator can reach customer prompts, whether from AWS, the customer or the model provider. I could not find that claim on the main data protection page, so treat it as a separate, newer design.</p>
+  </section>
+
+  <section id="compare">
+    <h2>Same model, different operators</h2>
+    <p>The clouds do not all work the same way. The Foundry documentation is the clearest example.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Platform</th><th role="columnheader">Who runs inference</th><th role="columnheader">How you call it</th><th role="columnheader">Worth knowing</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Platform">Amazon Bedrock</td><td role="cell" data-label="Who runs inference">AWS, in its own deployment accounts</td><td role="cell" data-label="How you call it">Converse or InvokeModel, with model or inference profile IDs</td><td role="cell" data-label="Worth knowing">Provider has no access to prompts or logs</td></tr>
+        <tr role="row"><td role="cell" data-label="Platform">Google Cloud (Vertex AI)</td><td role="cell" data-label="Who runs inference">Google, in the Google-managed offering</td><td role="cell" data-label="How you call it">Anthropic SDK with Vertex credentials. The model name is in the URL and <code>anthropic_version</code> is in the body.</td><td role="cell" data-label="Worth knowing">Several Claude API features are unsupported, including the Files API and web fetch</td></tr>
+        <tr role="row"><td role="cell" data-label="Platform">Microsoft Foundry, Azure-hosted</td><td role="cell" data-label="Who runs inference">Microsoft, on Azure infrastructure</td><td role="cell" data-label="How you call it">Foundry deployment</td><td role="cell" data-label="Worth knowing">Not every model is offered in this version</td></tr>
+        <tr role="row"><td role="cell" data-label="Platform">Microsoft Foundry, Anthropic-hosted</td><td role="cell" data-label="Who runs inference">Anthropic, outside Azure</td><td role="cell" data-label="How you call it">Foundry deployment</td><td role="cell" data-label="Worth knowing">The Files API and web fetch work only in this version</td></tr>
+      </tbody>
+    </table></div>
+    <p>Anthropic's Vertex page also mentions a separate Anthropic-managed offering on Google Cloud, and Anthropic's docs list a "Claude Platform on AWS". I did not find enough detail on either to place them in the table.</p>
+  </section>
+
+  <section id="why">
+    <h2>Why one model can sit on three clouds</h2>
+    <p>Anthropic says it trains and runs Claude on AWS Trainium, Google TPUs and NVIDIA GPUs, and that Claude is the only frontier model available on all three large cloud platforms. Running on several kinds of hardware is what makes it practical to hand a model to several clouds, each with its own accelerators and serving stack. It also means a cloud can host the model on its own infrastructure and bill you in its own units.</p>
+    <p>Which chips serve a given Bedrock request is not public, and I would not assume it from Anthropic's training partners.</p>
+  </section>
+
+  <section id="practice">
+    <h2>What it means in practice</h2>
+    <ul>
+      <li>Ask "who operates the inference" as a separate question from "which cloud do we pay". Answers differ even inside one vendor.</li>
+      <li>Check the feature list for the platform you pick. The first-party Claude API is the reference, and Vertex and Foundry each leave some features out.</li>
+      <li>Model IDs differ by platform. Vertex used <code>@</code> before the snapshot date on older models, and Bedrock adds a region prefix for inference profiles.</li>
+      <li>Read data residency per product. One news report said Foundry's Azure-hosted deployments run in Sweden under a Global Standard type that can serve from anywhere, so European residency guarantees that apply on Bedrock or Vertex may not carry over.</li>
+    </ul>
+  </section>
+
+  <section id="wrong">
+    <h2>What I could not confirm</h2>
+    <ul>
+      <li>The exact contract and delivery format between Anthropic and each cloud. AWS says "model" and "inference software", and says nothing more about the artefacts.</li>
+      <li>Which hardware serves a request on each platform.</li>
+      <li>How far the Mantle zero-operator-access design applies to Claude models on Bedrock today.</li>
+      <li>Current retention rules per model. AWS points to separate pages for retention and abuse detection, and I did not read them in full.</li>
+    </ul>
+  </section>
+
+  <section id="change">
+    <h2>What I would change</h2>
+    <p>I started with the picture of a cloud as a pass-through to Anthropic. After reading the docs I would describe Bedrock as a hosting service in which AWS operates the model, and drop the pass-through picture entirely. For Foundry the picture splits in two, so the post needs a table instead of one sentence.</p>
+  </section>
+
+  <section id="open">
+    <h2>Open questions</h2>
+    <ul>
+      <li>Do the same prompts produce the same behaviour and latency on Bedrock, Vertex and Foundry?</li>
+      <li>How long does a new Claude model take to reach each platform, and which features arrive later?</li>
+      <li>What does an Anthropic-hosted deployment inside a cloud marketplace mean for a security review?</li>
+    </ul>
+  </section>
+
+  <section id="sources">
+    <h2>Sources and further reading</h2>
+    <ul>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html">Data protection, Amazon Bedrock user guide</a></li>
+      <li><a href="https://repost.aws/knowledge-center/amazon-bedrock-model-data-use">Does Amazon Bedrock share data with model providers? (AWS re:Post)</a></li>
+      <li><a href="https://aws.amazon.com/blogs/machine-learning/getting-started-with-cross-region-inference-in-amazon-bedrock">Getting started with cross-Region inference in Amazon Bedrock (AWS blog)</a></li>
+      <li><a href="https://aihub.hkuspace.hku.hk/?p=5527">Exploring the zero operator access design of Mantle (mirror of the AWS blog post)</a></li>
+      <li><a href="https://platform.claude.com/docs/en/api/claude-on-vertex-ai">Claude on Google Cloud (Anthropic platform docs)</a></li>
+      <li><a href="https://learn.microsoft.com/en-my/Azure/foundry/foundry-models/concepts/claude-models">Claude models in Microsoft Foundry (Microsoft Learn)</a></li>
+      <li><a href="https://infoq.com/news/2026/07/claude-foundry-ga-europe/">Claude reaches GA on Microsoft Foundry: European enterprises cannot deploy it (InfoQ)</a></li>
+      <li><a href="https://anthropic.com/news/google-broadcom-partnership-compute">Anthropic expands partnership with Google and Broadcom (Anthropic)</a></li>
+    </ul>
+  </section>
+  <a class="back" href="../../blog.html">Back to all notes</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Practical AI. Notes on applied AI.</span>
+  <!-- <span>Examples are generalised and contain no customer data.</span> -->
+</footer>
+</div>
+</body>
+</html>

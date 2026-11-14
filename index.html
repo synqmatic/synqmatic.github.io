@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Practical notes on AI foundations, AI in the software lifecycle, forward deployed engineering and programming.">
+<meta name="description" content="Practical notes on AI foundations, AI in the software lifecycle, AI forward deployed engineering and programming.">
 <meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
 <title>Synqmatic</title>
@@ -18,8 +18,6 @@
   <a class="wordmark" href="index.html">Synqmatic<i aria-hidden="true"></i></a>
   <nav class="main" aria-label="Main">
     <a href="index.html" aria-current="page">Home</a>
-    <a href="blog.html">Notes</a>
-    <!-- <a href="index.html#work">Work with me</a> -->
     <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
   </nav>
 </header>
@@ -30,7 +28,6 @@
   <h1>What works when you build with AI, ship it, and put it inside real work.</h1>
   <p class="lede">Synqmatic is a notebook written while learning. It covers four tracks: how AI tools behave, how software gets built with them, how they get deployed inside a company's real workflows, and the code around the model. Each note shows the evidence, including what failed.</p>
   <div class="actions">
-    <!-- <a class="btn primary" href="blog.html">Read the notes</a> -->
     <a class="btn" href="#tracks">Browse the tracks</a>
   </div>
 </section>
@@ -57,14 +54,6 @@
     <div class="toplist">
       <p class="eyebrow">Top posts</p>
       <ul class="entries compact">
-        <!-- <li class="entry" data-group="Prompting">
-          <span class="stage">Prompting</span>
-          <div>
-            <h3>Prompts are specifications</h3>
-            <p>Writing a prompt the way you would write a requirements document, so it keeps working when the model underneath changes. Includes how to test a prompt before and after an upgrade.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li> -->
         <li class="entry" data-group="Hosting">
           <span class="stage">Hosting</span>
           <div>
@@ -73,22 +62,6 @@
           </div>
           <span class="status">Draft</span>
         </li>
-        <!-- <li class="entry" data-group="Context">
-          <span class="stage">Context</span>
-          <div>
-            <h3>Context is the real interface</h3>
-            <p>What to put in the context window, what to leave out, and how to tell when more information makes the answer worse.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li>
-        <li class="entry" data-group="Agents">
-          <span class="stage">Agents</span>
-          <div>
-            <h3>Workflow or agent: choosing the simpler one</h3>
-            <p>A fixed sequence of steps and an agent that picks its own steps solve different problems. A way to choose without defaulting to the more exciting one.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li> -->
       </ul>
       <a class="more" href="foundations/index.html">All posts<span class="sr"> in AI foundations</span></a>
     </div>
@@ -124,22 +97,6 @@
           </div>
           <span class="status">Planned</span>
         </li>
-        <!-- <li class="entry" data-group="Code review">
-          <span class="stage">Code review</span>
-          <div>
-            <h3>Reviewing AI-written code</h3>
-            <p>What to read first, which failure patterns to look for, and why a clean-looking diff still needs a person who understands the system.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li>
-        <li class="entry" data-group="Testing">
-          <span class="stage">Testing</span>
-          <div>
-            <h3>Tests as the contract</h3>
-            <p>Letting an agent work against a failing test suite, and what to do when it makes the tests pass the wrong way.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li> -->
       </ul>
       <a class="more" href="ai-sdlc/index.html">All posts<span class="sr"> in AI in the software lifecycle</span></a>
     </div>
@@ -150,7 +107,7 @@
   <div class="trackrow">
     <div class="trackinfo">
       <p class="eyebrow">FDE</p>
-      <h2>Forward deployed engineering</h2>
+      <h2>AI Forward deployed engineering</h2>
       <p class="tagline">Putting AI inside a real workflow.</p>
       <p class="body">Audit how the work really runs, decide which steps need a model, build it, prove it with evals, deploy it in shadow mode, then watch it.</p>
       <ul class="topics">
@@ -173,24 +130,8 @@
           </div>
           <span class="status">Planned</span>
         </li>
-        <!-- <li class="entry" data-group="Judgment">
-          <span class="stage">Judgment</span>
-          <div>
-            <h3>Why a ten-step workflow gets two model calls</h3>
-            <p>Three gates decide where a model belongs: does the workflow need changing, can plain code do it, and which steps are truly fuzzy. Most steps land in code.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li>
-        <li class="entry" data-group="Evals">
-          <span class="stage">Evals</span>
-          <div>
-            <h3>Grading a system that never answers the same way twice</h3>
-            <p>Five case types, four criteria, and why escalating to a person counts as a pass. Includes how to break a subjective judgment into parts you can check.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li> -->
       </ul>
-      <a class="more" href="fde/index.html">All posts<span class="sr"> in Forward deployed engineering</span></a>
+      <a class="more" href="fde/index.html">All posts<span class="sr"> in AI Forward deployed engineering</span></a>
     </div>
   </div>
 </section>
@@ -217,35 +158,11 @@
         <li class="entry" data-group="Python">
           <span class="stage">Python</span>
           <div>
-            <h3><a href="posts/calling-claude-on-bedrock.html">Calling Claude on Bedrock from Python</a></h3>
+            <h3><a href="programming/posts/calling-claude-on-bedrock.html">Calling Claude on Bedrock from Python</a></h3>
             <p>A small script that makes a basic Claude call on Bedrock, passes context, manages tokens, and shows the Converse, streaming and InvokeModel options.</p>
           </div>
           <span class="status">Draft</span>
         </li>
-        <!-- <li class="entry" data-group="Python">
-          <span class="stage">Python</span>
-          <div>
-            <h3>Validating model output with Pydantic</h3>
-            <p>Turning a model&#x27;s reply into typed data, and what to do when it does not fit the schema.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li>
-        <li class="entry" data-group="Python">
-          <span class="stage">Python</span>
-          <div>
-            <h3>Calling models in parallel with asyncio</h3>
-            <p>Running many requests at once without hitting rate limits: concurrency limits, retries and timeouts.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li>
-        <li class="entry" data-group="TypeScript">
-          <span class="stage">TypeScript</span>
-          <div>
-            <h3>Typed tool definitions in TypeScript</h3>
-            <p>Describing the tools an agent can call as typed functions, so mistakes show up at compile time instead of in production.</p>
-          </div>
-          <span class="status">Planned</span>
-        </li> -->
       </ul>
       <a class="more" href="programming/index.html">All posts<span class="sr"> in Programming</span></a>
     </div>
@@ -253,45 +170,9 @@
 </section>
 </div>
 
-<!-- <div class="wrap">
-<section class="block" id="approach">
-  <p class="eyebrow">How I work</p>
-  <h2>Three habits apply to every track.</h2>
-  <div class="cols3">
-    <div>
-      <h3>Evidence beats demos.</h3>
-      <p>A demo shows one good run. A note here shows how many cases were tried, how many passed, and what the failures had in common.</p>
-    </div>
-    <div>
-      <h3>Use a model where judgment is needed.</h3>
-      <p>Plain code does most of the work in most systems. A model earns a place at the steps that are truly fuzzy, and nowhere else.</p>
-    </div>
-    <div>
-      <h3>A person stays accountable.</h3>
-      <p>People set the goals, approve what commits, and own the outcome. Systems are built to hand back to them when they are unsure.</p>
-    </div>
-  </div>
-</section>
-</div> -->
-
-<!-- <div class="wrap">
-<section class="block" id="work">
-  <p class="eyebrow">Working together</p>
-  <h2>Consulting is not open yet.</h2>
-  <p class="work-note">The notes come first, because written, evidenced work is the portfolio. When engagements open, the offers follow the tracks above.</p>
-  <dl class="offers">
-    <div class="offer"><dt>Workflow audit</dt><dd>Two weeks on one workflow area. You get an operating map: how the work really runs, what to automate and what to leave alone, the boundaries, and a predicted business value written before anything is built.</dd></div>
-    <div class="offer"><dt>AI delivery review</dt><dd>A look at where your team already uses AI across the software lifecycle, which checks are missing, and where to expand or stop. You get a short written plan.</dd></div>
-    <div class="offer"><dt>Evaluation pack</dt><dd>A test set built from your own past cases, with a report that shows counts and reasons instead of one percentage. Works for a workflow, a coding assistant rollout or a prompt change.</dd></div>
-  </dl>
-  <p class="contact">Contact: <code>add your email here</code></p>
-</section>
-</div> -->
-
 <div class="wrap">
 <footer class="site-f">
   <span>Synqmatic. Notes on applied AI.</span>
-  <!-- <span>Examples are generalised and contain no customer data.</span> -->
 </footer>
 </div>
 </body>

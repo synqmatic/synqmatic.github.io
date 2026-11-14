@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A stage-by-stage map of what AI changes in the six standard software lifecycle stages, and why review and verification become the constraint.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Where AI sits in the software lifecycle | Synqmatic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../css/styles.css">
+<script src="../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../index.html">Synqmatic<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../index.html">Home</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../index.html">Synqmatic</a> / <a href="../index.html">AI in the software lifecycle</a> / Where AI sits in the software lifecycle</p>
+  <h1>AI touches every stage of the software lifecycle, but the constraint moves to review and verification.</h1>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-14</dd></div>
+    <div><dt>Track</dt><dd>AI SDLC</dd></div>
+    <div><dt>Topic</dt><dd>Lifecycle overview</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>4 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="short">
+    <h2>The short version</h2>
+    <ul>
+      <li>What I tried: reading the Anthropic, DORA and vendor material on the AI-native lifecycle, and mapping what AI does at each of the six standard stages.</li>
+      <li>What happened: code generation got fastest, so planning, review, testing and governance became the slow parts. In the 2025 DORA survey of about 5,000 people, roughly 90% used AI at work, yet about 30% had little or no trust in the code it produced.</li>
+      <li>What I would do next: pick one stage, probably verification, and measure it on a real change with a dated baseline.</li>
+    </ul>
+  </section>
+
+  <section id="context">
+    <h2>The problem and the context</h2>
+    <p>Most teams still run the same six stages: plan, design, build, test, deploy, maintain. AI is usually added at the build stage and the rest of the process is left alone. Before running any experiments of my own, I wanted a plain map of what AI changes at each stage and what stays with a person.</p>
+    <p>This is desk research. I built and measured nothing, and most of the numbers below come from surveys and vendor reports, so treat them as signals rather than proof.</p>
+  </section>
+
+  <section id="setup">
+    <h2>What I checked</h2>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Item</th><th role="columnheader">Detail</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Item">Method</td><td role="cell" data-label="Detail">Reading published guides and reports. No tools were run.</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Sources</td><td role="cell" data-label="Detail">Anthropic's AI-native SDLC playbook, Google Cloud's 2025 DORA report, IBM, LinearB data as reported by Larridin, and several consultancy write-ups</td></tr>
+        <tr role="row"><td role="cell" data-label="Item">Date read</td><td role="cell" data-label="Detail">2026-11-12</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="t-sdlc">
+    <h2>Where AI sits in the lifecycle</h2>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup">
+        <tr role="row">
+          <th role="columnheader">Stage</th>
+          <th role="columnheader">What AI does</th>
+          <th role="columnheader">What stays with a person</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        <tr role="row">
+          <td role="cell" data-label="Stage">Plan</td>
+          <td role="cell" data-label="What AI does">Turns emails, tickets and notes into draft requirements and flags ambiguities. The specification becomes the main thing a person writes.</td>
+          <td role="cell" data-label="What stays with a person">Trade-off decisions. AI has no business context.</td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Stage">Design</td>
+          <td role="cell" data-label="What AI does">Proposes an initial architecture and prototypes. Design turns into constraints the agents must respect.</td>
+          <td role="cell" data-label="What stays with a person">Reviewing and revising the proposal, and domain-specific choices.</td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Stage">Build</td>
+          <td role="cell" data-label="What AI does">Writes code, tests and documentation. Pairing an engineer with an agent is now the usual mode.</td>
+          <td role="cell" data-label="What stays with a person">Architecture, edge cases, and reading what comes back.</td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Stage">Test</td>
+          <td role="cell" data-label="What AI does">Generates unit, property-based and visual regression tests, and runs continuous evals during implementation.</td>
+          <td role="cell" data-label="What stays with a person">Integration scenarios, and checking that tests verify the requirements and not just the code's own assumptions.</td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Stage">Deploy</td>
+          <td role="cell" data-label="What AI does">Runs layered agent reviews and policy checks in the pipeline, with hooks acting as approval gates.</td>
+          <td role="cell" data-label="What stays with a person">Regulated and critical changes. In practice, deployment autonomy is lower than teams plan for.</td>
+        </tr>
+        <tr role="row">
+          <td role="cell" data-label="Stage">Maintain</td>
+          <td role="cell" data-label="What AI does">Watches live systems, diagnoses breached controls and feeds findings back into the next plan.</td>
+          <td role="cell" data-label="What stays with a person">Incident response, and owning monitoring of model behaviour after release.</td>
+        </tr>
+      </tbody>
+    </table></div>
+    <p>The common thread is that the lifecycle stops being a line and becomes a loop. Each stage commits an artifact, such as a spec or a plan, that the next stage reads, and the commit history doubles as the audit trail.</p>
+  </section>
+
+  <section id="numbers">
+    <h2>What the numbers say</h2>
+    <ul>
+      <li>Faster generation is not faster delivery. LinearB's 2026 data covers more than 8.1 million pull requests across 4,800 teams. At the 75th percentile, AI-assisted PRs were 2.6 times larger than unassisted ones (408 against 157 lines). For the median team, feature-branch throughput rose 15% while main-branch throughput fell 7%.</li>
+      <li>Felt speed and real speed differ. In a controlled study reported by ToTheNew, developers took about 19% longer with AI allowed, yet still estimated it had made them about 20% faster.</li>
+      <li>Trust and checking do not match. A Sonar 2026 survey, reported secondhand, found 96% of developers do not fully trust AI-generated code, while only 48% always check it before committing.</li>
+      <li>AI amplifies what is already there. DORA's headline finding is that AI magnifies the strengths of high-performing teams and the weaknesses of struggling ones.</li>
+    </ul>
+  </section>
+
+  <section id="wrong">
+    <h2>What the evidence does not show</h2>
+    <ul>
+      <li>Almost every source is a summary of a summary. I did not reach the original data for the Sonar and controlled-study figures.</li>
+      <li>Consultancies report large gains, such as requirements work being 40% faster. Those are self-reported by firms that sell AI services, so I left them out of the numbers above.</li>
+      <li>A widely quoted figure says AI-agent PRs take 5.3 times longer to be picked up. That measures waiting time before a reviewer starts, not how long the review takes.</li>
+    </ul>
+  </section>
+
+  <section id="change">
+    <h2>What I would change</h2>
+    <p>I started with the picture of AI as a speed-up for coding inside an unchanged lifecycle. After reading, I would design the verification stage first and treat generation as the cheap part. Sources also draw a line between AI-augmented lifecycles, where the stages and handoffs stay the same, and AI-native ones, where the stages blur. Most teams appear to be in the first group while adopting tools built for the second.</p>
+  </section>
+
+  <section id="open">
+    <h2>Open questions</h2>
+    <ul>
+      <li>On a real team, where does the time go: waiting for a reviewer, active review, or integration testing?</li>
+      <li>Do AI-written tests catch defects that the AI-written code hides, or do they share its blind spots?</li>
+      <li>Which stage gains the most from writing the specification first?</li>
+    </ul>
+  </section>
+
+  <section id="sources">
+    <h2>Sources and further reading</h2>
+    <ul>
+      <li><a href="https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction">The AI-native SDLC playbook (Anthropic Academy)</a></li>
+      <li><a href="https://blog.google/technology/developers/dora-report-2025/">How are developers using AI? Inside our 2025 DORA report (Google)</a></li>
+      <li><a href="https://www.ibm.com/think/topics/ai-in-sdlc">AI in the SDLC (IBM)</a></li>
+      <li><a href="https://www.augmentcode.com/guides/how-ai-changes-the-sdlc">How AI changes the SDLC (Augment Code)</a></li>
+      <li><a href="https://larridin.com/blog/ai-code-review-bottleneck">AI code review bottleneck: where the pipeline slows down (Larridin)</a></li>
+      <li><a href="https://www.tothenew.com/insights/article/ai-software-engineering-productivity">AI doesn't eliminate engineering bottlenecks, it moves them (ToTheNew)</a></li>
+      <li><a href="https://synodus.com/thought-leadership/when-ai-writes-the-code-the-hidden-bottleneck-slowing-software-releases/">When AI writes the code: the hidden bottleneck slowing software releases (Synodus)</a></li>
+    </ul>
+  </section>
+  <a class="back" href="../index.html">Back to all notes</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Synqmatic. Notes on applied AI.</span>
+</footer>
+</div>
+</body>
+</html>

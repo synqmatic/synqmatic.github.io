@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Proposed schemas for the first base workflow in an anonymized AI FDE case study: model output, owner decision and run record.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Schemas for Base Workflow 1: What Does the Model Return and What Do We Record? | Synqmatic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../css/styles.css">
+<script src="../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../index.html">Synqmatic<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../index.html">Home</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../index.html">Synqmatic</a> / <a href="../index.html">AI forward deployed engineering</a> / <a href="../case-study/index.html">Live case study</a> / Schemas for Base Workflow 1: What Does the Model Return and What Do We Record?</p>
+  <h1>Schemas for Base Workflow 1: What Does the Model Return and What Do We Record?</h1>
+  <p><em>AI FDE live case study, part 5</em></p>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-14</dd></div>
+    <div><dt>Track</dt><dd>FDE</dd></div>
+    <div><dt>Topic</dt><dd>Build</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>5 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="about">
+    <blockquote><p><strong>About this series.</strong> This is a live, anonymized case study of running the AI FDE process with a real team. We'll call the company Company X and the team Team T. We're working through the process in order (audit, judgment, build, eval, deploy, observe), starting with the small base workflows that Team T's main workflows are built from. Details are generalized on purpose, and nothing here names a company, customer or product.</p></blockquote>
+  </section>
+
+  <section id="left">
+    <h2>Where we left off</h2>
+    <p>Post 4 laid out a plan for the first Base Workflow 1 (BW1, task management) script and listed what each run record would hold in a single sentence. This post fixes those structures before any code is written. Nothing is built yet, so every field below is a proposal, and there are no results.</p>
+  </section>
+  <section id="stage">
+    <h2>The stage</h2>
+    <p>In the build stage, a schema is the agreed shape of the data that passes between steps. A defined shape lets the script reject malformed model output instead of passing it on. It also lets the eval grade a run field by field, which is how Post 3 broke the category decision into yes or no checks. We settle the structures first because the script, the eval and the run records all depend on them.</p>
+  </section>
+  <section id="rules">
+    <h2>Rules for every schema</h2>
+    <ul>
+      <li>Every field the model fills can be empty. A model forced to fill every field will invent values, and an empty field is a reported gap the owner can see.</li>
+      <li>Output that fails validation is rejected, logged as failed, and sent to the owner. It is never passed to the next step.</li>
+      <li>Each schema carries a version number, so old records stay readable after the structure changes.</li>
+      <li>The category definitions, customer assignments and required-field list are inputs, not part of any schema. Changing one does not change the structure.</li>
+    </ul>
+  </section>
+  <section id="output">
+    <h2>Model output</h2>
+    <p>BW1 has two model calls. The first drafts the task from the source.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Draft field</th><th role="columnheader">Meaning</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Draft field">title</td><td role="cell" data-label="Meaning">A short task title</td></tr>
+        <tr role="row"><td role="cell" data-label="Draft field">description</td><td role="cell" data-label="Meaning">What needs doing, in plain language</td></tr>
+        <tr role="row"><td role="cell" data-label="Draft field">customer_as_written</td><td role="cell" data-label="Meaning">The customer as named in the source, before any lookup</td></tr>
+        <tr role="row"><td role="cell" data-label="Draft field">requested_action</td><td role="cell" data-label="Meaning">The action being asked for</td></tr>
+        <tr role="row"><td role="cell" data-label="Draft field">details</td><td role="cell" data-label="Meaning">Other facts the source states, such as dates or systems involved</td></tr>
+        <tr role="row"><td role="cell" data-label="Draft field">unclear_points</td><td role="cell" data-label="Meaning">Things the source leaves ambiguous</td></tr>
+        <tr role="row"><td role="cell" data-label="Draft field">evidence</td><td role="cell" data-label="Meaning">The part of the source each field came from, so the owner can check it</td></tr>
+      </tbody>
+    </table></div>
+    <p>The second call proposes a category.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Category field</th><th role="columnheader">Meaning</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Category field">proposed_category</td><td role="cell" data-label="Meaning">One of the defined categories, or empty</td></tr>
+        <tr role="row"><td role="cell" data-label="Category field">also_fits</td><td role="cell" data-label="Meaning">Other categories that could apply, which flags an overlap</td></tr>
+        <tr role="row"><td role="cell" data-label="Category field">none_fits</td><td role="cell" data-label="Meaning">True when no category applies, which means a handoff</td></tr>
+        <tr role="row"><td role="cell" data-label="Category field">reasoning</td><td role="cell" data-label="Meaning">One or two sentences the owner can check</td></tr>
+        <tr role="row"><td role="cell" data-label="Category field">confidence</td><td role="cell" data-label="Meaning">The model's own estimate, from 0 to 1</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section id="owner">
+    <h2>Owner decision</h2>
+<div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Field</th><th role="columnheader">Meaning</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Field">action</td><td role="cell" data-label="Meaning">Approve, edit or reject</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">final_draft, final_category</td><td role="cell" data-label="Meaning">The values that will be written</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">edits</td><td role="cell" data-label="Meaning">Each changed field with its original and final value</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">reason</td><td role="cell" data-label="Meaning">An optional note on a rejection</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">decided_by, decided_at</td><td role="cell" data-label="Meaning">Who decided and when</td></tr>
+      </tbody>
+    </table></div>
+    <p>The edits field matters most. It is the correction data that feeds the eval set.</p>
+  </section>
+  <section id="record">
+    <h2>Run record</h2>
+<div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Field</th><th role="columnheader">Meaning</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Field">schema_version</td><td role="cell" data-label="Meaning">The version of this structure</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">run_id, started_at, finished_at</td><td role="cell" data-label="Meaning">Identity and timing</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">status</td><td role="cell" data-label="Meaning">Created, rejected, escalated or failed</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">customer, owner</td><td role="cell" data-label="Meaning">As resolved by the lookup</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">source</td><td role="cell" data-label="Meaning">The type (email, chat, meeting or call), a reference and the text used</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">inputs_used</td><td role="cell" data-label="Meaning">Identifiers for the assignments, category definitions and required fields in force</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">model_calls</td><td role="cell" data-label="Meaning">For each call: the step, the model name, the prompt, the response, and whether it passed validation</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">checks</td><td role="cell" data-label="Meaning">Results of the lookup, the completeness check and the write</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">escalation</td><td role="cell" data-label="Meaning">The step and reason, when the run stopped early</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">decision</td><td role="cell" data-label="Meaning">The owner decision above</td></tr>
+        <tr role="row"><td role="cell" data-label="Field">result</td><td role="cell" data-label="Meaning">The identifier of the created task, when one was created</td></tr>
+      </tbody>
+    </table></div>
+    <p>The inputs_used field is what lets someone reconstruct a run later. Without it, a changed category definition would make an old run impossible to explain.</p>
+  </section>
+  <section id="carry">
+    <h2>What may carry over to other workflows</h2>
+    <p>We expect the outer shape of the run record to repeat: identity, timing, status, model calls, escalation and the approval checkpoint. The model output schemas and the contents of the owner decision are specific to BW1. With one workflow, this is a guess. We will treat the outer shape as provisional and check it when a second workflow is built.</p>
+  </section>
+  <section id="unknown">
+    <h2>What we do not know yet</h2>
+    <ul>
+      <li>Whether the model's own confidence value is reliable enough to set an escalation threshold. The eval will show this. Unknown.</li>
+      <li>Which fields owners will edit most. Unknown until real runs.</li>
+      <li>The required-field list and the category definitions as inputs. Not yet specified here.</li>
+      <li>Whether the outer shape of the run record fits other workflows. Unknown.</li>
+      <li>Where run records are stored and who can read them. They contain source text, so they raise the same data-rules question as the sources.</li>
+    </ul>
+  </section>
+  <section id="next">
+    <h2>What comes next</h2>
+    <p>The next post turns these structures into the first script outline, with pseudocode for each step, if the open items from Post 4 clear.</p>
+  </section>
+  <a class="back" href="../index.html">Back to all notes</a> <a class="back" href="../case-study/index.html">All case study posts</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Synqmatic. Notes on applied AI.</span>
+</footer>
+</div>
+</body>
+</html>

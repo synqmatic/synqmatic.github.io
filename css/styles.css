@@ -264,3 +264,31 @@ button{touch-action:manipulation}
   tbody tr td:last-child{border-bottom:0}
   td::before{content:attr(data-label);display:block;margin-bottom:2px;font:500 .66rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 }
+
+
+/* post dates: newest first, date shown with the topic label */
+.sortnote{font:500 .8rem var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:-10px 0 16px}
+.entry{grid-template-areas:"stage main status" "date main status";grid-template-rows:auto 1fr}
+.entry .stage{grid-area:stage}
+.entry>div{grid-area:main}
+.entry .status{grid-area:status}
+.entry .date{grid-area:date;font:500 .8rem var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.entries.compact .entry{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"stage date status" "main main main";grid-template-rows:auto;gap:6px 12px}
+.entries.compact .entry .date{justify-self:start}
+@media(max-width:640px){
+  .entry{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"stage date status" "main main main";grid-template-rows:auto;gap:6px 12px}
+  .entry .date{justify-self:start;overflow:hidden;text-overflow:ellipsis;font-size:.75rem}
+}
+@media(max-width:380px){
+  .entry,.entries.compact .entry{grid-template-areas:"stage status" "date date" "main main";grid-template-columns:minmax(0,1fr) auto}
+}
+
+
+/* live case study series page and callout */
+.seriesstatus{font-size:1.05rem}
+.seriesbox{margin:28px 0 0;padding:18px 20px;border:1px solid var(--line);border-radius:2px}
+.seriesbox h2{font-size:1.3rem;margin:4px 0 8px}
+.seriesbox p:not(.eyebrow){color:var(--muted);max-width:42em}
+.seriesbox .back{margin-top:12px}
+.back+.back{margin-left:20px}
+.sortnote a{color:inherit}

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Judgment stage for the first base workflow in an anonymized AI FDE case study: three gates and a step-by-step allocation across code, model and people.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Judgment for Base Workflow 1: Where Does AI Belong in Task Management? | Synqmatic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../css/styles.css">
+<script src="../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../index.html">Synqmatic<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../index.html">Home</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../index.html">Synqmatic</a> / <a href="../index.html">AI forward deployed engineering</a> / <a href="../case-study/index.html">Live case study</a> / Judgment for Base Workflow 1: Where Does AI Belong in Task Management?</p>
+  <h1>Judgment for Base Workflow 1: Where Does AI Belong in Task Management?</h1>
+  <p><em>AI FDE live case study, part 2</em></p>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-14</dd></div>
+    <div><dt>Track</dt><dd>FDE</dd></div>
+    <div><dt>Topic</dt><dd>Judgment</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>5 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="about">
+    <blockquote><p><strong>About this series.</strong> This is a live, anonymized case study of running the AI FDE process with a real team. We'll call the company Company X and the team Team T. We're working through the process in order (audit, judgment, build, eval, deploy, observe), starting with the small base workflows that Team T's main workflows are built from. Details are generalized on purpose, and nothing here names a company, customer or product.</p></blockquote>
+  </section>
+
+  <section id="left">
+    <h2>Where we left off</h2>
+    <p>The audit of Base Workflow 1 (BW1, task management) landed on a provisional score of 25 out of 30 and a green risk tag. It is recurring, language-heavy, pattern-based work on internal data. One number came out of it: a team member's rough estimate of 2 to 3 hours a week spent managing tasks. That is a recollection, not a measurement, and it swings with how much detail each task carries.</p>
+  </section>
+  <section id="stage">
+    <h2>The judgment stage</h2>
+    <p>The judgment stage answers a different question: not whether AI can help here, but where, step by step. It runs three gates in order, and each one can end the assessment.</p>
+  </section>
+  <section id="g1">
+    <h2>Gate 1: does this workflow need changing at all?</h2>
+    <p>The default answer is no. We decline if any of these tests fails.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Test</th><th role="columnheader">Result for BW1</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Test">Volume</td><td role="cell" data-label="Result for BW1">Passes. It runs continuously across every customer, though the exact volume is unmeasured</td></tr>
+        <tr role="row"><td role="cell" data-label="Test">ROI</td><td role="cell" data-label="Result for BW1">Passes on the working estimate. About 2 to 3 hours a week per member, roughly 100 to 150 hours a year (an estimate), is the ceiling, and only part of it is work a model could touch</td></tr>
+        <tr role="row"><td role="cell" data-label="Test">Already solved</td><td role="cell" data-label="Result for BW1">Passes. There is no standard process and no automation today</td></tr>
+        <tr role="row"><td role="cell" data-label="Test">Sensitivity</td><td role="cell" data-label="Result for BW1">Passes. Green tag, internal process</td></tr>
+        <tr role="row"><td role="cell" data-label="Test">Stability</td><td role="cell" data-label="Result for BW1">Passes, as far as we know. Nothing suggests the process is about to change</td></tr>
+      </tbody>
+    </table></div>
+    <p>BW1 clears Gate 1. The ROI test rests on an unmeasured estimate, so it should be re-checked once a baseline is measured.</p>
+  </section>
+  <section id="g2">
+    <h2>Gate 2: can plain code do it?</h2>
+    <p>This gate comes before reaching for a model. Code is cheaper, testable and auditable, and it does not hallucinate. Using a model where code would do is the most common way effort gets wasted in this field.</p>
+    <p>Most of BW1 lands here. Looking up which member owns a customer, checking that a task has its required fields, and writing the task into the tool are all rules and lookups.</p>
+  </section>
+  <section id="g3">
+    <h2>Gate 3: which steps need judgment?</h2>
+    <p>Only steps that are irreducibly non-deterministic get a model: fuzzy classification, extraction from unstructured text, summarization. In BW1 that comes to two:</p>
+    <ul>
+      <li><strong>Drafting the task</strong> from an email, a chat thread or a call transcript: pulling out what needs doing and the relevant details.</li>
+      <li><strong>Matching a task to a category</strong>, where definitions are clear but real tasks often fit more than one.</li>
+    </ul>
+  </section>
+  <section id="alloc">
+    <h2>Step allocation</h2>
+    <p>There are four categories, not three. Human approves (a machine did the step and a person gates it) and human performs (the person does the step) are different things.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">#</th><th role="columnheader">Step</th><th role="columnheader">Category</th><th role="columnheader">Reason</th><th role="columnheader">Exception route</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="#">1</td><td role="cell" data-label="Step">Identify the customer and the owner</td><td role="cell" data-label="Category">Deterministic</td><td role="cell" data-label="Reason">A lookup against the customer assignments</td><td role="cell" data-label="Exception route">Customer not found: ask a person</td></tr>
+        <tr role="row"><td role="cell" data-label="#">2</td><td role="cell" data-label="Step">Draft the task from the source</td><td role="cell" data-label="Category">Model</td><td role="cell" data-label="Reason">Extraction and summarization from unstructured text</td><td role="cell" data-label="Exception route">Source missing or unclear: flag for the owner</td></tr>
+        <tr role="row"><td role="cell" data-label="#">3</td><td role="cell" data-label="Step">Propose a category</td><td role="cell" data-label="Category">Model</td><td role="cell" data-label="Reason">Fuzzy match against the category definitions, with overlap cases</td><td role="cell" data-label="Exception route">No category fits: surface it, since that means handoff</td></tr>
+        <tr role="row"><td role="cell" data-label="#">4</td><td role="cell" data-label="Step">Owner reviews the draft and category</td><td role="cell" data-label="Category">Human approves</td><td role="cell" data-label="Reason">Nothing is written until the owner confirms. This is the safety point</td><td role="cell" data-label="Exception route">Owner edits or rejects</td></tr>
+        <tr role="row"><td role="cell" data-label="#">5</td><td role="cell" data-label="Step">Check required details</td><td role="cell" data-label="Category">Deterministic</td><td role="cell" data-label="Reason">A completeness check on required fields</td><td role="cell" data-label="Exception route">Missing details: flag them to the owner</td></tr>
+        <tr role="row"><td role="cell" data-label="#">6</td><td role="cell" data-label="Step">Chase missing details</td><td role="cell" data-label="Category">Human performs</td><td role="cell" data-label="Reason">Needs a conversation with the customer or a colleague</td><td role="cell" data-label="Exception route">Escalate as today</td></tr>
+        <tr role="row"><td role="cell" data-label="#">7</td><td role="cell" data-label="Step">Create the task in the tool</td><td role="cell" data-label="Category">Deterministic</td><td role="cell" data-label="Reason">An API write, after approval</td><td role="cell" data-label="Exception route">Write fails: retry, then tell the owner</td></tr>
+        <tr role="row"><td role="cell" data-label="#">8</td><td role="cell" data-label="Step">Split into subtasks</td><td role="cell" data-label="Category">Human performs</td><td role="cell" data-label="Reason">Depends on the owner's knowledge of the work. Worth revisiting</td><td role="cell" data-label="Exception route">None new</td></tr>
+        <tr role="row"><td role="cell" data-label="#">9</td><td role="cell" data-label="Step">Hand off tasks that are not ours</td><td role="cell" data-label="Category">Human performs</td><td role="cell" data-label="Reason">Involves another team and context</td><td role="cell" data-label="Exception route">Unclear destination: owner escalates</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Sanity checks on the finished sheet.</strong> Two rows are model steps, which is the expected shape: one or two model calls, a few deterministic steps and one approval point. If a model had landed on most rows, the map would be wrong. There is a human-approves row, so the workflow is safe to build.</p>
+    <p><strong>Coverage is not a step.</strong> A task always belongs to its owner. While the owner is away, the manager follows up on it, which is a person doing the work, not a routing rule.</p>
+  </section>
+  <section id="tells">
+    <h2>What this tells us</h2>
+    <p><strong>The category decision is the heart of it.</strong> It is the one step where a model's judgment really matters, and it is also the step the audit flagged. We have not yet checked whether team members resolve category overlaps the same way. If they do not, there is no rule to teach a model yet. That is a policy question, and it has to be settled first.</p>
+    <p><strong>Most of the value is not AI.</strong> Seven of nine steps are deterministic or stay with a person. The model's job is narrow.</p>
+  </section>
+  <section id="unknown">
+    <h2>What we do not know yet</h2>
+    <ul>
+      <li><strong>Category consistency</strong> across team members is unchecked.</li>
+      <li><strong>A measured baseline</strong> is needed to replace the working estimate before anything is built.</li>
+    </ul>
+  </section>
+  <section id="next">
+    <h2>What comes next</h2>
+    <p>The next post covers evals: how we would prove the category decision works, using what the task history already holds as the starting point for a test set.</p>
+  </section>
+  <a class="back" href="../index.html">Back to all notes</a> <a class="back" href="../case-study/index.html">All case study posts</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Synqmatic. Notes on applied AI.</span>
+</footer>
+</div>
+</body>
+</html>

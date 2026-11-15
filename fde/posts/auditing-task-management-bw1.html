@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Audit of the first base workflow in an anonymized AI FDE case study: how task management really runs, where it strains, and a provisional score.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Auditing Task Management: Base Workflow 1 | Synqmatic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../css/styles.css">
+<script src="../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../index.html">Synqmatic<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../index.html">Home</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../index.html">Synqmatic</a> / <a href="../index.html">AI forward deployed engineering</a> / <a href="../case-study/index.html">Live case study</a> / Auditing Task Management: Base Workflow 1</p>
+  <h1>Auditing Task Management: Base Workflow 1</h1>
+  <p><em>AI FDE live case study, part 1</em></p>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-14</dd></div>
+    <div><dt>Track</dt><dd>FDE</dd></div>
+    <div><dt>Topic</dt><dd>Audit</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>5 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="about">
+    <blockquote><p><strong>About this series.</strong> This is a live, anonymized case study of running the AI FDE process with a real team. We'll call the company Company X and the team Team T. We're working through the process in order (audit, judgment, build, eval, deploy, observe), starting with the small base workflows that Team T's main workflows are built from. Details are generalized on purpose, and nothing here names a company, customer or product.</p></blockquote>
+  </section>
+
+  <section id="why">
+    <h2>Why start with base workflows</h2>
+    <p>Team T's primary workflows are not single things. Each one is assembled from smaller workflows that run underneath it: capturing work, tracking it, following up. If those foundations are shaky, the primary workflow inherits the problem, and any intelligence we add on top just makes the shakiness faster.</p>
+    <p>So before touching the primary workflows, we audit the base ones. We'll label them BW1, BW2 and so on. BW1 is <strong>task management</strong>.</p>
+  </section>
+  <section id="setup">
+    <h2>The setup</h2>
+    <p>The audit is the first stage of the process. Its job is to describe how the work really happens, exceptions included, before anyone decides what to automate. The documented process is rarely the real one, so the audit leans on how people actually work, not on what the procedure says.</p>
+    <p>This post covers the full audit of BW1, start to finish. Where we don't know something, we say so instead of guessing.</p>
+  </section>
+  <section id="arrive">
+    <h2>How tasks arrive</h2>
+    <p>Work reaches Team T through four kinds of channel:</p>
+    <ul>
+      <li>Email</li>
+      <li>Chat</li>
+      <li>Meetings</li>
+      <li>Calls</li>
+    </ul>
+    <p>That is already a finding. One workflow with four front doors means four formats, four levels of detail, and four ways for a request to get lost or arrive half-specified.</p>
+  </section>
+  <section id="today">
+    <h2>How it runs today</h2>
+    <p>Once a task arrives, the path is simple:</p>
+    <ol>
+      <li>The task is created in the team's task management tool, which we'll call R.</li>
+      <li>It is matched to a category, using the category descriptions.</li>
+      <li>It is managed in R until it is done.</li>
+    </ol>
+    <p>Two decisions are folded into that path.</p>
+    <p><strong>Is it ours?</strong> If a task fits none of the categories, it is not Team T's responsibility and is handed to another team. That is the one formal exception route.</p>
+    <p><strong>Whose is it?</strong> Each team member is assigned to specific customers. When a task comes in for one of those customers, it belongs to that member, who owns it end to end: creating it, chasing missing details, splitting it into subtasks and tracking the time. There is no handoff inside the team. The task always stays with its owner, and if the owner is away, Team T's manager follows up on it.</p>
+  </section>
+  <section id="strain">
+    <h2>Where it strains</h2>
+    <p>None of these are failures. They are the places the audit looks hardest.</p>
+    <ul>
+      <li><strong>Category overlap.</strong> The category definitions are clear, but real tasks often fit more than one. The assigned member decides using their own judgment. The open question is whether every member resolves an overlap the same way. If they do not, that is not an exception to encode. It is a policy question to settle first.</li>
+      <li><strong>Subtasks stall the workflow.</strong> When a task needs several subtasks, they get created and the other tasks in the same workflow stall behind them.</li>
+      <li><strong>Meeting capture.</strong> Tasks from meetings and calls are captured either from memory or, for most calls, from a recording or transcript. Memory-only capture is the weakest path, because anything forgotten never becomes a task.</li>
+      <li><strong>One owner carries everything.</strong> The same person handles creation, missing details, subtasks and time tracking for their customers. That keeps accountability clear, but it concentrates the overhead and makes the manager the only fallback.</li>
+      <li><strong>No standard process.</strong> Team T has no standard way to create tasks. Company X has approved one AI assistant, and members use it in different ways. This is sanctioned but unstandardized use, not shadow AI. It tells us the team already sees value here, and that each person has built their own method.</li>
+    </ul>
+  </section>
+  <section id="neighbours">
+    <h2>The neighbours</h2>
+    <p>The audit looks one step upstream and one step downstream, even though neither is being rebuilt. For a base workflow, both are thin.</p>
+    <p><strong>Upstream</strong> is the communication itself: an email, a chat message, a meeting or a call. Team T does not control its format or quality, and nothing structured exists until a person turns it into a task.</p>
+    <p><strong>Downstream</strong> is the work the task describes. It is done by the same person who owns the task, which couples the two more tightly than it looks. Time spent capturing and categorizing comes out of the same time used to do the work, and how complete a task is when created decides how much chasing happens later.</p>
+    <p><strong>Where a queue could re-form.</strong> If capture got faster and tasks came out more complete, more of them would reach the owner's work queue sooner. We would expect the bottleneck to move to the owner's capacity, not disappear. That is a prediction, not an observation.</p>
+  </section>
+  <section id="baseline">
+    <h2>Baseline</h2>
+    <p><strong>Unmeasured.</strong> One team member's rough estimate is 2 to 3 hours a week spent managing tasks, varying with how much detail each task carries and how much gets documented. That is one person's recollection, not a measurement, so treat it as an order of magnitude only. Nobody measures capture time separately, the number of tasks per member per week, or how often a task is missed, and there is no practical way to capture that now. Over a year, 2 to 3 hours a week comes to roughly 100 to 150 hours per member (an estimate). That is the ceiling on what could be recovered, since only part of the work is something a system could take over.</p>
+    <p>Without a measured baseline, any future claim about time saved rests on a recollection. A measured baseline, or a proxy measure, should replace the estimate before anything is built.</p>
+  </section>
+  <section id="score">
+    <h2>Score and risk tag</h2>
+    <p>The audit scores each candidate from 1 to 5 on six signals. These scores come from interviews, not measurement, so they are provisional.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Signal</th><th role="columnheader">Score</th><th role="columnheader">Why</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Signal">Volume and frequency</td><td role="cell" data-label="Score">4</td><td role="cell" data-label="Why">Recurring work across every customer, but actual volume is unmeasured</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Repetitiveness</td><td role="cell" data-label="Score">4</td><td role="cell" data-label="Why">Same basic shape each time (capture, categorize, create), though sources vary</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Unstructured language</td><td role="cell" data-label="Score">5</td><td role="cell" data-label="Why">The input is emails, chat messages and call transcripts</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Judgment level</td><td role="cell" data-label="Score">4</td><td role="cell" data-label="Why">Category matching is pattern-based, with overlap cases that need a call</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Data availability</td><td role="cell" data-label="Score">4</td><td role="cell" data-label="Why">Emails, chat and most call transcripts are reachable; memory-only capture is the gap</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Error tolerance</td><td role="cell" data-label="Score">4</td><td role="cell" data-label="Why">Internal work, and a wrong category is cheap to fix</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Total: 25 of 30, provisional.</strong> With one workflow scored, there is nothing to rank it against yet. The number becomes meaningful once BW2 is scored, and there is no pass mark.</p>
+    <p><strong>Risk tag: green.</strong> The process and the tool are both internal, the stakes are low, and a wrong output is recoverable. One thing to confirm: the source material (customer emails, call transcripts) may contain customer information. Because Company X's approved AI tool is already in use for this, it is probably covered, but it should be checked.</p>
+  </section>
+  <section id="lands">
+    <h2>Where the audit lands</h2>
+    <p>BW1 is a worthwhile candidate: recurring, language-heavy, pattern-based and low risk. It moves on to the judgment stage. Two open items travel with it:</p>
+    <ul>
+      <li><strong>The baseline</strong> is a working estimate. It should be replaced with a measurement before anything is built, so later results have something solid to be compared against.</li>
+      <li><strong>Category decisions</strong> need checking for consistency across team members. If they differ, the policy has to be settled before anything is encoded.</li>
+    </ul>
+  </section>
+  <section id="next">
+    <h2>What comes next</h2>
+    <p>The next post covers the judgment stage for BW1: which steps need deterministic code, which need a model, and where a person approves.</p>
+  </section>
+  <a class="back" href="../index.html">Back to all notes</a> <a class="back" href="../case-study/index.html">All case study posts</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Synqmatic. Notes on applied AI.</span>
+</footer>
+</div>
+</body>
+</html>

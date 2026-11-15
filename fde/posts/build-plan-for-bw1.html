@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Build plan for the first base workflow in an anonymized AI FDE case study: one script, run records, shadow-mode deployment and what must clear first.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Build Plan for Base Workflow 1: What Do We Build First? | Synqmatic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../css/styles.css">
+<script src="../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../index.html">Synqmatic<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../index.html">Home</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../index.html">Synqmatic</a> / <a href="../index.html">AI forward deployed engineering</a> / <a href="../case-study/index.html">Live case study</a> / Build Plan for Base Workflow 1: What Do We Build First?</p>
+  <h1>Build Plan for Base Workflow 1: What Do We Build First?</h1>
+  <p><em>AI FDE live case study, part 4</em></p>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-14</dd></div>
+    <div><dt>Track</dt><dd>FDE</dd></div>
+    <div><dt>Topic</dt><dd>Build</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>5 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="about">
+    <blockquote><p><strong>About this series.</strong> This is a live, anonymized case study of running the AI FDE process with a real team. We'll call the company Company X and the team Team T. We're working through the process in order (audit, judgment, build, eval, deploy, observe), starting with the small base workflows that Team T's main workflows are built from. Details are generalized on purpose, and nothing here names a company, customer or product.</p></blockquote>
+  </section>
+
+  <section id="left">
+    <h2>Where we left off</h2>
+    <p>Post 3 designed the eval for Base Workflow 1 (BW1, task management): five case types, four grading criteria, and a test set drawn from the task history. It also noted that running the eval needs a working version. This post covers that version. Nothing is built yet, so this is a plan, and it contains no results.</p>
+  </section>
+  <section id="stage">
+    <h2>The build stage</h2>
+    <p>The build stage turns the step allocation from Post 2 into running code. Two rules from the method apply from the first line: build on top of the tools the team already uses, not beside them, and log a trace of every run. Deployment comes after the eval and starts in shadow mode.</p>
+  </section>
+  <section id="first">
+    <h2>What we plan to build first</h2>
+    <p>One script for BW1, and no shared infrastructure yet. Deterministic code handles the lookups, checks and writes. A model is called only at the two judgment steps. At the approval step the script stops and waits for the owner's answer on the command line, which stands in for a real interface until one exists.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Step (from Post 2)</th><th role="columnheader">How we plan to build it</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">1. Identify the customer and the owner</td><td role="cell" data-label="How we plan to build it">Code: a lookup against the customer assignments</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">2. Draft the task from the source</td><td role="cell" data-label="How we plan to build it">Model call</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">3. Propose a category</td><td role="cell" data-label="How we plan to build it">Model call against the category definitions</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">4. Owner reviews the draft and category</td><td role="cell" data-label="How we plan to build it">The script pauses for approve, edit or reject</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">5. Check required details</td><td role="cell" data-label="How we plan to build it">Code: a completeness check on the required fields</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">7. Create the task in tool R</td><td role="cell" data-label="How we plan to build it">Code: a write that runs only after approval, with a retry on failure</td></tr>
+      </tbody>
+    </table></div>
+    <p>Steps 6, 8 and 9 (chasing missing details, splitting into subtasks, handing off tasks that are not Team T's) stay with the owner.</p>
+  </section>
+  <section id="inputs">
+    <h2>Inputs and failure handling</h2>
+    <p>The script needs three inputs: the customer assignments, the category definitions and the list of required fields. We will supply them by hand at first. The full per-customer context file is not built, and each script should take only the slice it reads.</p>
+    <p>The exceptions from Post 2 each get a defined route: customer not found, source missing or unclear, no category fits, missing details, and a failed write. Each one goes back to the owner instead of being guessed. The script also checks its own output against a defined format and rejects anything malformed before it moves on. A transient write failure is retried. A failure that will not clear is reported to the owner.</p>
+  </section>
+  <section id="records">
+    <h2>Run records</h2>
+    <p>Every run produces one structured record, saved as its own file. It holds the run ID and time, the customer, the inputs, each model call with its prompt and response, intermediate outputs, what the owner was shown, who approved and when, any correction the owner made, the final output and the run status.</p>
+    <p>The records have a second use. Corrections captured at the approval step become new cases for the eval set. Plain local files are enough for now. Where the records live later is undecided.</p>
+  </section>
+  <section id="after">
+    <h2>What comes after the first script</h2>
+    <p>Once several workflows run as separate scripts, we plan to consolidate them behind one shared server, then put a front end on top. The front end would be a chat app first, because it is where the team already works and it suits an approval step. A web app would come later, only if a workflow needs structured input a chat app handles poorly. We are not building the shared parts first. With only one workflow, we would be designing them around assumptions we cannot check.</p>
+  </section>
+  <section id="deploy">
+    <h2>Deployment plan</h2>
+    <p>BW1 starts in shadow mode. The script runs next to the current process, the owner keeps working as today, and the script's output is compared, not used. The manual path stays open, and the owner can see the full trace of each run. We also need to agree in advance what sends BW1 back to shadow mode. That threshold is not set.</p>
+  </section>
+  <section id="before">
+    <h2>What has to happen before we build</h2>
+    <ul>
+      <li>Replace the baseline estimate with a measurement.</li>
+      <li>Check whether team members resolve category overlaps the same way. If they do not, settle the policy before encoding it.</li>
+      <li>Confirm that the source material is covered by the approved AI tool's data rules. Until then, first runs use only sources we can verify contain no customer information.</li>
+      <li>Write the expected time saved as a prediction. We have a baseline estimate but no prediction yet, and the method asks for one before anything is built.</li>
+    </ul>
+  </section>
+  <section id="unknown">
+    <h2>What we do not know yet</h2>
+    <ul>
+      <li>The measured baseline. Unknown.</li>
+      <li>Whether the data rules cover the source material. Unknown.</li>
+      <li>Cost per run and time per run. Not measured, since nothing has run.</li>
+      <li>Where run records should live beyond local files. Undecided.</li>
+      <li>The threshold that sends BW1 back to shadow mode. Not set.</li>
+    </ul>
+  </section>
+  <section id="next">
+    <h2>What comes next</h2>
+    <p>If the items above clear, the next post covers the first working version of BW1 and the first run of the eval set in shadow mode.</p>
+  </section>
+  <a class="back" href="../index.html">Back to all notes</a> <a class="back" href="../case-study/index.html">All case study posts</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Synqmatic. Notes on applied AI.</span>
+</footer>
+</div>
+</body>
+</html>

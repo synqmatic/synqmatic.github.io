@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Audit of the first primary workflow in an anonymized AI FDE case study: how new product reviews run today, where they strain, a provisional score and the base workflows it depends on.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Auditing New Product Reviews: Primary Workflow 1 | Synqmatic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../../css/styles.css">
+<script src="../../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../../index.html">Synqmatic<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../../index.html">Home</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../../index.html">Synqmatic</a> / <a href="../../index.html">AI forward deployed engineering</a> / <a href="../index.html">Live case study</a> / <a href="index.html">Primary Workflow 1</a> / Auditing New Product Reviews: Primary Workflow 1</p>
+  <h1>Auditing New Product Reviews: Primary Workflow 1</h1>
+  <p><em>AI FDE live case study, primary workflow 1, part 1</em></p>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-22</dd></div>
+    <div><dt>Track</dt><dd>FDE</dd></div>
+    <div><dt>Topic</dt><dd>Audit</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>6 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="about">
+    <blockquote><p><strong>About this series.</strong> This is a live, anonymized case study of running the AI FDE process with a real team. We'll call the company Company X and the team Team T. We're working through the process in order (audit, judgment, build, eval, deploy, observe), starting with one of Team T's primary workflows, the work the team actually needs done. The audit of that workflow shows which smaller base workflows it depends on, and those get their own posts. Details are generalized on purpose, and nothing here names a company, customer or product.</p></blockquote>
+  </section>
+  <section id="left">
+    <h2>Where we left off</h2>
+    <p>The first eight posts covered BW1, task management, from audit through a first working version tested against a fake model. We are now starting the process again from the top with a primary workflow, PW1: new product reviews. BW1 stays in progress. PW1 will tell us which base workflows come next.</p>
+  </section>
+  <section id="setup">
+    <h2>The setup</h2>
+    <p>The audit describes how the work really happens, exceptions included, before anyone decides what to automate. This post covers the audit of PW1, and then applies the drill-down step: each part of PW1 that other workflows also rely on becomes a candidate base workflow, scored on the same six signals as BW1. Anything we have not measured is labeled as an estimate, and anything we don't know is labeled unknown.</p>
+  </section>
+  <section id="what">
+    <h2>What PW1 is</h2>
+    <p>When Company X ships a new product release, Team T walks its customers through what changed. There are two tracks, and they stay separate:</p>
+    <ul>
+      <li><strong>Release track.</strong> Runs for every release, for every customer. The source material is the release notes plus internal context. It covers the latest release only, not the gap between a customer's current version and the new one. The output is one generic summary document, reused unchanged for all customers.</li>
+      <li><strong>Roadmap track.</strong> Runs when a customer asks, or when the topic comes up in a quarterly review. The source material is product roadmap material. The output is always its own document, never merged with a release summary, even when the timing overlaps.</li>
+    </ul>
+    <p>If a customer wants depth on one feature, that request leaves PW1 and becomes a separate product workshop workflow. It is out of scope here.</p>
+  </section>
+  <section id="starts">
+    <h2>How it starts</h2>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Track</th><th role="columnheader">Trigger</th><th role="columnheader">Frequency</th><th role="columnheader">Detected today</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Track">Release</td><td role="cell" data-label="Trigger">Internal notice that a release shipped</td><td role="cell" data-label="Frequency">About quarterly, about 8 customers per release (estimate)</td><td role="cell" data-label="Detected today">Reliably. A release only ships once its notes are final, so incomplete notes are not a case we have to handle</td></tr>
+        <tr role="row"><td role="cell" data-label="Track">Roadmap</td><td role="cell" data-label="Trigger">Customer request, or raised in a quarterly review</td><td role="cell" data-label="Frequency">Less than once a quarter (estimate)</td><td role="cell" data-label="Detected today">The team member notices it in conversation. It is not logged anywhere</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section id="runs">
+    <h2>How it runs today</h2>
+    <ol>
+      <li>The trigger arrives (a release notice, or a roadmap question).</li>
+      <li>The team member gathers the source material for that track.</li>
+      <li>The team member drafts the summary document.</li>
+      <li>For each customer, the team member chooses a call or a sent document, and delivers it. The choice is a judgment call each time.</li>
+    </ol>
+  </section>
+  <section id="strains">
+    <h2>Where it strains</h2>
+    <p><strong>The shareable check is informal.</strong> Some roadmap and internal material is not meant for customers. Customer agreements are already in place, so the agreement is not the gap. The gap is that deciding what is safe to include is ad hoc, relies on one person's judgment, and is sometimes missed. We have not checked whether other team members draw the line in the same place. If they don't, that is a policy question to settle before anything is encoded.</p>
+    <p><strong>The roadmap trigger is invisible.</strong> It depends on someone catching it mid-conversation. At this volume, we would keep it human-initiated rather than build detection.</p>
+    <p><strong>Most of the time is in delivery.</strong> Drafting takes about an hour per release (estimate). Delivery takes 45 to 60 minutes per customer (estimate), which is roughly 6 to 8 hours per release across about eight customers. Delivery is a conversation, and it stays with a person.</p>
+  </section>
+  <section id="exceptions">
+    <h2>Exception table</h2>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">What goes wrong</th><th role="columnheader">How it is handled today</th><th role="columnheader">Where it would route</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="What goes wrong">A draft includes material not meant for customers</td><td role="cell" data-label="How it is handled today">Ad hoc judgment, sometimes missed</td><td role="cell" data-label="Where it would route">A model proposes a first-pass shareable or internal-only label. A person reviews the final document before anything ships. The label is a draft filter, never a release decision</td></tr>
+        <tr role="row"><td role="cell" data-label="What goes wrong">A customer wants feature-level depth</td><td role="cell" data-label="How it is handled today">Handed to a separate product workshop workflow</td><td role="cell" data-label="Where it would route">Same, outside PW1</td></tr>
+        <tr role="row"><td role="cell" data-label="What goes wrong">The roadmap trigger goes unnoticed</td><td role="cell" data-label="How it is handled today">Relies on the team member catching it</td><td role="cell" data-label="Where it would route">Stays human-initiated</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section id="neighbours">
+    <h2>The neighbours</h2>
+    <p><strong>Upstream</strong> is the release notice and the notes themselves. Team T does not control their format, but they are final before the trigger fires, so this side is stable.</p>
+    <p><strong>Downstream</strong> is the customer conversation and any follow-up it creates. Because delivery is most of the time, speeding up drafting will not shorten the end-to-end workflow much. We expect the time to stay in delivery, not disappear. That is a prediction, not an observation.</p>
+  </section>
+  <section id="baseline">
+    <h2>Baseline</h2>
+    <p><strong>Unmeasured.</strong> The figures above are one team member's recollection, so treat them as an order of magnitude. Together they come to roughly 3 to 4 hours a month for a set of about eight customers (estimate). Of that, drafting is about 2 hours a quarter at most (about an hour per release, plus about an hour when the roadmap track runs). Only the drafting is something a system could take over, so the recoverable time is small. Team size is unknown. The value case rests more on consistency and on closing the shareable-check gap than on hours. A measured baseline should replace these estimates before anything is built.</p>
+  </section>
+  <section id="score">
+    <h2>Score and risk tag</h2>
+    <p>These scores come from interviews, not measurement, so they are provisional.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Signal</th><th role="columnheader">Score</th><th role="columnheader">Why</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Signal">Volume and frequency</td><td role="cell" data-label="Score">3</td><td role="cell" data-label="Why">Quarterly release, about eight customers; the roadmap track is rarer</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Repetitiveness</td><td role="cell" data-label="Score">5</td><td role="cell" data-label="Why">One generic document with the same shape every release</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Unstructured language</td><td role="cell" data-label="Score">5</td><td role="cell" data-label="Why">Release notes and roadmap material become customer-facing prose</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Judgment level</td><td role="cell" data-label="Score">4</td><td role="cell" data-label="Why">Pattern-based summarizing, plus a light call-or-document choice</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Data availability</td><td role="cell" data-label="Score">4</td><td role="cell" data-label="Why">Release notes are reliable; roadmap material is reachable but needs the shareable check defined</td></tr>
+        <tr role="row"><td role="cell" data-label="Signal">Error tolerance</td><td role="cell" data-label="Score">5</td><td role="cell" data-label="Why">A wrong or outdated summary is easy to correct</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Total: 26 of 30, provisional.</strong></p>
+    <p><strong>Risk tag: yellow.</strong> The release track alone would be green, since the content is generic and low stakes. The roadmap track is yellow because it can touch material not meant for customers, and the check for that is informal today. A person approves before anything reaches a customer.</p>
+  </section>
+  <section id="bws">
+    <h2>The base workflows PW1 depends on</h2>
+    <p>The drill-down step records each part of PW1 that other Team T workflows also depend on. We score each candidate on the same six signals so it can be ranked against BW1's 25 of 30. These scores are also provisional.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Candidate</th><th role="columnheader">Score</th><th role="columnheader">Notes</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Candidate">Customer-facing document drafting</td><td role="cell" data-label="Score">27</td><td role="cell" data-label="Notes">Volume 4, repetitiveness 5, language 5, judgment 4, data 4, error tolerance 5. Other Team T workflows also end in a customer document, so this step likely recurs (estimate; those workflows are not audited here yet)</td></tr>
+        <tr role="row"><td role="cell" data-label="Candidate">BW1: task management</td><td role="cell" data-label="Score">25</td><td role="cell" data-label="Notes">Already scored. A possible dependency if review follow-ups become tasks. Unconfirmed</td></tr>
+        <tr role="row"><td role="cell" data-label="Candidate">Shareable-or-internal check</td><td role="cell" data-label="Score">20</td><td role="cell" data-label="Notes">Volume 3, repetitiveness 4, language 5, judgment 3, data 3, error tolerance 2. Low error tolerance because an internal item reaching a customer is hard to undo, even with a person reviewing first</td></tr>
+        <tr role="row"><td role="cell" data-label="Candidate">Source retrieval</td><td role="cell" data-label="Score">19</td><td role="cell" data-label="Notes">Volume 3, repetitiveness 5, language 2, judgment 1, data 4, error tolerance 4. Mostly deterministic, so likely code rather than a model</td></tr>
+      </tbody>
+    </table></div>
+    <p>For reference, PW1 itself scores 26. The score is for ranking, not a pass mark. On this ranking we would name customer-facing document drafting as BW2. The shareable check scores lower, but it is the one gap that must be settled before PW1 can ship, so we would name it BW3. Both names are proposals until the series owner confirms them.</p>
+  </section>
+  <section id="unknown">
+    <h2>What we don't know yet</h2>
+    <ul>
+      <li>Team size, and whether other team members do this work the same way.</li>
+      <li>A measured baseline for any step.</li>
+      <li>Where the line between shareable and internal-only sits, and whether it is consistent across the team.</li>
+      <li>Whether the source material is covered by the approved AI tool's data rules.</li>
+      <li>How many other workflows really share the drafting step.</li>
+    </ul>
+  </section>
+  <section id="next">
+    <h2>What comes next</h2>
+    <p>PW1 moves to the judgment stage. Two open items travel with it: replacing the baseline estimates with measurements, and settling the shareable-check policy. The next post allocates each PW1 step to code, a model, a person who performs it, or a person who approves it.</p>
+  </section>
+  <a class="back" href="../../index.html">Back to all notes</a> <a class="back" href="index.html">All PW1 posts</a> <a class="back" href="../index.html">All case study posts</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Synqmatic. Notes on applied AI.</span>
+</footer>
+</div>
+</body>
+</html>

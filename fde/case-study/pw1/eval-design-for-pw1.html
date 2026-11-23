@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Eval design for the first primary workflow in an anonymized AI FDE case study: what we grade, five case types, where test cases come from and how the report is built.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Eval Design for Primary Workflow 1: How Would We Prove the Shareable Label? | Synqmatic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../../css/styles.css">
+<script src="../../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../../index.html">Synqmatic<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../../index.html">Home</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../../index.html">Synqmatic</a> / <a href="../../index.html">AI forward deployed engineering</a> / <a href="../index.html">Live case study</a> / <a href="index.html">Primary Workflow 1</a> / Eval Design for Primary Workflow 1: How Would We Prove the Shareable Label?</p>
+  <h1>Eval Design for Primary Workflow 1: How Would We Prove the Shareable Label?</h1>
+  <p><em>AI FDE live case study, primary workflow 1, part 3</em></p>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-22</dd></div>
+    <div><dt>Track</dt><dd>FDE</dd></div>
+    <div><dt>Topic</dt><dd>Evals</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>7 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="about">
+    <blockquote><p><strong>About this series.</strong> This is a live, anonymized case study of running the AI FDE process with a real team. We'll call the company Company X and the team Team T. We're working through the process in order (audit, judgment, build, eval, deploy, observe), starting with one of Team T's primary workflows, the work the team actually needs done. The audit of that workflow shows which smaller base workflows it depends on, and those get their own posts. Details are generalized on purpose, and nothing here names a company, customer or product.</p></blockquote>
+  </section>
+  <section id="left">
+    <h2>Where we left off</h2>
+    <p>Post 2 split Primary Workflow 1 (PW1, new product reviews) into seven steps. Two use a model: labeling source items as shareable with customers or internal only, and drafting the summary document from the shareable items. One is a human approval, where the team member reviews the labels and the draft before anything reaches a customer. The label is where a model's judgment matters most, and we have not checked whether team members draw the line in the same place.</p>
+  </section>
+  <section id="stage">
+    <h2>The eval stage</h2>
+    <p>An eval turns a system that can give different answers on different days into evidence a peer can check. Design decides what counts as a test case and how each run is graded. Running feeds the cases through the real system and counts the results. PW1 is not built, so this post covers design only. It contains no pass rates.</p>
+  </section>
+  <section id="grade">
+    <h2>What we grade</h2>
+    <p>We grade the two model steps: the labels and the draft. We do not grade the team member's judgment or the delivery to customers. The team member remains the quality control at the approval step, and the eval checks that what reaches that step is correct.</p>
+    <p>Each run is graded on four criteria: it used the right data, it followed the required steps, its output matches what an experienced team member would produce, and it is safe to act on without review. These can come apart. A draft can read exactly as the team member would write it and still be unsafe if it includes an item meant to stay internal.</p>
+  </section>
+  <section id="correct">
+    <h2>What a correct draft is</h2>
+    <p>PW1 has no past release documents. Each release has been written up by hand, and the earlier versions were not kept. That leaves no history to compare a draft against, and it means there is no written definition of a correct one.</p>
+    <p>Team T will create a standardized version of what a release document should contain. That standard does two jobs. The drafting step produces documents in its form, and the eval grades against it. Its contents are for Team T to settle, and we do not propose them here. Until it exists, the draft can only be graded on whether the labels are right.</p>
+  </section>
+  <section id="cases">
+    <h2>Five case types for PW1</h2>
+    <p>Fifty runs of the normal case prove very little, so coverage across case types matters more than volume. These are the five types as they would look in PW1, across both tracks.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Case type</th><th role="columnheader">What it looks like in PW1</th><th role="columnheader">Expected behavior</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Case type">Normal case</td><td role="cell" data-label="What it looks like in PW1">Release notes and internal context where each item is clearly shareable or clearly internal only</td><td role="cell" data-label="Expected behavior">Correct labels, and a draft in the standard form with every shareable item and no internal-only item, passed to the team member for review</td></tr>
+        <tr role="row"><td role="cell" data-label="Case type">Edge case</td><td role="cell" data-label="What it looks like in PW1">An item that is shareable but has an internal-only detail attached</td><td role="cell" data-label="Expected behavior">Flags the item. Graded on flagging, not on matching a single right answer, until the policy question is settled</td></tr>
+        <tr role="row"><td role="cell" data-label="Case type">Incomplete information</td><td role="cell" data-label="What it looks like in PW1">Release notes without the internal context, or a roadmap request with no roadmap material</td><td role="cell" data-label="Expected behavior">Says what is missing and does not draft from a guess</td></tr>
+        <tr role="row"><td role="cell" data-label="Case type">Ambiguous request</td><td role="cell" data-label="What it looks like in PW1">An item where it is unclear whether customers are meant to see it</td><td role="cell" data-label="Expected behavior">Asks the team member to decide and does not default to shareable</td></tr>
+        <tr role="row"><td role="cell" data-label="Case type">High-risk action</td><td role="cell" data-label="What it looks like in PW1">An internal-only item written in ordinary feature language, with nothing marking it</td><td role="cell" data-label="Expected behavior">Never appears in a customer-facing draft, whatever the confidence</td></tr>
+      </tbody>
+    </table></div>
+    <p>A correct escalation counts as a pass. A system that recognizes missing or unclear material and hands it back behaved as designed, and grading that as a miss would train us to build something that guesses.</p>
+    <p>The two label errors cost different amounts. An internal-only item labeled shareable is the costly one, because it can reach a customer. A shareable item labeled internal only is cheaper, because the team member can add it back. We report them separately.</p>
+  </section>
+  <section id="source">
+    <h2>Where the test cases come from</h2>
+    <p>Without past documents, the cases start from the source side. Every release ships with release notes, and internal context exists for each one. A person labels each item shareable or internal only and writes the expected document in the standard form. The roadmap track works the same way with roadmap material.</p>
+    <p>The method calls for 30 to 50 cases spread across the five types. Releases come about quarterly (estimate), so real cases accumulate slowly, and the roadmap track runs less often than that. How many past releases still have their source material is unknown. We expect to reach the target only by constructing cases, especially for the edge and high-risk types, and the report will label each case as real or constructed.</p>
+    <p>The labels need more than one person. A set labeled by one team member tests that person's line, and the first colleague who draws it elsewhere will stop trusting the results. Where two team members label an item differently, that is a policy question, and it gets settled before the item becomes a test case.</p>
+  </section>
+  <section id="checks">
+    <h2>Breaking the label and the draft into checks</h2>
+    <p>"Is this labeled correctly" and "is this a good document" look subjective, but most of each splits into yes or no questions. For the labels:</p>
+    <ul>
+      <li>Does every item carry a label or a flag?</li>
+      <li>Does every item the labeler marked internal only appear as internal only?</li>
+      <li>When an item is unclear, did the system flag it instead of choosing?</li>
+    </ul>
+    <p>For the draft:</p>
+    <ul>
+      <li>Does it contain every shareable item?</li>
+      <li>Does it contain any internal-only item? The answer must be no.</li>
+      <li>Does it cover the latest release only?</li>
+      <li>Does it contain every section the standard requires?</li>
+      <li>Does anything in it lack support in the source?</li>
+    </ul>
+    <p>What is left after these checks is the residue a person has to judge, such as tone and clarity. Reviewer corrections at the approval step become data. Each corrected case is added to the set, and the whole set is re-run after any change, because a fix for one case often breaks another.</p>
+    <p>Approval data has a gap. A reviewer reads the draft, not the full list of source items, so an item wrongly left out can go unnoticed. The review therefore includes a short missed-item note, where the team member lists anything that should have been included.</p>
+  </section>
+  <section id="report">
+    <h2>The report and its operating rules</h2>
+    <p>The eval report gives a count of passed runs out of graded runs, with failures grouped by reason and each failure keeping its evidence. Leaked items and omitted items are separate groups. A single percentage would hide the reasons. The report also states three operating rules: a confidence threshold below which the system escalates, escalation of high-risk actions regardless of confidence, and the current readiness stage.</p>
+    <p>We have not set a threshold, because without results any number would be a guess. The expected first readiness stage is shadow mode, with the team member reviewing every document. Any case where an internal-only item reaches a draft is reviewed first.</p>
+  </section>
+  <section id="unknown">
+    <h2>What we don't know yet</h2>
+    <ul>
+      <li>What the standardized release document contains. Not yet defined.</li>
+      <li>How many past releases still have their source material. Unknown.</li>
+      <li>Whether team members draw the shareable line in the same place. If they do not, the edge cases have no single right answer.</li>
+      <li>Whether the source material already marks what is customer-facing. Unknown.</li>
+      <li>Whether the source material is covered by the approved AI tool's data rules. Unconfirmed.</li>
+      <li>The confidence threshold. Not set.</li>
+      <li>Any pass rate. Nothing has been run.</li>
+    </ul>
+  </section>
+  <section id="next">
+    <h2>What comes next</h2>
+    <p>The next post covers the build plan for PW1: what to build first, how failures route back to the team member, and what has to be settled before building.</p>
+  </section>
+  <a class="back" href="../../index.html">Back to all notes</a> <a class="back" href="index.html">All PW1 posts</a> <a class="back" href="../index.html">All case study posts</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Synqmatic. Notes on applied AI.</span>
+</footer>
+</div>
+</body>
+</html>

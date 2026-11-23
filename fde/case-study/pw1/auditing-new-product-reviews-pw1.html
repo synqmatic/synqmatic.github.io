@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Audit of the first primary workflow in an anonymized AI FDE case study: how new product reviews run today, where they strain, a provisional score and the base workflows it depends on.">
+<meta name="description" content="Audit of the first primary workflow in an anonymized AI FDE case study: how new product reviews run today, where they strain, and a provisional score.">
 <meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
 <title>Auditing New Product Reviews: Primary Workflow 1 | Synqmatic</title>
@@ -31,7 +31,7 @@
     <div><dt>Track</dt><dd>FDE</dd></div>
     <div><dt>Topic</dt><dd>Audit</dd></div>
     <div><dt>Status</dt><dd>Draft</dd></div>
-    <div><dt>Reading time</dt><dd>6 min</dd></div>
+    <div><dt>Reading time</dt><dd>5 min</dd></div>
   </dl>
 </div>
 
@@ -41,11 +41,11 @@
   </section>
   <section id="left">
     <h2>Where we left off</h2>
-    <p>The first eight posts covered BW1, task management, from audit through a first working version tested against a fake model. We are now starting the process again from the top with a primary workflow, PW1: new product reviews. BW1 stays in progress. PW1 will tell us which base workflows come next.</p>
+    <p>The first eight posts covered BW1, task management, from audit through a first working version tested against a fake model. We are now starting the process again from the top with a primary workflow, PW1: new product reviews. BW1 stays in progress while PW1 goes through the same process.</p>
   </section>
   <section id="setup">
     <h2>The setup</h2>
-    <p>The audit describes how the work really happens, exceptions included, before anyone decides what to automate. This post covers the audit of PW1, and then applies the drill-down step: each part of PW1 that other workflows also rely on becomes a candidate base workflow, scored on the same six signals as BW1. Anything we have not measured is labeled as an estimate, and anything we don't know is labeled unknown.</p>
+    <p>The audit describes how the work really happens, exceptions included, before anyone decides what to automate. This post covers the audit of PW1. Anything we have not measured is labeled as an estimate, and anything we don't know is labeled unknown.</p>
   </section>
   <section id="what">
     <h2>What PW1 is</h2>
@@ -115,22 +115,8 @@
         <tr role="row"><td role="cell" data-label="Signal">Error tolerance</td><td role="cell" data-label="Score">5</td><td role="cell" data-label="Why">A wrong or outdated summary is easy to correct</td></tr>
       </tbody>
     </table></div>
-    <p><strong>Total: 26 of 30, provisional.</strong></p>
+    <p><strong>Total: 26 of 30, provisional.</strong> The score is for ranking against other candidates, not a pass mark.</p>
     <p><strong>Risk tag: yellow.</strong> The release track alone would be green, since the content is generic and low stakes. The roadmap track is yellow because it can touch material not meant for customers, and the check for that is informal today. A person approves before anything reaches a customer.</p>
-  </section>
-  <section id="bws">
-    <h2>The base workflows PW1 depends on</h2>
-    <p>The drill-down step records each part of PW1 that other Team T workflows also depend on. We score each candidate on the same six signals so it can be ranked against BW1's 25 of 30. These scores are also provisional.</p>
-    <div class="tablewrap"><table role="table">
-      <thead role="rowgroup"><tr role="row"><th role="columnheader">Candidate</th><th role="columnheader">Score</th><th role="columnheader">Notes</th></tr></thead>
-      <tbody role="rowgroup">
-        <tr role="row"><td role="cell" data-label="Candidate">Customer-facing document drafting</td><td role="cell" data-label="Score">27</td><td role="cell" data-label="Notes">Volume 4, repetitiveness 5, language 5, judgment 4, data 4, error tolerance 5. Other Team T workflows also end in a customer document, so this step likely recurs (estimate; those workflows are not audited here yet)</td></tr>
-        <tr role="row"><td role="cell" data-label="Candidate">BW1: task management</td><td role="cell" data-label="Score">25</td><td role="cell" data-label="Notes">Already scored. A possible dependency if review follow-ups become tasks. Unconfirmed</td></tr>
-        <tr role="row"><td role="cell" data-label="Candidate">Shareable-or-internal check</td><td role="cell" data-label="Score">20</td><td role="cell" data-label="Notes">Volume 3, repetitiveness 4, language 5, judgment 3, data 3, error tolerance 2. Low error tolerance because an internal item reaching a customer is hard to undo, even with a person reviewing first</td></tr>
-        <tr role="row"><td role="cell" data-label="Candidate">Source retrieval</td><td role="cell" data-label="Score">19</td><td role="cell" data-label="Notes">Volume 3, repetitiveness 5, language 2, judgment 1, data 4, error tolerance 4. Mostly deterministic, so likely code rather than a model</td></tr>
-      </tbody>
-    </table></div>
-    <p>For reference, PW1 itself scores 26. The score is for ranking, not a pass mark. On this ranking we would name customer-facing document drafting as BW2. The shareable check scores lower, but it is the one gap that must be settled before PW1 can ship, so we would name it BW3. Both names are proposals until the series owner confirms them.</p>
   </section>
   <section id="unknown">
     <h2>What we don't know yet</h2>
@@ -139,7 +125,6 @@
       <li>A measured baseline for any step.</li>
       <li>Where the line between shareable and internal-only sits, and whether it is consistent across the team.</li>
       <li>Whether the source material is covered by the approved AI tool's data rules.</li>
-      <li>How many other workflows really share the drafting step.</li>
     </ul>
   </section>
   <section id="next">

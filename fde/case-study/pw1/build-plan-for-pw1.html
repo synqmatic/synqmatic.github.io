@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Build plan for the first primary workflow in an anonymized AI FDE case study: one script, failure routes, run records, a shadow-mode deployment plan and what must be settled before building.">
+<meta name="theme-color" content="#F0F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1514" media="(prefers-color-scheme: dark)">
+<title>Build Plan for Primary Workflow 1: What Do We Build First? | Synqmatic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="../../../css/styles.css">
+<script src="../../../js/site.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="wordmark" href="../../../index.html">Synqmatic<i aria-hidden="true"></i></a>
+  <nav class="main" aria-label="Main">
+    <a href="../../../index.html">Home</a>
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Dark</button>
+  </nav>
+</header>
+</div>
+<div class="wrap">
+<div class="post-head">
+  <p class="crumbs"><a href="../../../index.html">Synqmatic</a> / <a href="../../index.html">AI forward deployed engineering</a> / <a href="../index.html">Live case study</a> / <a href="index.html">Primary Workflow 1</a> / Build Plan for Primary Workflow 1: What Do We Build First?</p>
+  <h1>Build Plan for Primary Workflow 1: What Do We Build First?</h1>
+  <p><em>AI FDE live case study, primary workflow 1, part 4</em></p>
+  <dl class="meta">
+    <div><dt>Published</dt><dd>2026-11-22</dd></div>
+    <div><dt>Track</dt><dd>FDE</dd></div>
+    <div><dt>Topic</dt><dd>Build</dd></div>
+    <div><dt>Status</dt><dd>Draft</dd></div>
+    <div><dt>Reading time</dt><dd>6 min</dd></div>
+  </dl>
+</div>
+
+<article class="article">
+  <section id="about">
+    <blockquote><p><strong>About this series.</strong> This is a live, anonymized case study of running the AI FDE process with a real team. We'll call the company Company X and the team Team T. We're working through the process in order (audit, judgment, build, eval, deploy, observe), starting with one of Team T's primary workflows, the work the team actually needs done. The audit of that workflow shows which smaller base workflows it depends on, and those get their own posts. Details are generalized on purpose, and nothing here names a company, customer or product.</p></blockquote>
+  </section>
+  <section id="left">
+    <h2>Where we left off</h2>
+    <p>Post 3 designed the eval for Primary Workflow 1 (PW1, new product reviews): five case types, four grading criteria, and test cases built from release source material that people label. It also noted that Team T will create a standardized release document, which defines a correct draft, and that running the eval needs a working version. This post covers that version. Nothing is built yet, so this is a plan, and it contains no results.</p>
+  </section>
+  <section id="stage">
+    <h2>The build stage</h2>
+    <p>The build stage turns the step allocation from Post 2 into running code. Two rules from the method apply from the first line: build on top of the tools the team already uses, and log a trace of every run. Deployment comes after the eval and starts in shadow mode.</p>
+  </section>
+  <section id="first">
+    <h2>What we plan to build first</h2>
+    <p>One script for PW1, and no shared infrastructure yet. A setting on the script chooses the track, release or roadmap. Deterministic code handles the source material and the output file. A model is called only at the two judgment steps. At the approval step the script stops and waits for the team member's answer on the command line, which stands in for a real interface until one exists.</p>
+    <p>Because the release document is the same for every customer, one run covers one release, not one customer. The script does not send anything to customers. It produces an approved document for the team member to deliver.</p>
+    <div class="tablewrap"><table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader">Step (from Post 2)</th><th role="columnheader">How we plan to build it</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">1. Release notice arrives</td><td role="cell" data-label="How we plan to build it">The team member starts a run when the notice arrives. Automatic detection can wait</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">2. Roadmap request is noticed</td><td role="cell" data-label="How we plan to build it">The team member starts a run. This step stays with a person</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">3. Pull the source material</td><td role="cell" data-label="How we plan to build it">Code: read the release notes and internal context, or the roadmap material, from files we supply at first</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">4. Label items shareable or internal only</td><td role="cell" data-label="How we plan to build it">Model call, against a written statement of what is shareable. That statement does not exist yet</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">5. Draft the summary from shareable items</td><td role="cell" data-label="How we plan to build it">Model call, producing the standard release document form once it is defined</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">6. Team member reviews the labels and the draft</td><td role="cell" data-label="How we plan to build it">The script pauses for approve, edit or reject, and asks for a short missed-item note</td></tr>
+        <tr role="row"><td role="cell" data-label="Step (from Post 2)">7. Choose delivery and deliver</td><td role="cell" data-label="How we plan to build it">Stays with the team member. After approval, the script saves the document to a file</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section id="inputs">
+    <h2>Inputs and failure handling</h2>
+    <p>The script needs three inputs: the source material for the run, the written statement of what is shareable, and the standard release document form. We will supply them by hand at first. PW1 reads no per-customer information, because the document is generic, so the full per-customer context file is not needed for this workflow.</p>
+    <p>Each exception from Post 2 gets a defined route: source missing or unreachable, a label the model is unsure of, too little shareable material, and a model call that fails. Each one goes back to the team member instead of being guessed. The script also checks its own output against a defined format and rejects anything malformed before it moves on. A transient failure is retried, and a failure that will not clear is reported.</p>
+  </section>
+  <section id="records">
+    <h2>Run records</h2>
+    <p>Every run produces one structured record, saved as its own file. It holds the run ID and time, the track, the release or request, the inputs, each model call with its prompt and response, the labels, the draft, what the team member was shown, who approved and when, any correction and missed-item note, the final output and the run status.</p>
+    <p>The records have a second use. Corrections and missed-item notes captured at the approval step become new cases for the eval set. Plain local files are enough for now. Where the records live later is undecided.</p>
+  </section>
+  <section id="after">
+    <h2>What comes after the first script</h2>
+    <p>Once more than one workflow runs as a separate script, we plan to consolidate them behind one shared server, then put a front end on top. The front end would be a chat app first, because it is where the team already works and it suits an approval step. A web app would come later, only if a workflow needs structured input a chat app handles poorly. We are not building the shared parts first, because with one workflow we would be designing them around assumptions we cannot check.</p>
+  </section>
+  <section id="deploy">
+    <h2>Deployment plan</h2>
+    <p>PW1 starts in shadow mode. The script runs next to the current process, the team member keeps working as today, and the script's output is compared, not used. The manual path stays open, and the team member can see the full trace of each run. Releases come about quarterly (estimate), so a real comparison happens about once a quarter. Until then, shadow runs use the constructed cases from Post 3. We also need to agree in advance what sends PW1 back to shadow mode. That threshold is not set.</p>
+  </section>
+  <section id="before">
+    <h2>What has to happen before we build</h2>
+    <ul>
+      <li>Define the standardized release document. The draft form and the eval both depend on it.</li>
+      <li>Write down what is shareable, and check whether team members draw the line in the same place. If they do not, settle the policy before encoding it.</li>
+      <li>Confirm that the source material is covered by the approved AI tool's data rules. Until then, first runs use only material we can verify is cleared for the tool.</li>
+      <li>Replace the baseline estimates with a measurement.</li>
+      <li>Write the expected time saved as a prediction. We have estimates but no prediction yet, and the method asks for one before anything is built. We expect the end-to-end time to move less than the drafting time, because delivery stays with a person.</li>
+      <li>Label a first small set of cases, which the eval needs before it can run.</li>
+    </ul>
+  </section>
+  <section id="unknown">
+    <h2>What we don't know yet</h2>
+    <ul>
+      <li>The measured baseline. Unknown.</li>
+      <li>Whether the data rules cover the source material. Unknown.</li>
+      <li>Where the source material lives and how a script would read it. Unknown.</li>
+      <li>Cost per run and time per run. Not measured, since nothing has run.</li>
+      <li>Where run records should live beyond local files. Undecided.</li>
+      <li>The threshold that sends PW1 back to shadow mode. Not set.</li>
+    </ul>
+  </section>
+  <section id="next">
+    <h2>What comes next</h2>
+    <p>If the items above clear, the next post covers the first working version of PW1 and the first run of the eval set in shadow mode.</p>
+  </section>
+  <a class="back" href="../../index.html">Back to all notes</a> <a class="back" href="index.html">All PW1 posts</a> <a class="back" href="../index.html">All case study posts</a>
+</article>
+</div>
+
+<div class="wrap">
+<footer class="site-f">
+  <span>Synqmatic. Notes on applied AI.</span>
+</footer>
+</div>
+</body>
+</html>
